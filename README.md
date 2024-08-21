@@ -1,1 +1,1 @@
-# NombreProyecto_Capstone24_DUOC_VM
+# SMART_MANAGER_Capstone24_DUOC_VM
