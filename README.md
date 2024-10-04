@@ -14,9 +14,3 @@
 - Angular CLI
 - Ionic CLI (si usas Ionic)
 - Capacitor (si usas Capacitor)
-
-## Pasos para clonar el proyecto
-
-### 1. Clonar el repositorio
-```bash
-git clone <URL_DEL_REPOSITORIO>
