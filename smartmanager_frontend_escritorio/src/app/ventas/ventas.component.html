@@ -1,0 +1,79 @@
+<mat-card class="ventas-card">
+    <h1 class="title">Ventas</h1>
+  
+    <table mat-table [dataSource]="ventas" class="ventas-table">
+      <ng-container matColumnDef="cantidadProductos">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.cantidadProductos}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nombreProductos">
+        <th mat-header-cell *matHeaderCellDef> Nombre Producto </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.nombreProductos}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="metodoPago">
+        <th mat-header-cell *matHeaderCellDef> Método de Pago </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.metodoPago}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="plataforma">
+        <th mat-header-cell *matHeaderCellDef> Plataforma </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.plataforma}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="idVenta">
+        <th mat-header-cell *matHeaderCellDef> ID de Venta </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.idVenta}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="valor">
+        <th mat-header-cell *matHeaderCellDef> Valor </th>
+        <td mat-cell *matCellDef="let venta"> ${{venta.valor}} </td>
+      </ng-container>
+  
+      <!-- Columna de acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <button mat-button color="primary" (click)="editarVenta(i)">Editar</button>
+          <button mat-button color="warn" (click)="eliminarVenta(i)">Eliminar</button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <div class="total-container">
+      <p>Total: ${{totalVentas}}</p>
+    </div>
+  
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="agregarVenta()">Agregar Venta</button>
+    </div>
+  
+    <!-- Formulario de edición de venta -->
+    <div *ngIf="ventaEditando" class="edit-form">
+      <h3>Editar Venta</h3>
+      <mat-form-field>
+        <input matInput placeholder="Cantidad de Productos" [(ngModel)]="ventaEditando.cantidadProductos">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nombre de Producto" [(ngModel)]="ventaEditando.nombreProductos">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Método de Pago" [(ngModel)]="ventaEditando.metodoPago">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Plataforma" [(ngModel)]="ventaEditando.plataforma">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Valor" [(ngModel)]="ventaEditando.valor">
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary" (click)="guardarCambios()">Guardar</button>
+      <button mat-button color="warn" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </mat-card>
+  

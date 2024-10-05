@@ -1,0 +1,21 @@
+<mat-card class="login-card">
+    <div class="icon-container">
+        <mat-icon class="user-icon" aria-hidden="false" aria-label="User icon">person</mat-icon>
+    </div>
+    <h2 class="color">Iniciar Sesión</h2>
+    <form (ngSubmit)="onLogin()">
+      <mat-form-field class="full-width">
+        <mat-label>Nombre de Usuario</mat-label>
+        <input matInput [(ngModel)]="username" name="username" required>
+      </mat-form-field>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [(ngModel)]="password" name="password" type="password" required>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" class="full-width">Ingresar</button>
+    </form>
+      <!-- Enlace para la opción de "Olvidó su contraseña" -->
+  <button mat-button color="accent" (click)="onForgotPassword()">¿Olvidó su contraseña?</button>
+</mat-card>
