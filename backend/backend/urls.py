@@ -20,6 +20,6 @@ from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('crud/', include('crud.urls')),
+    path('api/', include('crud.urls')),
     path('docs/', include_docs_urls(title='Crud documentation'))
 ]
