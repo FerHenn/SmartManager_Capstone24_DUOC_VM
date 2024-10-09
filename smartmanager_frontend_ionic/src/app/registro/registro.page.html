@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding registro-container">
+  <form (submit)="onRegister()" #registroForm="ngForm">
+    
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.submitted && !nombre" color="danger">
+      El nombre es obligatorio.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email" [(ngModel)]="email" name="email" required email></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.submitted && !email" color="danger">
+      El correo es obligatorio y debe ser válido.
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="password" required minlength="6"></ion-input>
+    </ion-item>
+    <ion-note *ngIf="registroForm.submitted && !password" color="danger">
+      La contraseña es obligatoria y debe tener al menos 6 caracteres.
+    </ion-note>
+
+    <ion-button expand="full" type="submit" color="primary">Registrarse</ion-button>
+  </form>
+
+  <div class="registro-footer">
+    <ion-text color="medium">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+    </ion-text>
+  </div>
+</ion-content>
