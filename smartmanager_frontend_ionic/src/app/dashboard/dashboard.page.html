@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="dashboard">
+    <h2>Estadísticas de Ventas y Usuarios</h2>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Ventas Totales</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h3>$5000</h3>
+              <p>Total de ventas realizadas</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Usuarios Registrados</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h3>150</h3>
+              <p>Total de usuarios registrados</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Ventas por Mes</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <!-- Aquí podrías incluir un gráfico, por ejemplo, usando Chart.js -->
+              <p>Gráfico de ventas por mes se mostraría aquí.</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

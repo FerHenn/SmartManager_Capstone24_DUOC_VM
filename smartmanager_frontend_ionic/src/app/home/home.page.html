@@ -1,13 +1,17 @@
 <ion-header>
   <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>Panel de Administración</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/perfil">
+      <ion-button routerLink="/home">
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="ion-padding">
   <div class="dashboard">
@@ -15,7 +19,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <ion-card routerLink="/usuarios">
+          <ion-card routerLink="/usuario">
             <ion-card-header>
               <ion-card-title>Gestión de Usuarios</ion-card-title>
             </ion-card-header>
@@ -25,9 +29,9 @@
           </ion-card>
         </ion-col>
         <ion-col size="6">
-          <ion-card routerLink="/productos">
+          <ion-card routerLink="/stock">
             <ion-card-header>
-              <ion-card-title>Gestión de Productos</ion-card-title>
+              <ion-card-title>Gestión de stock</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               Agrega, edita o elimina productos.
@@ -37,7 +41,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="6">
-          <ion-card routerLink="/pedidos">
+          <ion-card routerLink="/ventas">
             <ion-card-header>
               <ion-card-title>Gestión de Ventas</ion-card-title>
             </ion-card-header>
@@ -47,7 +51,7 @@
           </ion-card>
         </ion-col>
         <ion-col size="6">
-          <ion-card routerLink="/estadisticas">
+          <ion-card routerLink="/dashboard">
             <ion-card-header>
               <ion-card-title>Dashboard</ion-card-title>
             </ion-card-header>

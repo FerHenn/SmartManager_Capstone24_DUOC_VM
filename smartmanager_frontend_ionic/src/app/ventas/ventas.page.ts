@@ -1,11 +1,5 @@
-import { Component } from '@angular/core';
-
-// Definimos la interfaz Venta
-interface Venta {
-  producto: string;
-  cantidad: number;
-  precio: number;
-}
+import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ventas',
@@ -13,35 +7,62 @@ interface Venta {
   styleUrls: ['./ventas.page.scss'],
 })
 export class VentasPage {
-  // Array de ventas, especificamos el tipo correctamente
-  ventas: Venta[] = [];  
-  
-  // Inicializamos nuevaVenta con valores por defecto que no sean null
-  nuevaVenta: Venta = {
-    producto: '',
-    cantidad: 0,
-    precio: 0,
-  };
+  ventas = [
+    { producto: 'Producto A', cantidad: 2, precio: 15 },
+    { producto: 'Producto B', cantidad: 1, precio: 30 },
+    { producto: 'Producto C', cantidad: 3, precio: 10 },
+  ];
 
-  constructor() {}
+  constructor(private alertController: AlertController) {}
 
-  // Método para registrar una nueva venta
-  registrarVenta() {
-    // Verificar que el producto no sea vacío y que cantidad y precio sean válidos
-    if (this.nuevaVenta.producto.trim() && this.nuevaVenta.cantidad > 0 && this.nuevaVenta.precio > 0) {
-      // Agregamos una copia de nuevaVenta al array ventas
-      this.ventas.push({ ...this.nuevaVenta });
+  guardarCambios(venta: any) {
+    // Aquí podrías agregar lógica para guardar los cambios de venta, por ejemplo, en una API o base de datos
+    console.log(`La venta de ${venta.cantidad} unidades de ${venta.producto} ha sido actualizada.`);
+  }
 
-      // Reiniciar nuevaVenta para registrar otra venta
-      this.nuevaVenta = {
-        producto: '',
-        cantidad: 0,
-        precio: 0,
-      };
+  async agregarVenta() {
+    const alert = await this.alertController.create({
+      header: 'Agregar Venta',
+      inputs: [
+        {
+          name: 'producto',
+          type: 'text',
+          placeholder: 'Nombre del producto',
+        },
+        {
+          name: 'cantidad',
+          type: 'number',
+          placeholder: 'Cantidad',
+          min: 1,
+        },
+        {
+          name: 'precio',
+          type: 'number',
+          placeholder: 'Precio',
+          min: 0,
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Agregar',
+          handler: (data) => {
+            if (data.producto && data.cantidad > 0 && data.precio >= 0) {
+              this.ventas.push({ producto: data.producto, cantidad: data.cantidad, precio: data.precio });
+            }
+          },
+        },
+      ],
+    });
 
-      console.log('Venta registrada:', this.ventas);
-    } else {
-      console.log('Por favor complete todos los campos correctamente.');
-    }
+    await alert.present();
+  }
+
+  eliminarVenta(index: number) {
+    this.ventas.splice(index, 1);
+    console.log(`Venta en el índice ${index} eliminada.`);
   }
 }
