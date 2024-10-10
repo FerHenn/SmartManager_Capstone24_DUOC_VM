@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestión de Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding usuario-container">
+  <ion-button expand="full" color="primary" (click)="agregarUsuario()">Agregar Usuario</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let usuario of usuarios">
+      <ion-label>
+        <h2>{{ usuario.nombre }}</h2>
+        <p>{{ usuario.email }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="editarUsuario(usuario)">
+          Editar
+        </ion-button>
+        <ion-button color="danger" (click)="eliminarUsuario(usuario)">
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  
+  <ion-alert
+  *ngIf="alertaVisible"
+  header="Usuario Eliminado"
+  message="El usuario ha sido eliminado correctamente."
+  buttons="OK"
+></ion-alert>
+
+</ion-content>
