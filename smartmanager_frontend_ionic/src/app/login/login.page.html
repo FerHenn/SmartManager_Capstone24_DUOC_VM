@@ -1,14 +1,16 @@
+<!DOCTYPE html>
+<html lang="es"> 
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Iniciar Sesión</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title>Tipopipo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="grey" class="ion-padding">
+<ion-content color="medium" class="ion-padding">
   <div class="login-container">
-    <h2>Inicio Sesión</h2>
+    <h2>INICIO SESIÓN</h2>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <ion-item color="grey">
+      <ion-item color="dark">
         <ion-label position="floating" color="light">
           <ion-icon slot="start" name="mail"></ion-icon>
           Correo Electrónico
@@ -16,18 +18,19 @@
         <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
       </ion-item>
 
-      <ion-item color="grey">
-        <ion-label position="floating" color="light">
+
+      <ion-item color="dark">
+        <ion-label position="floating">
           <ion-icon slot="start" name="lock-closed"></ion-icon>
           Contraseña
-        </ion-label >
-        <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
+        </ion-label>
+        <ion-input color="light" type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
 
       <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid" color="grey">
         Iniciar Sesión
       </ion-button>
-      <ion-item lines="none" class="ion-margin-top centered" color="grey">
+      <ion-item lines="none" class="ion-margin-top centered" color="dark">
         <ion-label>
           <a href="/recuperar">¿Olvidaste tu contraseña?</a>
         </ion-label>

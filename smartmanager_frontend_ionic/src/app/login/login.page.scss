@@ -1,33 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap');
 .login-container {
     background-color: #333; /* Gris oscuro */
-    color: #333; /* Texto blanco para contraste */
-    padding: 20px; /* Espaciado interno */
+    color: #ffffff; /* Texto blanco para contraste */
+    padding: 40px; /* Aumentar el espaciado interno */
     border-radius: 8px; /* Bordes redondeados (opcional) */
-    max-width: 400px;
+    max-width: 500px; /* Aumentar el ancho máximo */
     margin: auto;
     text-align: center;
-
+}
 h2 {
     margin-bottom: 24px;
-    font-weight: bold;
     color: #ffffff;
+    font-family: 'Cairo', sans-serif; /* Cambia la fuente aquí */
+    font-size: 24px; /* Ajusta el tamaño si lo deseas */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
+    font-weight: 200; /* Cambia el grosor de la letra */
 }
 
 ion-item {
-    --highlight-color: #ffffff;
+    --border-color: #fff; /* Cambia el color del borde a blanco */
+    margin-bottom: 16px; /* Espacio entre los items */
 }
 
 a {
     color: #ffffff;
     text-decoration: underline;
 }
-}
 ion-content {
     background-color: #333; /* Gris oscuro para el fondo */
     color: #fff; /* Texto blanco para contraste */
 }
+ion-item {
+    --border-color: #fff; /* Cambia el color del borde a blanco */
+}
+
 ion-input {
     color: #fff; /* Texto de entrada en blanco */
+}
+
+ion-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder (opcional) */
 }
 
 ion-input::placeholder {
@@ -42,5 +54,4 @@ ion-input::placeholder {
     text-align: center; /* Alinea el texto al centro */
     width: 100%; /* Asegura que el label ocupe todo el ancho */
 }
-
 
