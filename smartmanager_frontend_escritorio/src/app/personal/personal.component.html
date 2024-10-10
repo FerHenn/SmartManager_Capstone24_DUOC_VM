@@ -1,1 +1,55 @@
-<p>personal works!</p>
+<!-- <p>personal works!</p> -->
+
+<!-- <mat-card class="personal-card">
+    <h1 class="title">Empleados</h1>
+
+    <table mat-table [dataSource]="empleados" class="personal-table">
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let empleado"> {{empleado.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+        <td mat-cell *matCellDef="let empleado"> {{empleado.apellido}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef="let empleado"> {{empleado.telefono}} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <button mat-button color="primary" (click)="editarEmpleado(i)">Editar</button>
+          <button mat-button color="warn" (click)="eliminarEmpleado(i)">Eliminar</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="agregarEmpleado()">Agregar Empleado</button>
+    </div>
+
+    
+    <div *ngIf="empleadoEditando" class="edit-form">
+      <h3>Editar Empleado</h3>
+      <mat-form-field>
+        <input matInput placeholder="Nombre" [(ngModel)]="empleadoEditando.nombre">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Apellido" [(ngModel)]="empleadoEditando.apellido">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Teléfono" [(ngModel)]="empleadoEditando.telefono">
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary" (click)="guardarCambios()">Guardar</button>
+      <button mat-button color="warn" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+</mat-card> -->

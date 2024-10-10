@@ -1,43 +1,51 @@
 import { Component } from '@angular/core';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
+import { MatFormFieldModule } from '@angular/material/form-field'; // Importar MatFormFieldModule
+import { MatInputModule } from '@angular/material/input'; // Importar MatInputModule
+import { ReactiveFormsModule } from '@angular/forms'; // Importar el módulo de formularios reactivos
+import { MatButtonModule } from '@angular/material/button'; // Importar MatButtonModule
+import { CommonModule } from '@angular/common'; // Para *ngIf, *ngFor
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ BrowserModule,
-    FormsModule,
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatFormFieldModule,  // Asegurarse de importar MatFormFieldModule
+    MatInputModule,      // Asegurarse de importar MatInputModule
+    MatButtonModule,      // Para el botón de submit
+    HttpClientModule,
     MatCardModule,
-    MatInputModule,
-    MatButtonModule,],
+    MatIconModule
+  ],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+  styleUrl: './registro.component.scss',
+  providers: [FormBuilder]
 })
 export class RegistroComponent {
-  nombre: string = '';
-  correo: string = '';
-  telefono: string = ''; // Nueva variable para el teléfono
-  contrasena: string = '';
+  registroForm: FormGroup;
 
-  registrar() {
-    if (this.nombre && this.correo && this.telefono && this.contrasena) {
-      // Aquí puedes manejar el registro (enviar a un servidor, etc.)
-      console.log('Registro exitoso', {
-        nombre: this.nombre,
-        correo: this.correo,
-        telefono: this.telefono, // Agregar teléfono
-        contrasena: this.contrasena
-      });
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.registroForm = this.fb.group({
+      username: ['', Validators.required], //nombre completo 
+      email: ['', [Validators.required, Validators.email]], //correo
+      password: ['', Validators.required], //contraseña
+      telefono: ['', Validators.required],
+    });
+  }
 
-      // Limpiar el formulario
-      this.nombre = '';
-      this.correo = '';
-      this.telefono = ''; // Limpiar el teléfono
-      this.contrasena = '';
+  // Método para manejar el envío del formulario
+  onSubmit() {
+    if (this.registroForm.valid) {
+      this.http.post('http://localhost:8000/api/registro/', this.registroForm.value) //cambiar el url si es necesario
+        .subscribe(response => {
+          console.log('Registro exitoso', response);
+        }, error => {
+          console.error('Error en el registro', error);
+        });
     }
   }
 }
