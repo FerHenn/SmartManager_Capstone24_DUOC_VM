@@ -1,31 +1,93 @@
-<mat-card>
-    <mat-card-header>
-      <mat-card-title>Registro</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form (ngSubmit)="registrar()" #registroForm="ngForm">
-        <mat-form-field appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput required [(ngModel)]="nombre" name="nombre">
-        </mat-form-field>
+
+<!-- <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput formControlName="username" required>
+      <mat-error *ngIf="registroForm.get('username')?.hasError('required')">
+        El nombre de usuario es obligatorio
+      </mat-error>
+    </mat-form-field>
   
-        <mat-form-field appearance="fill">
-          <mat-label>Correo Electrónico</mat-label>
-          <input matInput required email [(ngModel)]="correo" name="correo">
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="registroForm.get('email')?.hasError('email')">
+        Email inválido
+      </mat-error>
+    </mat-form-field>
   
-        <mat-form-field appearance="fill">
-          <mat-label>Número de Teléfono</mat-label>
-          <input matInput required [(ngModel)]="telefono" name="telefono">
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" type="password" required>
+    </mat-form-field>
   
-        <mat-form-field appearance="fill">
-          <mat-label>Contraseña</mat-label>
-          <input matInput type="password" required [(ngModel)]="contrasena" name="contrasena">
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" required>
+      <mat-error *ngIf="registroForm.get('telefono')?.hasError('required')">
+        El teléfono es obligatorio
+      </mat-error>
+    </mat-form-field>
   
-        <button mat-raised-button color="primary" type="submit">Registrar</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+    <button mat-raised-button color="primary" type="submit">Registrarse</button>
+  </form>
+   -->
+
+
+   <div class="registro-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon> Registro de Usuario
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+          <!-- Username -->
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de Usuario</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput formControlName="username" placeholder="Introduce tu nombre de usuario">
+            <mat-error *ngIf="registroForm.get('username')?.invalid && registroForm.get('username')?.touched">
+              El nombre de usuario es requerido.
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Email -->
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput type="email" formControlName="email" placeholder="Introduce tu email">
+            <mat-error *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched">
+              Introduce un email válido.
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Password -->
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput type="password" formControlName="password" placeholder="Introduce tu contraseña">
+            <mat-error *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched">
+              La contraseña es requerida.
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Teléfono -->
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <mat-icon matPrefix>phone</mat-icon>
+            <input matInput type="tel" formControlName="telefono" placeholder="Introduce tu teléfono">
+            <mat-error *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+              El teléfono es requerido.
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Botón de Registro -->
+          <button mat-raised-button color="primary" type="submit" [disabled]="registroForm.invalid">Registrarse</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
   

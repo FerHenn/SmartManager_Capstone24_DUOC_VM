@@ -1,39 +1,38 @@
 .ventas-card {
-    max-width: 1300px;
-    margin: 2rem auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .title {
-    font-size: 45px;
-    margin-bottom: 1.5rem;
-    color: aliceblue;
-  }
-  
-  .ventas-table {
+  max-width: 1300px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 45px;
+  margin-bottom: 1.5rem;
+  color: aliceblue;
+}
+
+.ventas-table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.total-container {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.edit-form {
+  margin-top: 2rem;
+  text-align: left;
+  mat-form-field {
+    display: block;
     width: 100%;
-    margin-bottom: 1.5rem;
   }
-  
-  .total-container {
-    text-align: right;
-    font-weight: bold;
-    margin-top: 1rem;
-  }
-  
-  .actions {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 1rem;
-  }
-  
-  .edit-form {
-    margin-top: 2rem;
-    text-align: left;
-    mat-form-field {
-      display: block;
-      width: 100%;
-    }
-  }
-  
+}

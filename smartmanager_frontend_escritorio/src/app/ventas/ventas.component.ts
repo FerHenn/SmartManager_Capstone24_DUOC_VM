@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common'; 
 
 @Component({
   selector: 'app-ventas',
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ]
 })
 export class VentasComponent {
@@ -63,4 +65,6 @@ export class VentasComponent {
   cancelarEdicion() {
     this.ventaEditando = null;
   }
+
+  
 }
