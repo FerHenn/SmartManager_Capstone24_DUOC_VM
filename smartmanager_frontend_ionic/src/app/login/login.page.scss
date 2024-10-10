@@ -1,4 +1,8 @@
 .login-container {
+    background-color: #333; /* Gris oscuro */
+    color: #333; /* Texto blanco para contraste */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados (opcional) */
     max-width: 400px;
     margin: auto;
     text-align: center;
@@ -6,15 +10,37 @@
 h2 {
     margin-bottom: 24px;
     font-weight: bold;
-    color: var(--ion-color-primary);
+    color: #ffffff;
 }
 
-    ion-item {
-    --highlight-color: var(--ion-color-primary);
+ion-item {
+    --highlight-color: #ffffff;
 }
 
 a {
-    color: var(--ion-color-primary);
+    color: #ffffff;
     text-decoration: underline;
 }
 }
+ion-content {
+    background-color: #333; /* Gris oscuro para el fondo */
+    color: #fff; /* Texto blanco para contraste */
+}
+ion-input {
+    color: #fff; /* Texto de entrada en blanco */
+}
+
+ion-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder (opcional) */
+}
+.centered {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+}
+
+.centered ion-label {
+    text-align: center; /* Alinea el texto al centro */
+    width: 100%; /* Asegura que el label ocupe todo el ancho */
+}
+
+
