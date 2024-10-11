@@ -1,14 +1,68 @@
-.recuperar-container {
+.login-container {
+    background-color: #333; /* Gris oscuro */
+    color: #ffffff; /* Texto blanco para contraste */
+    padding: 40px; /* Aumentar el espaciado interno */
+    border-radius: 8px; /* Bordes redondeados (opcional) */
+    max-width: 500px; /* Aumentar el ancho máximo */
+    margin: auto;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
 h2 {
-    margin-bottom: 20px;
-    }
-p {
-    margin-bottom: 30px;
-    color: var(--ion-color-medium);
-    }
+    margin-bottom: 24px;
+    color: #ffffff;
+    font-size: 24px; /* Ajusta el tamaño si lo deseas */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
+    font-weight: 200; /* Cambia el grosor de la letra */
+}
 
 ion-item {
-    margin-bottom: 20px;
-    }
+    --border-color: #fff; /* Cambia el color del borde a blanco */
+    margin-bottom: 16px; /* Espacio entre los items */
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none; /* Sin subrayado */
+}
+
+ion-content {
+    background-color: #333; /* Gris oscuro para el fondo */
+    color: #fff; /* Texto blanco para contraste */
+}
+
+ion-input {
+    color: #fff; /* Texto de entrada en blanco */
+}
+
+ion-input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder (opcional) */
+}
+
+.centered {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+}
+
+.centered ion-label {
+    text-align: center; /* Alinea el texto al centro */
+    width: 100%; /* Asegura que el label ocupe todo el ancho */
+}
+
+ion-button {
+    border-radius: 30px; /* Bordes más circulares */
+    --background: #565458; /* Color de fondo */
+    --color: #ffffff; /* Color del texto */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho */
+}
+
+.icon-large {
+    font-size: 48px; /* Ajusta el tamaño del ícono */
+    color: #ffffff; /* Cambia el color según tu tema */
+    margin-bottom: 16px; /* Espaciado debajo del ícono */
+}
+.error-message {
+    color: red;
+    font-size: 12px;
 }

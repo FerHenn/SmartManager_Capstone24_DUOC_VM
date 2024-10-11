@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700&display=swap');
 .login-container {
     background-color: #333; /* Gris oscuro */
     color: #ffffff; /* Texto blanco para contraste */
@@ -7,11 +6,11 @@
     max-width: 500px; /* Aumentar el ancho máximo */
     margin: auto;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 h2 {
     margin-bottom: 24px;
     color: #ffffff;
-    font-family: 'Cairo', sans-serif; /* Cambia la fuente aquí */
     font-size: 24px; /* Ajusta el tamaño si lo deseas */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
     font-weight: 200; /* Cambia el grosor de la letra */
@@ -21,25 +20,20 @@ ion-item {
     --border-color: #fff; /* Cambia el color del borde a blanco */
     margin-bottom: 16px; /* Espacio entre los items */
 }
-
+ion-label {
+    font-size: 16px; /* Tamaño de las etiquetas */
+}
 a {
     color: #ffffff;
-    text-decoration: underline;
+    text-decoration: none;
 }
 ion-content {
     background-color: #333; /* Gris oscuro para el fondo */
     color: #fff; /* Texto blanco para contraste */
 }
-ion-item {
-    --border-color: #fff; /* Cambia el color del borde a blanco */
-}
 
 ion-input {
     color: #fff; /* Texto de entrada en blanco */
-}
-
-ion-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder (opcional) */
 }
 
 ion-input::placeholder {
@@ -54,4 +48,21 @@ ion-input::placeholder {
     text-align: center; /* Alinea el texto al centro */
     width: 100%; /* Asegura que el label ocupe todo el ancho */
 }
+/* login.page.scss */
+
+ion-button {
+    border-radius: 30px; /* Bordes más circulares */
+    --background: #565458; /* Color de fondo */
+    --color: #fffffffff; /* Color del texto */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho */
+}
+.icon-large {
+    font-size: 48px; /* Ajusta el tamaño del ícono */
+    color: #ffffff; /* Cambia el color según tu tema */
+    margin-bottom: 16px; /* Espaciado debajo del ícono */
+}
+
+
+
+
 
