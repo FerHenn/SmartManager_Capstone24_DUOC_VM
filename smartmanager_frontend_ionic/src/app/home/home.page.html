@@ -3,11 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Panel de Administración</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/home">
+      <ion-button (click)="openMenu()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
+      </ion-button>      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -60,3 +63,7 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

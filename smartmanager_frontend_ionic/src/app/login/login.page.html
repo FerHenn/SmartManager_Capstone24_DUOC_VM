@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="es"> 
 <ion-header>
   <ion-toolbar color="dark">
     <ion-title>Tipopipo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="medium" class="ion-padding">
+<ion-content class="ion-padding" color="medium">
   <div class="login-container">
-    <h2>INICIO SESIÓN</h2>
+    <h2>Inicio Sesión</h2>
+    <ion-icon name="person" size="large" class="icon-large"></ion-icon>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <ion-item color="dark">
         <ion-label position="floating" color="light">
@@ -17,8 +16,9 @@
         </ion-label>
         <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
       </ion-item>
-
-
+      <div *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
+        <ion-label color="light">Por favor, ingresa un correo electrónico válido.</ion-label>
+      </div>
       <ion-item color="dark">
         <ion-label position="floating">
           <ion-icon slot="start" name="lock-closed"></ion-icon>
@@ -26,16 +26,19 @@
         </ion-label>
         <ion-input color="light" type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
-
-      <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid" color="grey">
+      <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
+        <ion-label color="light">La contraseña debe tener al menos 8 caracteres.</ion-label>
+      </div>
+      <ion-button expand="block" type="submit" [disabled]="!loginForm.form.valid">
         Iniciar Sesión
       </ion-button>
-      <ion-item lines="none" class="ion-margin-top centered" color="dark">
+      <ion-item lines="none" class="ion-margin-top centered" color="medium">
         <ion-label>
           <a href="/recuperar">¿Olvidaste tu contraseña?</a>
         </ion-label>
       </ion-item>
-    
     </form>
   </div>
 </ion-content>
+
+

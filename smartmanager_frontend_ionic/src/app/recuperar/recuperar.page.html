@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
@@ -7,27 +7,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="recuperar-container">
-    <h2>Recupera tu contraseña</h2>
-    <p>Ingresa tu correo electrónico para recibir un enlace de recuperación.</p>
-
-    <form (ngSubmit)="onSubmit()" #recuperarForm="ngForm">
-      <ion-item>
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
+<ion-content class="ion-padding" color="medium">
+  <div class="login-container">
+    <h2>Recuperar Contraseña</h2>
+    <ion-icon name="key" size="large" class="icon-large"></ion-icon>
+    <form (ngSubmit)="onSubmit()" #recoverForm="ngForm">
+      <ion-item color="dark">
+        <ion-label position="floating" color="light">
+          <ion-icon slot="start" name="mail"></ion-icon>
+          Correo Electrónico
+        </ion-label>
+        <ion-input type="email" name="email" required [(ngModel)]="email" #emailInput="ngModel"></ion-input>
       </ion-item>
-
-      <ion-button expand="full" type="submit" [disabled]="!recuperarForm.form.valid" color="primary">
-        Enviar Enlace
+      <div *ngIf="email && !validateEmail()" class="error-message">
+        El correo debe tener un formato válido.
+      </div>
+      <ion-button expand="block" type="submit" [disabled]="!recoverForm.form.valid">
+        Enviar Instrucciones
       </ion-button>
+      <ion-item lines="none" class="ion-margin-top centered" color="medium">
+        <ion-label>
+          <a href="/login">Volver a Iniciar Sesión</a>
+        </ion-label>
+      </ion-item>
     </form>
-
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-label>
-        <a routerLink="/login">Volver al Inicio de Sesión</a>
-      </ion-label>
-    </ion-item>
   </div>
 </ion-content>
-
