@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders', #para angular
     'coreapi',
     'crud',
@@ -82,9 +83,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbsmartmanager', # la cambie para probar  dbsmartmanager
+        'NAME': 'bd_smartmanager', # la cambie para probar  dbsmartmanager
         'USER': 'postgres', # postgres
-        'PASSWORD': '6918',# la cambie para probar 6918
+        'PASSWORD': 'Isc_2002',# la cambie para probar 6918
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -109,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'crud.Usuario'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
