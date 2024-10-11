@@ -32,7 +32,6 @@ class Usuario(AbstractBaseUser):
     correo = models.EmailField('Correo eletrónico', max_length=254, unique=True)
     nombre = models.CharField('Nombres', max_length=200, blank=False, null=False)
     apellido = models.CharField('Apellidos', max_length=200, blank=False, null=False)
-    #contrasena = models.CharField(max_length=20)
     estado_activo = models.BooleanField(default=True)
     usuario_administrador = models.BooleanField(default=False)
     objects = UsuarioManager()
@@ -67,17 +66,27 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.nombreCategoria
+    
+class Ingrediente(models.Model):
+    nombreIngrediente = models.CharField(max_length=100)
+    cantidadMinima = models.IntegerField()
+    cantidadActual = models.IntegerField()
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.nombreIngrediente
 
 class Producto(models.Model):
     nombreProducto = models.CharField(max_length=100)
     descripcion = models.TextField()
-    imagen = models.ImageField('Imagen de producto', height_field=None, width_field=None, max_length=200)
+    imagen = models.ImageField('Imagen de producto', height_field=None, width_field=None, max_length=200, null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    cantidadMinima = models.IntegerField()
-    cantidadActual = models.IntegerField()
+    cantidadMinima = models.IntegerField(null=True)
+    cantidadActual = models.IntegerField(null=True)
     ultimaActualizacion = models.DateTimeField(auto_now=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)  
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True) 
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    ingredientes = models.ManyToManyField(Ingrediente, related_name='productos') 
 
     def __str__(self):
         return self.nombreProducto
