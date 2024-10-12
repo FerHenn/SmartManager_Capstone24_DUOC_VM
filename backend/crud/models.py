@@ -1,39 +1,44 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self,correo,nombreUsuario,nombre,password = None):
+    def create_user(self, correo, nombreUsuario, nombre, password=None):
         if not correo:
-            raise ValueError('El usuario debe tener un correo electronico')
+            raise ValueError('El usuario debe tener un correo electrónico')
         
         usuario = self.model(
-            nombreUsuario=nombreUsuario, 
-            correo = self.normalize_email(correo), 
-            nombre = nombre
-            )
+            nombreUsuario=nombreUsuario,
+            correo=self.normalize_email(correo),
+            nombre=nombre
+        )
         
         usuario.set_password(password)
-        usuario.save()
+        usuario.save(using=self._db)
         return usuario
-    
-    def create_superuser(self,correo,nombreUsuario,nombre,password):
+
+    def create_superuser(self, correo, nombreUsuario, nombre, password):
         usuario = self.create_user(
             correo,
-            nombreUsuario=nombreUsuario, 
-            nombre = nombre,
+            nombreUsuario=nombreUsuario,
+            nombre=nombre,
             password=password
         )
         usuario.usuario_administrador = True
-        usuario.save()
+        usuario.is_superuser = True
+        usuario.is_staff = True
+        usuario.save(using=self._db)
         return usuario
 
-class Usuario(AbstractBaseUser):
+class Usuario(AbstractBaseUser, PermissionsMixin):  # Aquí se extiende con PermissionsMixin
     nombreUsuario = models.CharField('Nombre de usuario', unique=True, max_length=32)
-    correo = models.EmailField('Correo eletrónico', max_length=254, unique=True)
+    correo = models.EmailField('Correo electrónico', max_length=254, unique=True)
     nombre = models.CharField('Nombres', max_length=200, blank=False, null=False)
     apellido = models.CharField('Apellidos', max_length=200, blank=False, null=False)
     estado_activo = models.BooleanField(default=True)
     usuario_administrador = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)  # Necesario para el sistema de permisos
+    is_superuser = models.BooleanField(default=False)  # Necesario para el sistema de permisos
+    
     objects = UsuarioManager()
     
     USERNAME_FIELD = 'nombreUsuario'

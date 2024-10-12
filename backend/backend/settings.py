@@ -83,11 +83,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bd_smartmanager', # la cambie para probar  dbsmartmanager
-        'USER': 'postgres', # postgres
-        'PASSWORD': 'Isc_2002',# la cambie para probar 6918
-        'HOST': 'localhost',
+        'NAME': 'smartmanagerdb', # la cambie para probar  bd_smartmanager
+        'USER': 'tipopipo', # postgres
+        'PASSWORD': 'Isc_2002$',# la cambie para probar Isc_2002
+        'HOST': 'dbsmartmanagerpostgre.postgres.database.azure.com', #se cambio de localhost
         'PORT': '5432',
+        'OPTIONS':{
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -143,3 +146,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
+
+APPEND_SLASH = False

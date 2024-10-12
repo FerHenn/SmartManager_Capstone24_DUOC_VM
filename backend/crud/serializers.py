@@ -7,6 +7,11 @@ class UsuarioSerializer(serializers.ModelSerializer):
         model=Usuario
         #fields=('nombre','apellido','telefono')
         fields='__all__'
+        
+class ListaUsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['nombreUsuario', 'correo', 'nombre', 'apellido', 'estado_activo', 'usuario_administrador']
   
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -93,8 +98,3 @@ class ReporteSerializer(serializers.ModelSerializer):
     class Meta:
         model=Reporte
         fields='__all__'
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
