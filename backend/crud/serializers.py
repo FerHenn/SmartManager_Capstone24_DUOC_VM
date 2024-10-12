@@ -11,7 +11,14 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class ListaUsuariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['nombreUsuario', 'correo', 'nombre', 'apellido', 'estado_activo', 'usuario_administrador']
+        fields = ['nombreUsuario',
+                  'correo',
+                  'nombre',
+                  'apellido',
+                  'estado_activo',
+                  'usuario_administrador',
+                  'is_staff',
+                  'is_superuser']
   
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
