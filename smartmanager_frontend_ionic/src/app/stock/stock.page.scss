@@ -80,3 +80,16 @@ ion-button[color="medium"] {
     text-align: center;
     font-family: 'Quicksand', sans-serif;
 }
+ion-header ion-toolbar ion-title {
+    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
+    color: #ffffff; /* Cambia el color del texto si es necesario */
+    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
+}
+ion-button {
+    border-radius: 30px; /* Bordes más circulares */
+    --background: #565458; /* Color de fondo */
+    --color: #ffffff; /* Color del texto */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho */
+    margin-top: 20px; /* Espacio en la parte superior del botón */
+    font-family: 'Quicksand', sans-serif;
+}
