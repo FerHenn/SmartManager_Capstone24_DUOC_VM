@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from crud import views
-from crud.views import RegistroUsuario, LoginUsuario, LogoutUsuario, PerfilUsuario, ListaUsuarios
+from crud.views import RegistroUsuario, LoginUsuario, LogoutUsuario, PerfilUsuario, CrearOrdenCompra
 
 router=routers.DefaultRouter()
 router.register(r'usuarios', views.UsuarioViewSet)
@@ -19,4 +19,5 @@ urlpatterns = [
     path('login/', LoginUsuario.as_view(), name='login'),
     path('logout/', LogoutUsuario.as_view(), name='logout'),
     path('perfil/', PerfilUsuario.as_view(), name='perfil'),
+    path('crear-orden/', CrearOrdenCompra.as_view(), name='crear-orden'),
 ]

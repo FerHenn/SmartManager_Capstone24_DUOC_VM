@@ -24,6 +24,9 @@ class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
         model=Proveedor
         fields='__all__'
+        extra_kwargs = {
+            'proveedor': {'required': False, 'allow_null': True},
+        }
   
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,22 +34,42 @@ class CategoriaSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class IngredienteSerializer(serializers.ModelSerializer):
+    proveedor = serializers.PrimaryKeyRelatedField(
+        queryset=Proveedor.objects.all(), 
+        required=False, 
+        allow_null=True
+    )    
+    
     class Meta:
         model=Ingrediente
         fields='__all__'
         
 class ProductoSerializer(serializers.ModelSerializer):
-     # Esto mostrará los ingredientes en el GET
+    # Esto mostrará los ingredientes en el GET
     ingredientes = IngredienteSerializer(many=True, read_only=True)
     # Para manejar los IDs de ingredientes al crear o actualizar productos
-    ingredientes_ids = serializers.PrimaryKeyRelatedField(queryset=Ingrediente.objects.all(), many=True, write_only=True)
+    ingredientes_ids = serializers.PrimaryKeyRelatedField(
+        queryset=Ingrediente.objects.all(), 
+        many=True, 
+        write_only=True, 
+        required=False, 
+        allow_null=True
+    )
     categoria = CategoriaSerializer(read_only=True)
-    categoria_id = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all(), source='categoria', write_only=True)
-    
-        
+    categoria_id = serializers.PrimaryKeyRelatedField(
+        queryset=Categoria.objects.all(), 
+        source='categoria', 
+        write_only=True
+    )
+    proveedor = serializers.PrimaryKeyRelatedField(
+        queryset=Proveedor.objects.all(), 
+        required=False, 
+        allow_null=True
+    )
+
     class Meta:
-        model=Producto
-        fields=[
+        model = Producto
+        fields = [
             'id',
             'nombreProducto',
             'descripcion',
@@ -57,25 +80,28 @@ class ProductoSerializer(serializers.ModelSerializer):
             'ultimaActualizacion',
             'categoria',
             'categoria_id',
+            'proveedor',
             'ingredientes',
             'ingredientes_ids'
         ]
-        
+
     def create(self, validated_data):
-        # Extraemos los IDs de los ingredientes
-        ingredientes_data = validated_data.pop('ingredientes_ids')
+        # Extraemos los IDs de los ingredientes (pueden ser None)
+        ingredientes_data = validated_data.pop('ingredientes_ids', None)
         categoria = validated_data.pop('categoria')
-        
+        proveedor = validated_data.get('proveedor', None)  # Proveedor puede ser None
+
         # Creamos el producto
-        producto = Producto.objects.create(**validated_data, categoria=categoria)
-        
-        # Asignamos los ingredientes al producto
-        producto.ingredientes.set(ingredientes_data)
-        
+        producto = Producto.objects.create(**validated_data, categoria=categoria, proveedor=proveedor)
+
+        # Asignamos los ingredientes al producto, si existen
+        if ingredientes_data:
+            producto.ingredientes.set(ingredientes_data)
+
         return producto
 
     def update(self, instance, validated_data):
-        # Extraemos los IDs de los ingredientes
+        # Extraemos los IDs de los ingredientes (pueden ser None)
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
         
         # Actualizamos los campos del producto
@@ -83,13 +109,15 @@ class ProductoSerializer(serializers.ModelSerializer):
         instance.descripcion = validated_data.get('descripcion', instance.descripcion)
         instance.precio = validated_data.get('precio', instance.precio)
         instance.categoria = validated_data.get('categoria', instance.categoria)
+        instance.proveedor = validated_data.get('proveedor', instance.proveedor)  # Proveedor puede ser None
         instance.save()
 
         # Si hay ingredientes, los actualizamos
         if ingredientes_data:
             instance.ingredientes.set(ingredientes_data)
-        
+
         return instance
+
 
 class MetodoPagoSerializer(serializers.ModelSerializer):
     class Meta:

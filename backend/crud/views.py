@@ -1,13 +1,15 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+from django.db.models import Sum
+from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate
-from rest_framework import viewsets
+from django.contrib.auth.hashers import make_password
 from .serializers import UsuarioSerializer, UsuarioSerializer, ProveedorSerializer, CategoriaSerializer, ProductoSerializer, MetodoPagoSerializer, OrdenCompraSerializer, ReporteSerializer, IngredienteSerializer, ListaUsuariosSerializer  
 from .models import Usuario, Usuario, Proveedor, Categoria, Producto, MetodoPago, OrdenCompra, Reporte, Ingrediente
-from django.contrib.auth.hashers import make_password
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset=Usuario.objects.all()
@@ -52,8 +54,11 @@ class ListaUsuarios(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        if request.user.role != 'Administrador':
+            return HttpResponseForbidden('No tienes permisos para ver esta lista.')
+        
         usuarios = Usuario.objects.all()
-        serializer = ListaUsuariosSerializer(usuarios, many=True)
+        serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data)
 #------------------------------------------------#
 class ProveedorViewSet(viewsets.ModelViewSet):
@@ -74,7 +79,28 @@ class MetodoPagoViewSet(viewsets.ModelViewSet):
     
 class OrdenCompraViewSet(viewsets.ModelViewSet):
     queryset=OrdenCompra.objects.all()
-    serializer_class=OrdenCompraSerializer 
+    serializer_class=OrdenCompraSerializer
+    
+class CrearOrdenCompra(APIView):
+    def post(self, request):
+        productos_ids = request.data.get('productos', [])
+        metodo_pago_id = request.data.get('metodoPago', None)
+        usuario = request.user
+
+        productos = Producto.objects.filter(id__in=productos_ids)
+        monto_total = productos.aggregate(Sum('precio'))['precio__sum']
+
+        if not productos.exists():
+            return Response({'error': 'No se encontraron productos válidos'}, status=status.HTTP_400_BAD_REQUEST)
+
+        orden = OrdenCompra.objects.create(
+            usuario=usuario,
+            montoTotal=monto_total,
+            metodoPago_id=metodo_pago_id
+        )
+        orden.productos.set(productos)  # Añadir productos a la orden
+
+        return Response(OrdenCompraSerializer(orden).data, status=status.HTTP_201_CREATED)
       
 class ReporteViewSet(viewsets.ModelViewSet):
     queryset=Reporte.objects.all()

@@ -1,17 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models import Sum
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, correo, nombreUsuario, nombre, password=None):
+    def create_user(self, correo, nombreUsuario, nombre, password=None, role='Cajero'):
         if not correo:
             raise ValueError('El usuario debe tener un correo electrónico')
-        
+
         usuario = self.model(
             nombreUsuario=nombreUsuario,
             correo=self.normalize_email(correo),
-            nombre=nombre
+            nombre=nombre,
+            role=role
         )
-        
         usuario.set_password(password)
         usuario.save(using=self._db)
         return usuario
@@ -21,38 +22,41 @@ class UsuarioManager(BaseUserManager):
             correo,
             nombreUsuario=nombreUsuario,
             nombre=nombre,
-            password=password
+            password=password,
+            role='Administrador'
         )
         usuario.usuario_administrador = True
-        usuario.is_superuser = True
-        usuario.is_staff = True
         usuario.save(using=self._db)
         return usuario
 
-class Usuario(AbstractBaseUser, PermissionsMixin):  # Aquí se extiende con PermissionsMixin
+class Usuario(AbstractBaseUser):
+    ROLE_CHOICES = (
+        ('Cajero', 'Cajero'),
+        ('Administrador', 'Administrador'),
+    )
+
     nombreUsuario = models.CharField('Nombre de usuario', unique=True, max_length=32)
     correo = models.EmailField('Correo electrónico', max_length=254, unique=True)
     nombre = models.CharField('Nombres', max_length=200, blank=False, null=False)
     apellido = models.CharField('Apellidos', max_length=200, blank=False, null=False)
     estado_activo = models.BooleanField(default=True)
     usuario_administrador = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)  # Necesario para el sistema de permisos
-    is_superuser = models.BooleanField(default=False)  # Necesario para el sistema de permisos
-    
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Cajero')  # Campo de rol
+
     objects = UsuarioManager()
-    
+
     USERNAME_FIELD = 'nombreUsuario'
     REQUIRED_FIELDS = ['correo', 'nombre']
 
     def __str__(self):
         return self.nombreUsuario
-    
-    def has_perm(self,perm,obj = None):
+
+    def has_perm(self, perm, obj=None):
         return True
 
-    def has_module_perms(self,app_label):
+    def has_module_perms(self, app_label):
         return True
-    
+
     @property
     def is_staff(self):
         return self.usuario_administrador
@@ -76,7 +80,7 @@ class Ingrediente(models.Model):
     nombreIngrediente = models.CharField(max_length=100)
     cantidadMinima = models.IntegerField()
     cantidadActual = models.IntegerField()
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True)  # Proveedor puede ser nulo
 
     def __str__(self):
         return self.nombreIngrediente
@@ -84,14 +88,14 @@ class Ingrediente(models.Model):
 class Producto(models.Model):
     nombreProducto = models.CharField(max_length=100)
     descripcion = models.TextField()
-    imagen = models.ImageField('Imagen de producto', height_field=None, width_field=None, max_length=200, null=True)
+    imagen = models.ImageField('Imagen de producto', upload_to='productos/', null=True, blank=True)  # Permitimos valores nulos y vacíos
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    cantidadMinima = models.IntegerField(null=True)
-    cantidadActual = models.IntegerField(null=True)
+    cantidadMinima = models.IntegerField(null=True, blank=True)
+    cantidadActual = models.IntegerField(null=True, blank=True)
     ultimaActualizacion = models.DateTimeField(auto_now=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)  
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
-    ingredientes = models.ManyToManyField(Ingrediente, related_name='productos') 
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True)
+    ingredientes = models.ManyToManyField(Ingrediente, related_name='productos', blank=True) 
 
     def __str__(self):
         return self.nombreProducto
@@ -103,15 +107,18 @@ class MetodoPago(models.Model):
         return self.nombre_metodo_pago
 
 class OrdenCompra(models.Model):
-    fechaOrden = models.DateTimeField(auto_now_add=True)
+    fechaOrden = models.DateTimeField(auto_now_add=True)  # Almacena fecha y hora
     montoTotal = models.DecimalField(max_digits=10, decimal_places=2)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)  # Relación con Usuario (Cajero)
+    productos = models.ManyToManyField('Producto')  # Relación de muchos a muchos
     metodoPago = models.ForeignKey('MetodoPago', on_delete=models.CASCADE, null=True)
-
-    def calcular_total(self):
-        # Implementación del cálculo de total aquí
-        pass
+    
+    def save(self, *args, **kwargs):
+        # Si aún no se ha calculado el montoTotal
+        if self.pk and not self.montoTotal:
+            productos = self.productos.all()
+            self.montoTotal = productos.aggregate(Sum('precio'))['precio__sum'] or 0.00
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Orden {self.id}"
