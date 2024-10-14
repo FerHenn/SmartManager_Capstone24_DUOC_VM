@@ -1,29 +1,65 @@
 ion-content {
   --background: var(--ion-color-medium); /* Cambia el fondo a color medio */
   color: #333;
+  font-family: 'Quicksand', sans-serif;
 }
 .dashboard {
   text-align: center;
+  font-family: 'Quicksand', sans-serif;
 
 h2 {
     margin-bottom: 20px;
     font-weight: bold;
     color: var(--ion-color-dark);
+    font-family: 'Quicksand', sans-serif;
 }
 ion-card {
   margin-bottom: 16px; /* Espaciado entre tarjetas */
   background: var(--ion-color-dark); /* Cambia el fondo a color medio */
+  font-family: 'Quicksand', sans-serif;
 }
   
 ion-card-header {
   --background: var(--ion-color-dark); /* Cambia el fondo a color medio */
+  font-family: 'Quicksand', sans-serif;
   }
 
 ion-card-title {
   color: #ffffff; /* Color personalizado para el título del módulo */
   font-size: 1.2rem;
+  font-family: 'Quicksand', sans-serif;
   }
 }
 ion-card-content {
   color: #ffffff; /* Color personalizado para el contenido del módulo */
+  font-family: 'Quicksand', sans-serif;
 }
+ion-toolbar ion-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px; /* Ajusta el tamaño según sea necesario */
+  font-weight: bold; /* O el peso que prefieras */
+  color: #ffffff; /* Si deseas cambiar el color del título */
+}
+/* Estilo para todo el menú */
+ion-menu {
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Estilo específico para el perfil dentro del menú */
+ion-menu ion-item.profile {
+  font-family: 'Quicksand', sans-serif;
+  color: #ffffff;
+  font-size: 16px; /* Ajusta el tamaño del texto */
+  padding: 10px; /* Ajusta el padding si es necesario */
+}
+
+/* Estilo para la opción de cerrar sesión */
+ion-menu ion-item.logout {
+  font-family: 'Quicksand', sans-serif;
+  color: #ffffff;
+  font-size: 16px; /* Ajusta el tamaño del texto */
+  padding: 10px; /* Ajusta el padding si es necesario */
+}
+
+
+

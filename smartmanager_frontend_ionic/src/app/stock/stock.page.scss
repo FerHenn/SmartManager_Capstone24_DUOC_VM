@@ -1,11 +1,13 @@
 /* Estilo general para el contenido */
 ion-content {
     background-color: #f7f7f7;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Contenedor principal de la página */
 .stock-container {
     text-align: center;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Título de la página */
@@ -13,6 +15,7 @@ ion-content {
     margin-bottom: 20px;
     font-size: 1.8rem;
     color: #333;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Espaciado para la tabla */
@@ -26,12 +29,14 @@ ion-col {
     align-items: center;
     justify-content: center;
     padding: 10px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Estilo para el input de stock */
 ion-input {
     max-width: 80px;
     text-align: center;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Botones generales */
@@ -39,11 +44,13 @@ ion-button {
     --border-radius: 8px;
     --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Botón de agregar producto */
-ion-button[color="success"] {
+ion-button[color="medium"] {
     margin-top: 30px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Título de la tabla */
@@ -52,6 +59,7 @@ ion-button[color="success"] {
     font-size: 1.8rem;
     color: #333;
     margin-bottom: 20px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Estilo para las filas de encabezado */
@@ -61,6 +69,7 @@ ion-button[color="success"] {
     padding: 10px 0;
     text-align: center;
     font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
 }
 
 /* Estilo para las filas de datos */
@@ -69,4 +78,5 @@ ion-button[color="success"] {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
     text-align: center;
+    font-family: 'Quicksand', sans-serif;
 }
