@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController, private loadingController: LoadingController) {}
 
   async onSubmit() {
     if (!this.validateEmail(this.email)) {
@@ -24,9 +24,25 @@ export class LoginPage {
       return;
     }
 
-    console.log('Correo:', this.email);
-    console.log('Contraseña:', this.password);
-    this.router.navigate(['/home']);
+    // Mostrar el loading
+    const loading = await this.loadingController.create({
+      message: 'Iniciando sesión...',
+      duration: 3000, // Muestra el loading durante 3 segundos
+    });
+    await loading.present();
+
+    // Simula un retraso en la autenticación
+    setTimeout(async () => {
+      // Aquí iría la lógica real de inicio de sesión
+      console.log('Correo:', this.email);
+      console.log('Contraseña:', this.password);
+      
+      // Navegar a la página de inicio
+      this.router.navigate(['/home']);
+      
+      // Cerrar el loading
+      await loading.dismiss();
+    }, 3000);
   }
 
   validateEmail(email: string): boolean {

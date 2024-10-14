@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -18,7 +19,8 @@ import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule // Añadir HttpClientModule aquí
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
@@ -26,4 +28,5 @@ import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
 

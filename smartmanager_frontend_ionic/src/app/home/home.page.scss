@@ -1,5 +1,6 @@
 ion-content {
   --background: var(--ion-color-medium); /* Cambia el fondo a color medio */
+  color: #333;
 }
 .dashboard {
   text-align: center;
@@ -9,16 +10,20 @@ h2 {
     font-weight: bold;
     color: var(--ion-color-dark);
 }
-
 ion-card {
-  margin: 10px 0;
+  margin-bottom: 16px; /* Espaciado entre tarjetas */
+  background: var(--ion-color-dark); /* Cambia el fondo a color medio */
+}
   
 ion-card-header {
-  background-color: var(--ion-color-light);
+  --background: var(--ion-color-dark); /* Cambia el fondo a color medio */
   }
 
 ion-card-title {
+  color: #ffffff; /* Color personalizado para el título del módulo */
   font-size: 1.2rem;
   }
 }
+ion-card-content {
+  color: #ffffff; /* Color personalizado para el contenido del módulo */
 }

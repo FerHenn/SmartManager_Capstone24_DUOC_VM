@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -9,32 +9,33 @@
 
 <ion-content class="ion-padding">
   <div class="stock-container">
-    <h2>Productos en Inventario</h2>
+    <h2 class="stock-title">Productos en Inventario</h2>
 
     <ion-grid>
-      <ion-row>
+      <ion-row class="header-row">
         <ion-col><strong>Producto</strong></ion-col>
         <ion-col><strong>Stock</strong></ion-col>
         <ion-col><strong>Acciones</strong></ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let producto of productos">
+      <ion-row *ngFor="let producto of productos" class="data-row">
         <ion-col>{{ producto.nombre }}</ion-col>
         <ion-col>
           <ion-input [(ngModel)]="producto.stock" type="number" min="0"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-button fill="outline" color="primary" (click)="guardarCambios(producto)">
-            Guardar
+          <ion-button fill="clear" color="primary" (click)="guardarCambios(producto)">
+            <ion-icon name="save-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" (click)="eliminarProducto(producto)">
+            <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-button expand="full" color="success" (click)="agregarProducto()">
-      Agregar Producto
+    <ion-button expand="full" color="medium" (click)="agregarProducto()">
+      Agregar producto
     </ion-button>
   </div>
 </ion-content>
-
-  
