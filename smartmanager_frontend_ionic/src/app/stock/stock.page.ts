@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./stock.page.scss'],
 })
 export class StockPage {
+  // Lista de productos inicial
   productos = [
     { nombre: 'Producto A', stock: 10 },
     { nombre: 'Producto B', stock: 5 },
@@ -15,11 +16,7 @@ export class StockPage {
 
   constructor(private alertController: AlertController) {}
 
-  guardarCambios(producto: any) {
-    // Aquí podrías agregar lógica para guardar los cambios de stock, por ejemplo, en una API o base de datos
-    console.log(`El producto ${producto.nombre} ha sido actualizado con ${producto.stock} unidades.`);
-  }
-
+  // Función para agregar un nuevo producto
   async agregarProducto() {
     const alert = await this.alertController.create({
       header: 'Agregar Producto',
@@ -54,6 +51,17 @@ export class StockPage {
 
     await alert.present();
   }
+
+  // Función para guardar cambios en el stock de un producto
+  guardarCambios(producto: any) {
+    console.log(`El producto ${producto.nombre} ha sido actualizado con ${producto.stock} unidades.`);
+  }
+
+  // Función para eliminar un producto
+  eliminarProducto(producto: any) {
+    const index = this.productos.indexOf(producto);
+    if (index > -1) {
+      this.productos.splice(index, 1);
+    }
+  }
 }
-
-

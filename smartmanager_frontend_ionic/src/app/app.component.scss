@@ -1,0 +1,30 @@
+/* Aplica Quicksand a todo el menú */
+ion-menu {
+    font-family: 'Quicksand', sans-serif;
+    color: #ffffff;
+}
+
+/* Aplica Quicksand específicamente a los elementos del menú */
+ion-menu ion-item {
+    font-family: 'Quicksand', sans-serif;
+    color: #000000; /* Color negro para los elementos del menú */
+    font-size: 16px; /* Tamaño del texto para los ítems del menú */
+}
+
+/* Aplica Quicksand al título del menú */
+ion-menu ion-header ion-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px; /* Tamaño del texto del título del menú */
+    color: #ffffff; /* Color blanco para el título */
+}
+
+/* Cambia el color de los íconos dentro de los ítems */
+ion-menu ion-icon {
+    color: #000000; /* Un color dorado suave para los íconos */
+    font-family: 'Quicksand', sans-serif;
+}
+ion-item ion-label {
+    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand */
+    font-size: 16px; /* Ajusta el tamaño de la fuente si es necesario */
+    color: #000000; /* Asegúrate de que el color sea blanco o el que prefieras */
+}

@@ -1,12 +1,9 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/login"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Panel de Administración</ion-title>
+    <ion-title>Panel Admin</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
@@ -15,23 +12,24 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-padding">
   <div class="dashboard">
     <h2>Bienvenido, Administrador</h2>
     <ion-grid>
       <ion-row>
-        <ion-col size="6">
+        <ion-col>
           <ion-card routerLink="/usuario">
             <ion-card-header>
-              <ion-card-title>Gestión de Usuarios</ion-card-title>
+              <ion-card-title>Gestión de usuarios</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               Administra los usuarios registrados.
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="6">
+      </ion-row>
+      <ion-row>
+        <ion-col>
           <ion-card routerLink="/stock">
             <ion-card-header>
               <ion-card-title>Gestión de stock</ion-card-title>
@@ -43,17 +41,19 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="6">
+        <ion-col>
           <ion-card routerLink="/ventas">
             <ion-card-header>
-              <ion-card-title>Gestión de Ventas</ion-card-title>
+              <ion-card-title>Gestión de ventas</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               Revisa y gestiona las ventas realizadas.
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="6">
+      </ion-row>
+      <ion-row>
+        <ion-col>
           <ion-card routerLink="/dashboard">
             <ion-card-header>
               <ion-card-title>Dashboard</ion-card-title>
