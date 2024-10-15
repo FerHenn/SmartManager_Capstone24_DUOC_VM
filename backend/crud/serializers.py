@@ -15,6 +15,7 @@ class ListaUsuariosSerializer(serializers.ModelSerializer):
                   'correo',
                   'nombre',
                   'apellido',
+                  'numero_telefonico'
                   'estado_activo',
                   'usuario_administrador',
                   'is_staff',

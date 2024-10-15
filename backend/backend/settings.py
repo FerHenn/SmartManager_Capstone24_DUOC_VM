@@ -86,19 +86,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'smartmanagerdb', # la cambie para probar  bd_smartmanager
-#        'USER': 'tipopipo', # postgres
-#        'PASSWORD': 'Isc_2002$',# la cambie para probar Isc_2002
-#        'HOST': 'dbsmartmanagerpostgre.postgres.database.azure.com', #se cambio de localhost
-#        'PORT': '5432',
-#        'OPTIONS':{
-#            'sslmode': 'require',
-#        },
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'smartmanagerdb', # la cambie para probar  bd_smartmanager
+        'USER': 'tipopipo', # postgres
+        'PASSWORD': 'Isc_2002$',# la cambie para probar Isc_2002
+        'HOST': 'dbsmartmanagerpostgre.postgres.database.azure.com', #se cambio de localhost
+        'PORT': '5432',
+        'OPTIONS':{
+            'sslmode': 'require',
+        },
+    }
+}
+
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
