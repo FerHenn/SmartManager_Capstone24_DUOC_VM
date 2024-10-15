@@ -12,6 +12,10 @@ const routes: Routes = [
   { path: 'stock', loadChildren: () => import('./stock/stock.module').then(m => m.StockPageModule) }, // Añadido
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule) },
   { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule) },
+  {
+    path: 'producto',
+    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
+  },
   // Otras rutas que desees añadir...
 ];
 
