@@ -39,6 +39,7 @@ class Usuario(AbstractBaseUser):
     correo = models.EmailField('Correo electrónico', max_length=254, unique=True)
     nombre = models.CharField('Nombres', max_length=200, blank=False, null=False)
     apellido = models.CharField('Apellidos', max_length=200, blank=False, null=False)
+    numero_telefonico = models.CharField('Número Telefónico', max_length=20, blank=True, null=True) 
     estado_activo = models.BooleanField(default=True)
     usuario_administrador = models.BooleanField(default=False)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='Cajero')  # Campo de rol
