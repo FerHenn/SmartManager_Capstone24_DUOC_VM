@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
-from .models import Usuario, Proveedor, Categoria, Producto, MetodoPago, OrdenCompra, Reporte, Ingrediente
+from .models import Usuario, Proveedor, Categoria, Producto, MetodoPago, ProductoOrden, OrdenCompra, Reporte, Ingrediente
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -124,10 +124,32 @@ class MetodoPagoSerializer(serializers.ModelSerializer):
         model=MetodoPago
         fields='__all__'
         
-class OrdenCompraSerializer(serializers.ModelSerializer):
+#class OrdenCompraSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model=OrdenCompra
+#        fields='__all__'
+        
+class ProductoOrdenSerializer(serializers.ModelSerializer):
     class Meta:
-        model=OrdenCompra
-        fields='__all__'
+        model = ProductoOrden
+        fields = ['producto', 'cantidad']
+
+class OrdenCompraSerializer(serializers.ModelSerializer):
+    productos_ordenados = ProductoOrdenSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = OrdenCompra
+        fields = ['id', 'fechaOrden', 'montoTotal', 'usuario', 'metodoPago', 'productos_ordenados']
+
+class CrearOrdenSerializer(serializers.ModelSerializer):
+    productos = serializers.ListField(
+        child=serializers.DictField(), 
+        write_only=True
+    )
+
+    class Meta:
+        model = OrdenCompra
+        fields = ['metodoPago', 'productos']
         
 class ReporteSerializer(serializers.ModelSerializer):
     class Meta:
