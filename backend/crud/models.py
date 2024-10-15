@@ -91,7 +91,7 @@ class Producto(models.Model):
     imagen = models.ImageField('Imagen de producto', upload_to='productos/', null=True, blank=True)  # Permitimos valores nulos y vacíos
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     cantidadMinima = models.IntegerField(null=True, blank=True)
-    cantidadActual = models.IntegerField(null=True, blank=True)
+    cantidadActual = models.PositiveIntegerField(default=0)
     ultimaActualizacion = models.DateTimeField(auto_now=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)  
     proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True)
@@ -105,21 +105,21 @@ class MetodoPago(models.Model):
 
     def __str__(self):
         return self.nombre_metodo_pago
+    
+class ProductoOrden(models.Model):
+    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
+    orden = models.ForeignKey('OrdenCompra', on_delete=models.CASCADE, related_name='productos_ordenados')
+    cantidad = models.PositiveIntegerField(default=1)  # Campo para cantidad del producto
+
+    def __str__(self):
+        return f"{self.cantidad}x {self.producto.nombreProducto} en orden {self.orden.id}"
 
 class OrdenCompra(models.Model):
-    fechaOrden = models.DateTimeField(auto_now_add=True)  # Almacena fecha y hora
+    fechaOrden = models.DateTimeField(auto_now_add=True)
     montoTotal = models.DecimalField(max_digits=10, decimal_places=2)
-    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)  # Relación con Usuario (Cajero)
-    productos = models.ManyToManyField('Producto')  # Relación de muchos a muchos
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     metodoPago = models.ForeignKey('MetodoPago', on_delete=models.CASCADE, null=True)
     
-    def save(self, *args, **kwargs):
-        # Si aún no se ha calculado el montoTotal
-        if self.pk and not self.montoTotal:
-            productos = self.productos.all()
-            self.montoTotal = productos.aggregate(Sum('precio'))['precio__sum'] or 0.00
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return f"Orden {self.id}"
 
