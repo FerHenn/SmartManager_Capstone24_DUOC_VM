@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0'
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://smartmanager-capstone24-duoc-vm.onrender.com']
 
 # Application definition
 
