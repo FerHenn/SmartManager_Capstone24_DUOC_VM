@@ -1,6 +1,24 @@
 .dashboard {
+    font-family: 'Quicksand', sans-serif;
+h3, p {
+        font-family: 'Quicksand', sans-serif;
+}
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-family: 'Quicksand', sans-serif;
     }
 }
+ion-header ion-toolbar ion-title {
+    font-family: 'Quicksand', sans-serif; /* Aplica la fuente Quicksand al título */
+    color: #ffffff; /* Cambia el color del texto si es necesario */
+    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
+}
+ion-content {
+    font-family: 'Quicksand', sans-serif;
+}
+ion-card-title {
+    color: #000000; /* Color personalizado para el título del módulo */
+    font-size: 1.2rem;
+    font-family: 'Quicksand', sans-serif;
+    }

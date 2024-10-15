@@ -14,7 +14,7 @@ export class ProductoPage { // Este debe ser el nombre de la clase
   }
 
   loadProducts() {
-    this.http.get<any[]>('http://localhost:8100/api/productos/')
+    this.http.get<any[]>('http://localhost:8100/producto')
       .subscribe(data => {
         this.products = data;
       });
