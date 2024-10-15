@@ -1,12 +1,19 @@
 .perfil-container {
     padding: 16px;
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
+
 h2 {
-    color: #000000; // Cambia esto al color que desees para el título
+    color: #000000; /* Cambia esto al color que desees para el título */
     margin-bottom: 20px;
-    text-align: center; // Centra el texto
+    text-align: center; /* Centra el texto */
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+    font-size: 28px; /* Ajusta el tamaño del título como desees */
 }
+
 .value {
-    color: gray; // Color gris para los datos personales
-    font-weight: bold; // Hace que el dato sea más visible
+    color: gray; /* Color gris para los datos personales */
+    font-weight: bold; /* Hace que el dato sea más visible */
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+    font-size: 18px; /* Ajusta el tamaño del texto del valor */
 }

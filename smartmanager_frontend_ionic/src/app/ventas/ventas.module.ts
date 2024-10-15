@@ -8,6 +8,7 @@ import { VentasPageRoutingModule } from './ventas-routing.module';
 
 import { VentasPage } from './ventas.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +16,6 @@ import { VentasPage } from './ventas.page';
     IonicModule,
     VentasPageRoutingModule
   ],
-  declarations: [VentasPage]
+  declarations: [VentasPage],
 })
 export class VentasPageModule {}
