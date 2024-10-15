@@ -29,6 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'smartmanager-capstone24-duoc-vm.onrender.com',
+    '0.0.0.0'
 ]
 
 
