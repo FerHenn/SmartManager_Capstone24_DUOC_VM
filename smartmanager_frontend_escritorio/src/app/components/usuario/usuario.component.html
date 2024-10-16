@@ -1,0 +1,71 @@
+
+<div class="p-grid">
+  <div class="p-col-12">
+    <h2>CRUD de Usuarios</h2>
+  </div>
+  
+  <p-card>
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+      <mat-label for="nombreUsuario">Nombre de Usuario</mat-label> 
+        <input matInput formControlName="nombreUsuario" placeholder="Introduce tu nombre de usuario" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label for="correo">correo</mat-label> 
+          <input matInput formControlName="correo" placeholder="Introduce tu correo" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="nombre">Nombre</mat-label> 
+            <input matInput formControlName="nombre" placeholder="Introduce tu nombre de usuario" required />
+          </mat-form-field>
+
+      <div>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" formControlName="nombre" required />
+      </div>
+      <div>
+        <label for="apellido">Apellido</label>
+        <input id="apellido" formControlName="apellido" required />
+      </div>
+      <div>
+        <label for="estado_activo">Estado Activo</label>
+        <input type="checkbox" id="estado_activo" formControlName="estado_activo" />
+      </div>
+      <div>
+        <label for="usuario_administrador">Usuario Administrador</label>
+        <input type="checkbox" id="usuario_administrador" formControlName="usuario_administrador" />
+      </div>
+      <button type="submit">{{ selectedUsuario ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" (click)="resetForm()">Cancelar</button>
+    </form>
+  </p-card>   
+
+  <div class="p-col-12">
+    <h3>Lista de Usuarios</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre de Usuario</th>
+          <th>Correo</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Estado Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombreUsuario }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.apellido }}</td>
+          <td>{{ usuario.estado_activo ? 'Sí' : 'No' }}</td>
+          <td>
+            <button (click)="editUsuario(usuario)">Editar</button>
+            <button (click)="deleteUsuario(usuario.nombreUsuario)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
