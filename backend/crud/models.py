@@ -73,6 +73,7 @@ class Proveedor(models.Model):
 class Categoria(models.Model):
     nombreCategoria = models.CharField(max_length=100)
     descripcionCategoria = models.TextField()
+    imagen = models.ImageField('Imagen de categoría', upload_to='categorias/', null=True, blank=True)
 
     def __str__(self):
         return self.nombreCategoria
