@@ -21,6 +21,9 @@ urlpatterns = [
     path('logout/', views.LogoutUsuario.as_view(), name='logout'),
     path('perfil/', views.PerfilUsuario.as_view(), name='perfil'),
     path('crear-orden/', views.CrearOrdenCompra.as_view(), name='crear-orden'),
+    path('resumen-inventario-diario/', views.ResumenInventarioDiario.as_view(), name='resumen-inventario-diario'),
+    path('reporte-ventas-diario/', views.ReporteVentasDiario.as_view(), name='reporte-ventas-diario'),
+    path('reporte-ventas-mensual/', views.ReporteVentasMensual.as_view(), name='reporte-ventas-mensual'),
 ]
 
 if settings.DEBUG:

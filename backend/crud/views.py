@@ -3,12 +3,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from django_filters.rest_framework import DjangoFilterBackend
-from django.db import transaction
-from django.db.models import Sum, F
-from django.http import HttpResponseForbidden
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.db import transaction
+from django.db.models import Sum, Count, F
+from django_filters.rest_framework import DjangoFilterBackend
+from django.http import HttpResponseForbidden
+from django.utils import timezone
 from decimal import Decimal
 from .serializers import UsuarioSerializer, UsuarioSerializer, ProveedorSerializer, CategoriaSerializer, ProductoSerializer, MetodoPagoSerializer, OrdenCompraSerializer, ReporteSerializer, IngredienteSerializer, CrearOrdenSerializer, OrdenCompraSerializer 
 from .models import Usuario, Usuario, Proveedor, Categoria, Producto, MetodoPago, ProductoOrden, OrdenCompra, Reporte, Ingrediente
@@ -162,3 +163,42 @@ class ReporteViewSet(viewsets.ModelViewSet):
 class IngredienteViewSet(viewsets.ModelViewSet):
     queryset=Ingrediente.objects.all()
     serializer_class=IngredienteSerializer 
+    
+class ResumenInventarioDiario(APIView):
+    def get(self, request):
+        productos_agotandose = Producto.objects.filter(cantidadActual__lt=F('cantidadMinima'))
+        ingredientes_agotandose = Ingrediente.objects.filter(cantidadActual__lt=F('cantidadMinima'))
+
+        productos_serializer = ProductoSerializer(productos_agotandose, many=True)
+        ingredientes_serializer = IngredienteSerializer(ingredientes_agotandose, many=True)
+
+        return Response({
+            'fecha': timezone.now(),
+            'productos_agotandose': productos_serializer.data,
+            'ingredientes_agotandose': ingredientes_serializer.data,
+        })
+        
+class ReporteVentasDiario(APIView):
+    def get(self, request):
+        hoy = timezone.now().date()
+        ventas = OrdenCompra.objects.filter(fecha__date=hoy)
+        ventas_serializer = OrdenCompraSerializer(ventas, many=True)
+
+        return Response({
+            'fecha': hoy,
+            'ventas': ventas_serializer.data,
+        })
+        
+class ReporteVentasMensual(APIView):
+    def get(self, request):
+        mes_actual = timezone.now().month
+        ventas = OrdenCompra.objects.filter(fecha__month=mes_actual)
+        total_ventas = ventas.aggregate(Sum('montoTotal'))
+        total_transacciones = ventas.count()
+
+        return Response({
+            'mes': mes_actual,
+            'total_ventas': total_ventas['montoTotal__sum'],
+            'total_transacciones': total_transacciones,
+            'ventas': OrdenCompraSerializer(ventas, many=True).data
+        })
