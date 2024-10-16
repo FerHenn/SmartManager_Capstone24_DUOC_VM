@@ -139,7 +139,7 @@ class ProductoOrdenSerializer(serializers.ModelSerializer):
         fields = ['producto', 'cantidad']
 
 class OrdenCompraSerializer(serializers.ModelSerializer):
-    productos_ordenados = ProductoOrdenSerializer(many=True, read_only=True)
+    productos_ordenados = ProductoOrdenSerializer(many=True, read_only=True)  # Relación con los productos ordenados
 
     class Meta:
         model = OrdenCompra

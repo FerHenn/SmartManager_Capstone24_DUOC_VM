@@ -202,29 +202,60 @@ class ResumenInventarioDiario(APIView):
             'ingredientes_agotandose': ingredientes_serializer.data,
         })
         
-# Vista para generar un reporte de ventas diarias     
+# Vista para generar un reporte de ventas diarias
 class ReporteVentasDiario(APIView):
     def get(self, request):
-        hoy = timezone.now().date() # Obtiene la fecha actual
-        ventas = OrdenCompra.objects.filter(fecha__date=hoy) # Filtra las ventas por fecha
-        ventas_serializer = OrdenCompraSerializer(ventas, many=True)
+        try:
+            hoy = timezone.now().date()  # Obtiene la fecha actual
+            ventas = OrdenCompra.objects.filter(fechaOrden__date=hoy)  # Filtra las ventas por fecha actual
+            
+            # Serializa las ventas
+            ventas_serializer = OrdenCompraSerializer(ventas, many=True)
+            
+            # Manejo de ventas vacías
+            if not ventas.exists():
+                return Response({
+                    'fecha': hoy,
+                    'mensaje': 'No hay ventas registradas para hoy.',
+                    'ventas': []
+                }, status=status.HTTP_200_OK)
+            
+            return Response({
+                'fecha': hoy,
+                'ventas': ventas_serializer.data,
+            }, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        return Response({
-            'fecha': hoy,
-            'ventas': ventas_serializer.data,
-        })
-
-# Vista para generar un reporte de ventas mensual        
+# Vista para generar un reporte de ventas mensual
 class ReporteVentasMensual(APIView):
     def get(self, request):
-        mes_actual = timezone.now().month # Obtiene el mes actual
-        ventas = OrdenCompra.objects.filter(fecha__month=mes_actual) # Filtra las ventas por mes
-        total_ventas = ventas.aggregate(Sum('montoTotal'))
-        total_transacciones = ventas.count()
-
-        return Response({
-            'mes': mes_actual,
-            'total_ventas': total_ventas['montoTotal__sum'],
-            'total_transacciones': total_transacciones,
-            'ventas': OrdenCompraSerializer(ventas, many=True).data
-        })
+        try:
+            mes_actual = timezone.now().month  # Obtiene el mes actual
+            anio_actual = timezone.now().year  # Obtiene el año actual
+            ventas = OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual)  # Filtra las ventas por mes actual y año
+            
+            # Calcula el total de ventas y el número de transacciones
+            total_ventas = ventas.aggregate(Sum('montoTotal'))['montoTotal__sum'] or 0
+            total_transacciones = ventas.count()
+            
+            # Manejo de ventas vacías
+            if not ventas.exists():
+                return Response({
+                    'mes': mes_actual,
+                    'total_ventas': total_ventas,
+                    'total_transacciones': total_transacciones,
+                    'mensaje': 'No hay ventas registradas para este mes.',
+                    'ventas': []
+                }, status=status.HTTP_200_OK)
+            
+            return Response({
+                'mes': mes_actual,
+                'total_ventas': total_ventas,
+                'total_transacciones': total_transacciones,
+                'ventas': OrdenCompraSerializer(ventas, many=True).data
+            }, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
