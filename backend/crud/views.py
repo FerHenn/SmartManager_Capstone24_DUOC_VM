@@ -1,9 +1,9 @@
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+from django_filters.rest_framework import DjangoFilterBackend
 from django.db import transaction
 from django.db.models import Sum, F
 from django.http import HttpResponseForbidden
@@ -70,10 +70,15 @@ class ProveedorViewSet(viewsets.ModelViewSet):
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset=Categoria.objects.all()
     serializer_class=CategoriaSerializer 
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nombreCategoria']  # Permite buscar por nombre
 
 class ProductoViewSet(viewsets.ModelViewSet):
-    queryset=Producto.objects.all()
-    serializer_class=ProductoSerializer 
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]
+    search_fields = ['nombre', 'descripcion']
+    ordering_fields = ['precio', 'nombre']
     
 class MetodoPagoViewSet(viewsets.ModelViewSet):
     queryset=MetodoPago.objects.all()
@@ -82,8 +87,6 @@ class MetodoPagoViewSet(viewsets.ModelViewSet):
 class OrdenCompraViewSet(viewsets.ModelViewSet):
     queryset=OrdenCompra.objects.all()
     serializer_class=OrdenCompraSerializer
-   
-from decimal import Decimal  # Asegúrate de importar Decimal
 
 class CrearOrdenCompra(APIView):
     
