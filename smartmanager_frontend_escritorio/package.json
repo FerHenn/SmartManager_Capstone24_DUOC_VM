@@ -44,14 +44,6 @@
     "typescript": "~5.5.2"
   },
   "engines": {
-  "node": "20.18.0"
-  },
-  "budgets": [
-  {
-    "type": "initial",
-    "maximumWarning": "1.83mb",
-    "maximumError": "2mb"
+  "node": "20.x"
   }
-]
-
 }
