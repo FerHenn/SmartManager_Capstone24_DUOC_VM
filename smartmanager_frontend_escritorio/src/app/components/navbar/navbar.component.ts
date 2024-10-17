@@ -3,27 +3,35 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-import { Router,RouterModule } from '@angular/router';
+import { Router,RouterModule,NavigationEnd } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { AuthService } from '../../services/auth.service.service'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [BsDropdownModule,RouterModule,MenubarModule,TieredMenuModule,MenuModule,ButtonModule,SidebarModule,PanelMenuModule,], // Importa los módulos necesarios
+  imports: [BsDropdownModule,RouterModule,MenubarModule,TieredMenuModule,MenuModule,ButtonModule,SidebarModule,PanelMenuModule,CommonModule,], // Importa los módulos necesarios
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   visibleSidebar1: boolean = false;
-
+  isAuthenticated: boolean = false; // Variable para saber si el usuario está autenticado
   menuItems: MenuItem[] = [];
   profileItems: MenuItem[] = [];
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
   ngOnInit() {
+    // Suscribirse a los eventos del router
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isAuthenticated = this.authService.isAuthenticated(); // Verifica si el usuario está autenticado
+      }
+    });
     this.menuItems = [
       {
         label: 'Inicio',
@@ -70,7 +78,7 @@ export class NavbarComponent {
 
   cerrarSesion() {
     console.log('Cerrar Sesión');
-    // Implementa la lógica para cerrar sesión
-    this.router.navigate(['/login']);
+    this.authService.logout(); // Llama al método de logout
+    this.router.navigate(['/login']); // Redirige al login después de cerrar sesión
   }
 }

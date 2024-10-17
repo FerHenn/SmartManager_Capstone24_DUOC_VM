@@ -16,4 +16,12 @@ export class AuthService {
     return this.http.post(this.apiUrl + 'login/', { nombreUsuario, password });
   }
 
+  logout() {
+    localStorage.removeItem('token'); // Elimina el token
+    localStorage.removeItem('usuario'); // Elimina el nombre de usuario
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token'); // Verifica si hay un token en el localStorage
+  }
 }

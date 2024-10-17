@@ -18,7 +18,11 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
   styleUrl: './inicio.component.scss'
 })
 export class InicioComponent {
-  constructor(private router: Router) {}
+  usuario: string | null;
+  constructor(private router: Router) {
+    this.usuario = localStorage.getItem('usuario'); // Recupera el nombre de usuario
+  }
+}
   
  
-}
+

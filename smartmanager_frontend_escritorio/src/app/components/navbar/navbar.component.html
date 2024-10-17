@@ -1,14 +1,11 @@
-<p-menubar>
-  <!-- Menú de navegación a la izquierda (Botón de rutas) -->
+<p-menubar *ngIf="isAuthenticated">
   <ng-template pTemplate="start">
     <p-sidebar [(visible)]="visibleSidebar1" position="left" [modal]="true">
-
       <p-panelMenu #menuRoutes [model]="menuItems"></p-panelMenu>
     </p-sidebar>
     <p-button (click)="visibleSidebar1 = true" icon="pi pi-bars"></p-button>
   </ng-template>
 
-  <!-- Perfil y Cerrar sesión a la derecha (Botón de perfil) -->
   <ng-template pTemplate="end">
     <p-button icon="pi pi-user" (click)="menu.toggle($event)"></p-button>
     <p-menu #menu [popup]="true" [model]="profileItems"></p-menu>
