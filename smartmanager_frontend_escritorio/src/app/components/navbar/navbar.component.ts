@@ -43,27 +43,34 @@ export class NavbarComponent {
         icon: 'pi pi-cog',
         routerLink: ['/productos']
       },
-      // {
-      //   label: 'Usuario',
-      //   icon: 'pi pi-calendar',
-      //   routerLink: ['/usuario']
-      // },
+      {
+        label: 'Usuario',
+        icon: 'pi pi-calendar',
+        routerLink: ['/usuario']
+      },
       {
         label: 'Login',
         icon: 'pi pi-cog',
         routerLink: ['/login']
       },
-      // {
-      //   label: 'ventas',
-      //   icon: 'pi pi-cog',
-      //   routerLink: ['/ventas']
-      // },
+      {
+        label: 'ventas',
+        icon: 'pi pi-cog',
+        routerLink: ['/ventas']
+      },
       {
         label: 'registro',
         icon: 'pi pi-cog',
         routerLink: ['/registro']
+      },
+      {
+        label: 'dashboard',
+        icon: 'pi pi-cog',
+        routerLink: ['/dashboard']
       }
     ];
+
+
 
     this.profileItems = [
       { label: 'Ver Perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
