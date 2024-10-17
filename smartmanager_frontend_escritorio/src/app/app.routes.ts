@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'ventas', component: VentasComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: '**', redirectTo: '' },
   // Otras rutas...
 ];
 export const routing = RouterModule.forRoot(routes);
