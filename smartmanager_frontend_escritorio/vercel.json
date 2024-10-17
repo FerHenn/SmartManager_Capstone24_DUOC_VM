@@ -1,48 +1,5 @@
 {
-    "Routes": [
-        {
-            "src": "/",
-            "dest": "/"
-        },
-        {
-            "src": "/inicio",
-            "dest": "/inicio"
-        },        
-        {
-            "src": "/login",
-            "dest": "/login"
-        },
-        {
-            "src": "/usuario",
-            "dest": "/usuario"
-        },
-        {
-            "src": "/productos",
-            "dest": "/productos"
-        },        
-        {
-            "src": "/producto/new",
-            "dest": "/producto/new"
-        },
-        {
-            "src": "/producto/edit/:id",
-            "dest": "/producto/edit/:id"
-        },
-        {
-            "src": "/dashboard",
-            "dest": "/dashboard"
-        },
-        {
-            "src": "/ventas",
-            "dest": "/ventas"
-        },
-        {
-            "src": "/perfil",
-            "dest": "/perfil"
-        },
-        {
-            "src": "/**",
-            "dest": "/"
-        }
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/" }
     ]
-}
+  }
