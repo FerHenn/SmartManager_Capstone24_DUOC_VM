@@ -10,7 +10,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { PerfilComponent } from './components/perfil/perfil.component'
 
 export const routes: Routes = [
-{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent },
@@ -20,7 +20,6 @@ export const routes: Routes = [
   { path: 'ventas', component: VentasComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'ventas', component: VentasComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: '**', redirectTo: '' },
   // Otras rutas...
