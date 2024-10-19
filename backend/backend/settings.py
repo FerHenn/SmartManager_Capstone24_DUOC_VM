@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'smartmanagerdb',  # Nombre de la base de datos
         'USER': 'tipopipo',  # Usuario de la base de datos
         'PASSWORD': 'Isc_2002$',  # Contraseña de la base de datos
-        'HOST': 'dbsmartmanagerpostgre.postgres.database.azure.com',  # Host del servidor
+        'HOST': 'dbsmartmanagertp.postgres.database.azure.com',  # Host del servidor
         'PORT': '5432',  # Puerto de PostgreSQL
         'OPTIONS': {
             'sslmode': 'require',  # Usa conexión segura
