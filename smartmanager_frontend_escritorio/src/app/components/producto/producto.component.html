@@ -1,0 +1,160 @@
+<!-- Mostrar datos en la tabla -->
+<p-table [value]="productos" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Categoría</th>
+          <th>Proveedor</th>
+          <th>Cantidad Mínima</th>
+          <th>Cantidad Actual</th>
+          <th>Última Actualización</th>
+          <th>Ingredientes</th>
+          <th>Imagen</th>
+          <th>Acciones</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-producto>
+      <tr>
+          <td>{{ producto.nombreProducto }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.precio | currency }}</td>
+          <td>{{ producto.categoria?.nombreCategoria || 'Sin Categoría' }}</td>
+          <td>{{ producto.proveedor?.nombre_proveedor || 'Sin Proveedor' }}</td>
+          <td>{{ producto.cantidadMinima }}</td>
+          <td>{{ producto.cantidadActual }}</td>
+          <td>{{ producto.ultimaActualizacion | date:'short' }}</td>
+          <td>
+              <ul *ngIf="producto.ingredientes?.length > 0">
+                  <li *ngFor="let ingrediente of producto.ingredientes">
+                      {{ ingrediente.nombreIngrediente }}
+                  </li>
+              </ul>
+              <span *ngIf="!producto.ingredientes || producto.ingredientes.length === 0">Sin ingredientes</span>
+          </td>
+          <td>
+              <img *ngIf="producto.imagen" [src]="'http://127.0.0.1:8000/' + producto.imagen" alt="Imagen del producto" width="100" height="100">
+          </td>
+          <td>
+              <button pButton icon="pi pi-pencil" (click)="editar(producto)" label="Editar"></button>
+              <button pButton icon="pi pi-trash" class="p-button-danger" (click)="eliminarProducto(producto)" label="Eliminar"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+
+<button pButton label="Nuevo Producto" icon="pi pi-plus" (click)="nuevo()"></button>
+
+<!-- Modal para crear o editar Producto -->
+<p-dialog header="Producto" [(visible)]="displayDialog" [modal]="true" [closable]="false" [style]="{width: '50vw'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nombreProducto">Nombre del Producto</label>
+      <input id="nombreProducto" type="text" pInputText [(ngModel)]="productoSeleccionado.nombreProducto">
+    </div>
+    <div class="p-field">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" pInputText [(ngModel)]="productoSeleccionado.descripcion">
+    </div>
+    <div class="p-field">
+      <label for="precio">Precio</label>
+      <input id="precio" type="number" pInputText [(ngModel)]="productoSeleccionado.precio">
+    </div>
+    <div class="p-field">
+      <label for="cantidadMinima">Cantidad Mínima</label>
+      <input id="cantidadMinima" type="number" pInputText [(ngModel)]="productoSeleccionado.cantidadMinima">
+    </div>
+    <div class="p-field">
+      <label for="cantidadActual">Cantidad Actual</label>
+      <input id="cantidadActual" type="number" pInputText [(ngModel)]="productoSeleccionado.cantidadActual">
+    </div>
+    <div class="p-field">
+      <label for="categoria">Categoría</label>
+      <div class="p-inputgroup">
+        <p-dropdown [options]="categorias" [(ngModel)]="productoSeleccionado.categoria" optionLabel="nombreCategoria" placeholder="Seleccionar Categoría"></p-dropdown>
+        <button pButton icon="pi pi-plus" class="p-button-success" (click)="abrirModalCategoria()"></button>
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="proveedor">Proveedor</label>
+      <div class="p-inputgroup">
+        <p-dropdown [options]="proveedores" [(ngModel)]="productoSeleccionado.proveedor" optionLabel="nombre_proveedor" placeholder="Seleccionar Proveedor"></p-dropdown>
+        <button pButton icon="pi pi-plus" class="p-button-success" (click)="abrirModalProveedor()"></button>
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="ingredientes">Ingredientes</label>
+      <p-multiSelect [options]="ingredientes" [(ngModel)]="productoSeleccionado.ingredientes" optionLabel="nombreIngrediente" placeholder="Seleccionar ingredientes"></p-multiSelect>
+      <button pButton icon="pi pi-plus" class="p-button-success" (click)="abrirModalIngrediente()"></button>
+    </div>
+    <div class="p-field">
+      <label for="imagen">Imagen</label>
+      <input type="file" id="imagen" (change)="onImageSelected($event)">
+      <img *ngIf="selectedImageUrl" [src]="selectedImageUrl" alt="Previsualización de imagen" width="100">
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarProducto()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarDialogo()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Modal para agregar Categoría -->
+<p-dialog header="Nueva Categoría" [(visible)]="displayModalCategoria" [modal]="true" [closable]="true" [style]="{width: '40vw'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nombreCategoria">Nombre de la Categoría</label>
+      <input id="nombreCategoria" type="text" pInputText [(ngModel)]="nuevaCategoria.nombreCategoria">
+    </div>
+    <div class="p-field">
+      <label for="descripcionCategoria">Descripción</label>
+      <input id="descripcionCategoria" type="text" pInputText [(ngModel)]="nuevaCategoria.descripcionCategoria">
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarCategoria()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarModalCategoria()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Modal para agregar Proveedor -->
+<p-dialog header="Nuevo Proveedor" [(visible)]="displayModalProveedor" [modal]="true" [closable]="true" [style]="{width: '40vw'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nombreProveedor">Nombre del Proveedor</label>
+      <input id="nombreProveedor" type="text" pInputText [(ngModel)]="nuevoProveedor.nombre_proveedor">
+    </div>
+    <div class="p-field">
+      <label for="numeroTelefonico">Número Telefónico</label>
+      <input id="numeroTelefonico" type="text" pInputText [(ngModel)]="nuevoProveedor.numero_telefonico">
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarProveedor()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarModalProveedor()"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- Modal para agregar Ingrediente -->
+<p-dialog header="Nuevo Ingrediente" [(visible)]="displayModalIngrediente" [modal]="true" [closable]="true" [style]="{width: '40vw'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nombreIngrediente">Nombre del Ingrediente</label>
+      <input id="nombreIngrediente" type="text" pInputText [(ngModel)]="nuevoIngrediente.nombreIngrediente">
+    </div>
+    <div class="p-field">
+      <label for="cantidadMinima">Cantidad Mínima</label>
+      <input id="cantidadMinima" type="number" pInputText [(ngModel)]="nuevoIngrediente.cantidadMinima">
+    </div>
+    <div class="p-field">
+      <label for="cantidadActual">Cantidad Actual</label>
+      <input id="cantidadActual" type="number" pInputText [(ngModel)]="nuevoIngrediente.cantidadActual">
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarIngrediente()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarModalIngrediente()"></button>
+  </p-footer>
+</p-dialog>

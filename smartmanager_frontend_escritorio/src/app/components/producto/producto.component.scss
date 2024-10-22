@@ -1,0 +1,24 @@
+.p-fluid .p-inputgroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  .p-dialog {
+    width: 50vw;
+    max-width: 100%;
+    @media (max-width: 768px) {
+      width: 80vw;
+    }
+  }
+  
+  .p-button {
+    margin-right: 10px;
+  }
+  

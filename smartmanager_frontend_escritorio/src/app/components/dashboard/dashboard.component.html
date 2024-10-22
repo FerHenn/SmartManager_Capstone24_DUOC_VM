@@ -1,1 +1,62 @@
-<p>dashboard works!</p>
+<div class="p-grid">
+
+    <!-- Card para Ventas Diarias -->
+    <div class="p-col-12 p-md-4">
+      <p-card header="Ventas Diarias" subheader="Hoy">
+        <h2>{{ ventasDiarias | currency }}</h2>
+      </p-card>
+    </div>
+  
+    <!-- Card para Ventas Mensuales -->
+    <div class="p-col-12 p-md-4">
+      <p-card header="Ventas Mensuales" subheader="Este mes">
+        <h2>{{ ventasMensuales | currency }}</h2>
+      </p-card>
+    </div>
+  
+    <!-- Card para Resumen de Inventario Diario -->
+    <div class="p-col-12 p-md-4">
+      <p-card header="Inventario Diario" subheader="Productos disponibles">
+        <h2>{{ totalInventario }}</h2>
+      </p-card>
+    </div>
+  
+    <!-- Gráfico de Barras para Ventas Mensuales -->
+    <div class="p-col-12 p-md-6">
+      <p-card header="Gráfico de Ventas Mensuales">
+        <ngx-charts-bar-vertical
+          [view]="[500, 300]"
+          [scheme]="colorScheme"
+          [results]="ventasMensualesData"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="'Mes'"
+          [yAxisLabel]="'Ventas'"
+          [roundEdges]="true">
+        </ngx-charts-bar-vertical>
+      </p-card>
+    </div>
+  
+    <!-- Gráfico de Líneas para Ventas Diarias -->
+    <div class="p-col-12 p-md-6">
+      <p-card header="Gráfico de Ventas Diarias">
+        <ngx-charts-line-chart
+          [view]="[500, 300]"
+          [scheme]="colorScheme"
+          [results]="ventasDiariasData"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="'Día de la semana'"
+          [yAxisLabel]="'Ventas'"
+          [roundDomains]="true">
+        </ngx-charts-line-chart>
+      </p-card>
+    </div>
+  </div>
+  

@@ -2,25 +2,26 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component'; 
 import { InicioComponent} from './components/inicio/inicio.component'; 
 import { VentasComponent } from './components/ventas/ventas.component'; 
-import { ProductoListaComponent } from './components/producto-lista/producto-lista.component';
-import { ProductoFormularioComponent } from './components/producto-formulario/producto-formulario.component';
+import { ProductoComponent } from './components/producto/producto.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'; 
 import { RegistroComponent } from './components/registro/registro.component';
 import { UsuarioComponent } from './components/usuario/usuario.component'; 
 import { PerfilComponent } from './components/perfil/perfil.component'
+import { ErrorComponent } from './components/error/error.component'
+import { AdminGuard } from './guards/admin-guard.guard';  
+import { AuthGuard } from './guards/admin-guard.guard';  
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'inicio', component: InicioComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'usuario', component: UsuarioComponent },
-  { path: 'productos', component: ProductoListaComponent },
-  { path: 'producto/new', component: ProductoFormularioComponent },
-  { path: 'producto/edit/:id', component: ProductoFormularioComponent },
-  { path: 'ventas', component: VentasComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'perfil', component: PerfilComponent },
+  { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard]},// autenticacion para los tokens
+  { path: 'login', component: LoginComponent  },
+  { path: 'usuario', component: UsuarioComponent, canActivate: [AdminGuard]}, // autenticacion para los admins
+  { path: 'productos', component: ProductoComponent, canActivate: [AuthGuard]},
+  { path: 'ventas', component: VentasComponent, canActivate: [AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]},
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+  {path: 'error', component: ErrorComponent},
   { path: '**', redirectTo: '' },
   // Otras rutas...
 ];

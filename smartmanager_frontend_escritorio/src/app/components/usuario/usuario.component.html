@@ -1,71 +1,73 @@
+<p-toast></p-toast> 
 
-<div class="p-grid">
-  <div class="p-col-12">
-    <h2>CRUD de Usuarios</h2>
+<p-table [value]="usuarios" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nombre de Usuario</th>
+      <th>Correo Electrónico</th>
+      <th>Nombres</th>
+      <th>Apellidos</th>
+      <th>Número Telefónico</th> 
+      <th>Activo</th>
+      <th>Administrador</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-usuario>
+    <tr>
+      <td>{{ usuario.nombreUsuario }}</td>
+      <td>{{ usuario.correo }}</td>
+      <td>{{ usuario.nombre }}</td>
+      <td>{{ usuario.apellido }}</td>
+      <td>{{ usuario.numero_telefonico || 'N/A' }}</td> 
+      <td>{{ usuario.estado_activo ? 'Sí' : 'No' }}</td> 
+      <td>{{ usuario.usuario_administrador ? 'Sí' : 'No' }}</td> 
+      <td>{{ usuario.role }}</td>
+      <td>
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="editarUsuario(usuario)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="eliminarUsuario(usuario)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Diálogo de edición de usuario -->
+<p-dialog header="Editar Usuario" [(visible)]="displayDialog" [modal]="true" [closable]="false" (onHide)="cerrarDialogo()">
+  <div class="field">
+    <label for="nombreUsuario">Nombre de Usuario</label>
+    <input pInputText id="nombreUsuario" [(ngModel)]="usuarioSeleccionado.nombreUsuario">
   </div>
-  
-  <p-card>
-    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
-      <mat-form-field appearance="outline">
-      <mat-label for="nombreUsuario">Nombre de Usuario</mat-label> 
-        <input matInput formControlName="nombreUsuario" placeholder="Introduce tu nombre de usuario" required />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label for="correo">correo</mat-label> 
-          <input matInput formControlName="correo" placeholder="Introduce tu correo" required />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label for="nombre">Nombre</mat-label> 
-            <input matInput formControlName="nombre" placeholder="Introduce tu nombre de usuario" required />
-          </mat-form-field>
-
-      <div>
-        <label for="nombre">Nombre</label>
-        <input id="nombre" formControlName="nombre" required />
-      </div>
-      <div>
-        <label for="apellido">Apellido</label>
-        <input id="apellido" formControlName="apellido" required />
-      </div>
-      <div>
-        <label for="estado_activo">Estado Activo</label>
-        <input type="checkbox" id="estado_activo" formControlName="estado_activo" />
-      </div>
-      <div>
-        <label for="usuario_administrador">Usuario Administrador</label>
-        <input type="checkbox" id="usuario_administrador" formControlName="usuario_administrador" />
-      </div>
-      <button type="submit">{{ selectedUsuario ? 'Actualizar' : 'Crear' }}</button>
-      <button type="button" (click)="resetForm()">Cancelar</button>
-    </form>
-  </p-card>   
-
-  <div class="p-col-12">
-    <h3>Lista de Usuarios</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre de Usuario</th>
-          <th>Correo</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Estado Activo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.nombreUsuario }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.apellido }}</td>
-          <td>{{ usuario.estado_activo ? 'Sí' : 'No' }}</td>
-          <td>
-            <button (click)="editUsuario(usuario)">Editar</button>
-            <button (click)="deleteUsuario(usuario.nombreUsuario)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="field">
+    <label for="correo">Correo Electrónico</label>
+    <input pInputText id="correo" [(ngModel)]="usuarioSeleccionado.correo">
   </div>
-</div>
+  <div class="field">
+    <label for="nombre">Nombres</label>
+    <input pInputText id="nombre" [(ngModel)]="usuarioSeleccionado.nombre">
+  </div>
+  <div class="field">
+    <label for="apellido">Apellidos</label>
+    <input pInputText id="apellido" [(ngModel)]="usuarioSeleccionado.apellido">
+  </div>
+  <div class="field">
+    <label for="numeroTelefonico">Número Telefónico</label>
+    <input pInputText id="numeroTelefonico" [(ngModel)]="usuarioSeleccionado.numero_telefonico">
+  </div>
+  <div class="field">
+    <label for="estadoActivo">¿Está Activo?</label>
+    <p-checkbox id="estadoActivo" [(ngModel)]="usuarioSeleccionado.estado_activo" binary="true"></p-checkbox>
+  </div>
+  <div class="field">
+    <label for="administrador">¿Es Administrador?</label>
+    <p-checkbox id="administrador" [(ngModel)]="usuarioSeleccionado.usuario_administrador" binary="true"></p-checkbox>
+  </div>
+  <div class="field">
+    <label for="role">Rol</label>
+    <input pInputText id="role" [(ngModel)]="usuarioSeleccionado.role">
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarUsuario()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarDialogo()"></button>
+  </p-footer>
+</p-dialog>
