@@ -47,28 +47,26 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
 # Serializer para Productos, maneja ingredientes y categorías
 class ProductoSerializer(serializers.ModelSerializer):
-    # Mostramos ingredientes, categoría y proveedor
+    # Esto mostrará los ingredientes en el GET
     ingredientes = IngredienteSerializer(many=True, read_only=True)
-    categoria = CategoriaSerializer(read_only=True)
-    proveedor = ProveedorSerializer(read_only=True)
-
-    # Permitimos pasar los IDs al crear o actualizar
+    # Para manejar los IDs de ingredientes al crear o actualizar productos
     ingredientes_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Ingrediente.objects.all(),
-        many=True,
-        write_only=True,
-        required=False,
+        queryset=Ingrediente.objects.all(), 
+        many=True, 
+        write_only=True, 
+        required=False, 
         allow_null=True
     )
+    categoria = CategoriaSerializer(read_only=True)
     categoria_id = serializers.PrimaryKeyRelatedField(
-        queryset=Categoria.objects.all(),
-        source='categoria',
+        queryset=Categoria.objects.all(), 
+        source='categoria', 
         write_only=True
     )
-    proveedor_id = serializers.PrimaryKeyRelatedField(
-        queryset=Proveedor.objects.all(),
-        source='proveedor',
-        write_only=True
+    proveedor = serializers.PrimaryKeyRelatedField(
+        queryset=Proveedor.objects.all(), 
+        required=False, 
+        allow_null=True
     )
 
     class Meta:
@@ -85,35 +83,42 @@ class ProductoSerializer(serializers.ModelSerializer):
             'categoria',
             'categoria_id',
             'proveedor',
-            'proveedor_id',
             'ingredientes',
             'ingredientes_ids'
         ]
 
+    # Método para crear un Producto
     def create(self, validated_data):
-        # Extraemos los ingredientes, categoría y proveedor
-        ingredientes_data = validated_data.pop('ingredientes_ids', [])
+        # Extraemos los IDs de los ingredientes (pueden ser None)
+        ingredientes_data = validated_data.pop('ingredientes_ids', None)
         categoria = validated_data.pop('categoria')
-        proveedor = validated_data.pop('proveedor', None)
+        proveedor = validated_data.get('proveedor', None)  # Proveedor puede ser None
 
         # Creamos el producto
         producto = Producto.objects.create(**validated_data, categoria=categoria, proveedor=proveedor)
 
         # Asignamos los ingredientes al producto, si existen
         if ingredientes_data:
-            producto.ingredientes.set(ingredientes_data)
+            producto.ingredientes.set(ingredientes_data) # Asignar los ingredientes
 
         return producto
-
+    
+    # Método para actualizar un Producto
     def update(self, instance, validated_data):
-        ingredientes_data = validated_data.pop('ingredientes_ids', [])
+        # Extraemos los IDs de los ingredientes (pueden ser None)
+        ingredientes_data = validated_data.pop('ingredientes_ids', None)
+        
+        # Actualizamos los campos del producto
+        instance.nombreProducto = validated_data.get('nombreProducto', instance.nombreProducto)
+        instance.descripcion = validated_data.get('descripcion', instance.descripcion)
+        instance.precio = validated_data.get('precio', instance.precio)
         instance.categoria = validated_data.get('categoria', instance.categoria)
-        instance.proveedor = validated_data.get('proveedor', instance.proveedor)
+        instance.proveedor = validated_data.get('proveedor', instance.proveedor)  # Proveedor puede ser None
         instance.save()
 
-        # Si hay ingredientes, actualizamos
+        # Si hay ingredientes, los actualizamos
         if ingredientes_data:
-            instance.ingredientes.set(ingredientes_data)
+            instance.ingredientes.set(ingredientes_data) # Actualizar ingredientes
 
         return instance
 
