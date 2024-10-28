@@ -1,0 +1,21 @@
+<div class="login-container">
+    <p-card header="Inicio Sesión" class="login-card">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="p-field">
+          <label for="nombreUsuario">Usuario</label>
+          <input id="nombreUsuario" type="text" pInputText formControlName="nombreUsuario" name="nombreUsuario" required />
+          <p-message *ngIf="isSubmitted && f['nombreUsuario'].errors?.['required']" severity="error" text="El nombre de usuario es requerido."></p-message>
+        </div>
+        
+        <div class="p-field">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" pInputText formControlName="password" name="password" required />
+          <p-message *ngIf="isSubmitted && f['password'].errors?.['required']" severity="error" text="La contraseña es requerida."></p-message>
+        </div>
+        
+        <div class="button-container">
+          <button pButton type="submit" label="Iniciar Sesión"></button>
+        </div>
+      </form>
+    </p-card>
+  </div>

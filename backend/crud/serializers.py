@@ -5,8 +5,7 @@ from .models import Usuario, Proveedor, Categoria, Producto, MetodoPago, Product
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model=Usuario
-        #fields=('nombre','apellido','telefono')
-        fields='__all__'
+        fields='__all__' # Incluye todos los campos del modelo Usuario
         
 class ListaUsuariosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,6 +33,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model=Categoria
         fields='__all__'
 
+# Serializer para Ingredientes, permitiendo campos nulos
 class IngredienteSerializer(serializers.ModelSerializer):
     proveedor = serializers.PrimaryKeyRelatedField(
         queryset=Proveedor.objects.all(), 
@@ -44,7 +44,8 @@ class IngredienteSerializer(serializers.ModelSerializer):
     class Meta:
         model=Ingrediente
         fields='__all__'
-        
+
+# Serializer para Productos, maneja ingredientes y categorías
 class ProductoSerializer(serializers.ModelSerializer):
     # Esto mostrará los ingredientes en el GET
     ingredientes = IngredienteSerializer(many=True, read_only=True)
@@ -86,6 +87,7 @@ class ProductoSerializer(serializers.ModelSerializer):
             'ingredientes_ids'
         ]
 
+    # Método para crear un Producto
     def create(self, validated_data):
         # Extraemos los IDs de los ingredientes (pueden ser None)
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
@@ -97,10 +99,11 @@ class ProductoSerializer(serializers.ModelSerializer):
 
         # Asignamos los ingredientes al producto, si existen
         if ingredientes_data:
-            producto.ingredientes.set(ingredientes_data)
+            producto.ingredientes.set(ingredientes_data) # Asignar los ingredientes
 
         return producto
-
+    
+    # Método para actualizar un Producto
     def update(self, instance, validated_data):
         # Extraemos los IDs de los ingredientes (pueden ser None)
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
@@ -115,7 +118,7 @@ class ProductoSerializer(serializers.ModelSerializer):
 
         # Si hay ingredientes, los actualizamos
         if ingredientes_data:
-            instance.ingredientes.set(ingredientes_data)
+            instance.ingredientes.set(ingredientes_data) # Actualizar ingredientes
 
         return instance
 
@@ -136,7 +139,7 @@ class ProductoOrdenSerializer(serializers.ModelSerializer):
         fields = ['producto', 'cantidad']
 
 class OrdenCompraSerializer(serializers.ModelSerializer):
-    productos_ordenados = ProductoOrdenSerializer(many=True, read_only=True)
+    productos_ordenados = ProductoOrdenSerializer(many=True, read_only=True)  # Relación con los productos ordenados
 
     class Meta:
         model = OrdenCompra

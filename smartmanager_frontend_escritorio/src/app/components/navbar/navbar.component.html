@@ -1,0 +1,13 @@
+<p-menubar *ngIf="isAuthenticated">
+  <ng-template pTemplate="start">
+    <p-sidebar [(visible)]="visibleSidebar1" position="left" [modal]="true">
+      <p-panelMenu #menuRoutes [model]="menuItems"></p-panelMenu>
+    </p-sidebar>
+    <p-button (click)="visibleSidebar1 = true" icon="pi pi-bars"></p-button>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <p-button icon="pi pi-user" (click)="menu.toggle($event)"></p-button>
+    <p-menu #menu [popup]="true" [model]="profileItems"></p-menu>
+  </ng-template>
+</p-menubar>

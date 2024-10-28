@@ -25,13 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4a6pjyw3!3jf-vyg&+v3)#%edirom@j5*0y3&@!-=u)xh43p*r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Debug debe estar desactivado en producción para evitar fugas de información sensible
 DEBUG = False
 
+# Hosts permitidos para acceder a la aplicación
 ALLOWED_HOSTS = [
     'smartmanager-capstone24-duoc-vm.onrender.com',
     '0.0.0.0'
 ]
 
+# Confianza para orígenes CSRF (protección contra ataques Cross-Site Request Forgery)
 CSRF_TRUSTED_ORIGINS = ['https://smartmanager-capstone24-duoc-vm.onrender.com']
 
 # Application definition
@@ -43,23 +46,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders', #para angular
-    'coreapi',
-    'crud',
+    'rest_framework',  # Django REST framework para crear APIs
+    'rest_framework.authtoken',  # Soporte para autenticación con tokens
+    'corsheaders',  # Para permitir solicitudes entre dominios (CORS)
+    'coreapi',  # Documentación de APIs
+    'crud',  # Aplicación personalizada para gestión de datos
+    'django_filters',  # Soporte para filtros en las APIs
 ]
 
+# Middleware para manejar diversas operaciones HTTP y seguridad
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Para manejar CORS
+    'django.middleware.security.SecurityMiddleware',  # Seguridad general
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Manejo de sesiones
+    'django.middleware.common.CommonMiddleware',  # Operaciones generales
+    'django.middleware.csrf.CsrfViewMiddleware',  # Protección CSRF
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Manejo de autenticación
+    'django.contrib.messages.middleware.MessageMiddleware',  # Manejo de mensajes
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Protección contra Clickjacking
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Manejo de archivos estáticos en producción
     
 ]
 
@@ -87,24 +92,26 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Configuración de la base de datos
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'smartmanagerdb', # la cambie para probar  bd_smartmanager
-        'USER': 'tipopipo', # postgres
-        'PASSWORD': 'Isc_2002$',# la cambie para probar Isc_2002
-        'HOST': 'dbsmartmanagerpostgre.postgres.database.azure.com', #se cambio de localhost
-        'PORT': '5432',
-        'OPTIONS':{
-            'sslmode': 'require',
+        'ENGINE': 'django.db.backends.postgresql',  # Motor PostgreSQL
+        'NAME': 'smartmanagerdb',  # Nombre de la base de datos
+        'USER': 'tipopipo',  # Usuario de la base de datos
+        'PASSWORD': 'Isc_2002$',  # Contraseña de la base de datos
+        'HOST': 'dbsmartmanagertp.postgres.database.azure.com',  # Host del servidor
+        'PORT': '5432',  # Puerto de PostgreSQL
+        'OPTIONS': {
+            'sslmode': 'require',  # Usa conexión segura
         },
     }
 }
 
+# Configuración adicional de la base de datos para entorno de despliegue
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
+        conn_max_age=600,  # Optimiza la reutilización de conexiones
         ssl_require=True,
     )
 }
@@ -127,6 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Especifica el modelo de usuario personalizado
 AUTH_USER_MODEL = 'crud.Usuario'
 
 # Internationalization
@@ -144,14 +152,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Configuración de CORS para permitir solicitudes desde el frontend
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
+    "http://localhost:4200",  # Permite el frontend local (Angular)
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True    #Cambiar en producción
+CORS_ALLOW_ALL_ORIGINS = True # Permite solicitudes de cualquier origen (desactivar en producción)
 
+# Configuración de archivos estáticos y medios
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
@@ -159,10 +172,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuración del framework REST
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
+# Agrega barra al final de las URLs si es necesario
 APPEND_SLASH = False
 
+# Configuración del almacenamiento de archivos estáticos en producción
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
