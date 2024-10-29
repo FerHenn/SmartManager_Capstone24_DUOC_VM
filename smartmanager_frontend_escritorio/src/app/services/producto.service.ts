@@ -1,37 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Producto, Categoria, Proveedor, Ingrediente } from '../interfaces/producto.interface';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'https://smartmanager-capstone24-duoc-vm.onrender.com/api/producto/';
+  private apiUrl = 'http://127.0.0.1:8000/api/producto/';
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todos los productos
-  getProductos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+
+  getProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.apiUrl);
   }
 
-  // Obtener producto por ID
-  getProducto(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${id}/`);
+  // Método para crear producto
+  crearProducto(producto: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, producto);
+  }
+  // Método para actualizar producto
+  actualizarProducto(id: number, producto: FormData): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${id}/`, producto);
   }
 
-  // Crear un producto
-  createProducto(producto: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, producto);
+  eliminarProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 
-  // Actualizar un producto
-  updateProducto(id: number, producto: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}${id}/`, producto.id);
+  // Métodos para cargar categorías, proveedores e ingredientes
+  getCategorias(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>('http://127.0.0.1:8000/api/categoria/');
   }
 
-  // Eliminar un producto
-  deleteProducto(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}${id}/`);
+  getProveedores(): Observable<Proveedor[]> {
+    return this.http.get<Proveedor[]>('http://127.0.0.1:8000/api/proveedores/');
+  }
+
+  getIngredientes(): Observable<Ingrediente[]> {
+    return this.http.get<Ingrediente[]>('http://127.0.0.1:8000/api/ingrediente/');
   }
 }

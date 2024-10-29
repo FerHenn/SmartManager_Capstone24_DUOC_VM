@@ -1,50 +1,49 @@
-<div class="perfil-container">
-<p-card>
-    <h2>Información Personal</h2>
-
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="p-card-title">
-          <i class="pi pi-user"></i> Nombre
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <span class="value">{{ usuario.nombre }}</span>
-      </ng-template>
-    </p-card>
-  
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="p-card-title">
-          <i class="pi pi-envelope"></i> Correo Electrónico
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <span class="value">{{ usuario.email }}</span>
-      </ng-template>
-    </p-card>
-  
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="p-card-title">
-          <i class="pi pi-phone"></i> Teléfono
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <span class="value">{{ usuario.telefono }}</span>
-      </ng-template>
-    </p-card>
-  
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="p-card-title">
-          <i class="pi pi-home"></i> Dirección
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <span class="value">{{ usuario.direccion }}</span>
-      </ng-template>
-    </p-card>
-</p-card>
+<p-card header="Perfil del Usuario" class="perfil-card">
+  <div *ngIf="errorMessage; else perfilContent">
+    <p>{{ errorMessage }}</p>
   </div>
-  
+
+  <ng-template #perfilContent>
+    <div class="perfil-info">
+      <div class="field">
+        <label for="nombreUsuario">Nombre de Usuario</label>
+        <input pInputText id="nombreUsuario" [value]="perfil.nombreUsuario" readonly>
+      </div>
+
+      <div class="field">
+        <label for="correo">Correo Electrónico</label>
+        <input pInputText id="correo" [value]="perfil.correo" readonly>
+      </div>
+
+      <div class="field">
+        <label for="nombre">Nombres</label>
+        <input pInputText id="nombre" [value]="perfil.nombre" readonly>
+      </div>
+
+      <div class="field">
+        <label for="apellido">Apellidos</label>
+        <input pInputText id="apellido" [value]="perfil.apellido" readonly>
+      </div>
+
+      <div class="field">
+        <label for="numeroTelefonico">Número Telefónico</label>
+        <input pInputText id="numeroTelefonico" [value]="perfil.numero_telefonico" readonly>
+      </div>
+
+      <div class="field">
+        <label for="role">Rol</label>
+        <input pInputText id="role" [value]="perfil.role" readonly>
+      </div>
+
+      <div class="field">
+        <label for="estadoActivo">Estado Activo</label>
+        <input pInputText id="estadoActivo" [value]="perfil.estado_activo ? 'Activo' : 'Inactivo'" readonly>
+      </div>
+
+      <div class="field">
+        <label for="administrador">Administrador</label>
+        <input pInputText id="administrador" [value]="perfil.usuario_administrador ? 'Sí' : 'No'" readonly>
+      </div>
+    </div>
+  </ng-template>
+</p-card>

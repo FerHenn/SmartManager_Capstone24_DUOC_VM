@@ -1,13 +1,88 @@
-table {
+/* Tabla - Controla el estilo para hacerla responsiva */
+.p-table {
   width: 100%;
-  border-collapse: collapse;
+  margin: 0 auto;
+  overflow-x: auto; /* Permite el desplazamiento horizontal en pantallas pequeñas */
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+/* Ajustes generales para la tabla */
+.p-table td, .p-table th {
+  text-align: center;
+  padding: 0.75rem;
+  word-wrap: break-word; /* Para evitar que el texto desborde */
 }
 
-th {
-  background-color: #f2f2f2;
+/* Botones de acciones (editar/eliminar) */
+.p-button-rounded {
+  margin-right: 0.5rem;
+  font-size: 0.875rem; /* Ajustar el tamaño de los botones */
+}
+
+/* Diálogo de edición */
+.p-dialog .field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-dialog .field label {
+  margin-bottom: 0.5rem;
+}
+
+.p-dialog .field input {
+  width: 100%;
+}
+
+/* Estilos para pantallas más pequeñas (móviles, tablets) */
+@media (max-width: 768px) {
+  /* Hacer la tabla más compacta */
+  .p-table td, .p-table th {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  /* Botones más pequeños en pantallas pequeñas */
+  .p-button-rounded {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Ajustar el tamaño del diálogo */
+  .p-dialog {
+    width: 90vw; /* Ocupar 90% del ancho de la pantalla */
+    max-width: 600px;
+  }
+
+  .p-dialog .field label {
+    font-size: 0.875rem;
+  }
+
+  .p-dialog .field input {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+
+  /* Espaciado general en pantallas pequeñas */
+  .p-dialog-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* Ajustes adicionales para pantallas aún más pequeñas (móviles) */
+@media (max-width: 480px) {
+  .p-table td, .p-table th {
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .p-button-rounded {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Hacer los botones de acciones más compactos */
+  .p-button {
+    padding: 0.25rem 0.75rem;
+  }
 }
