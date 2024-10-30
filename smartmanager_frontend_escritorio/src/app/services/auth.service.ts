@@ -11,7 +11,7 @@ import { PerfilUsuario } from '../interfaces/usuario.interface';  // Importar la
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api';  // Aquí el enlace de la API  https://smartmanager-capstone24-duoc-vm.onrender.com/api
+  private apiUrl = 'https://smartmanager-capstone24-duoc-vm.onrender.com/api';  // Aquí el enlace de la API  https://smartmanager-capstone24-duoc-vm.onrender.com/api
 
 
   constructor(private http: HttpClient) { }

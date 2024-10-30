@@ -31,7 +31,8 @@ DEBUG = False
 # Hosts permitidos para acceder a la aplicación
 ALLOWED_HOSTS = [
     'smartmanager-capstone24-duoc-vm.onrender.com',
-    '0.0.0.0'
+    '0.0.0.0',
+    '127.0.0.1'   #agregado solo para trabajar localmente si no eliminar.
 ]
 
 # Confianza para orígenes CSRF (protección contra ataques Cross-Site Request Forgery)
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Configuración de la base de datos
+# Configuración de la base de datos de azure
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',  # Motor PostgreSQL
@@ -115,6 +116,21 @@ DATABASES = {
         ssl_require=True,
     )
 }
+
+
+# Configuración de la base de datos local para desarrollo
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',  # Asegúrate de que 'ENGINE' esté bien configurado
+#         'NAME': 'postgres',  # El nombre de la base de datos
+#         'USER': 'postgres',  # Tu nombre de usuario de PostgreSQL
+#         'PASSWORD': 'Isc_2002$',  # La contraseña del usuario
+#         'HOST': 'localhost',  # O usa '127.0.0.1'
+#         'PORT': '5432',  # El puerto por defecto de PostgreSQL
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -176,6 +192,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication'],
 }
 
 # Agrega barra al final de las URLs si es necesario
