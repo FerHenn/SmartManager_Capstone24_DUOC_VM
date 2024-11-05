@@ -1,13 +1,21 @@
 /* login.page.scss */
-
-ion-content {
-    background-color: #333; /* Gris oscuro para el fondo */
-    color: #fff; /* Texto blanco para contraste */
+.toolbar {
+    --background: #FF9800; /* Morado */
+    --color: #ffffff; /* Color del texto blanco */
     font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+    
 }
 
+.space{
+    --background: #ffffff;
+    margin: 30px;
+    --border-color: transparent;
+}
+
+
 .login-container {
-    background-color: #333; /* Gris oscuro */
+    background-color: #ffffff; /* Gris oscuro */
     color: #ffffff; /* Texto blanco para contraste */
     padding: 40px; /* Aumentar el espaciado interno */
     border-radius: 8px; /* Bordes redondeados (opcional) */
@@ -15,12 +23,11 @@ ion-content {
     margin: auto; /* Centra el contenedor horizontalmente */
     text-align: center; /* Centra el texto */
     font-family: 'Quicksand', sans-serif;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Agrega sombra para dar profundidad */
 }
 
 h2 {
     margin-bottom: 24px;
-    color: #ffffff;
+    color: #000000;
     font-size: 24px; /* Ajusta el tamaño si lo deseas */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
     font-weight: 200; /* Cambia el grosor de la letra */
@@ -28,24 +35,26 @@ h2 {
 }
 
 ion-item {
-    --border-color: #fff; /* Cambia el color del borde a blanco */
+    --border-color: #000000; /* Cambia el color del borde a blanco */
+    color: #000000;
     margin-bottom: 16px; /* Espacio entre los items */
     font-family: 'Quicksand', sans-serif;
 }
 
 ion-label {
+    color: #000000;
     font-size: 16px; /* Tamaño de las etiquetas */
     font-family: 'Quicksand', sans-serif;
 }
 
 a {
-    color: #ffffff; /* Color del enlace */
+    color: #FF9800; /* Color del enlace */
     text-decoration: none; /* Sin subrayado */
     font-family: 'Quicksand', sans-serif;
 }
 
 ion-input {
-    color: #fff; /* Texto de entrada en blanco */
+    color: #FF9800; /* Texto de entrada en blanco */
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -68,7 +77,7 @@ ion-input::placeholder {
 
 ion-button {
     border-radius: 30px; /* Bordes más circulares */
-    --background: #565458; /* Color de fondo */
+    --background: #FF9800; /* Color de fondo */
     --color: #ffffff; /* Color del texto */
     width: 100%; /* Asegura que el botón ocupe todo el ancho */
     margin-top: 20px; /* Espacio en la parte superior del botón */
@@ -93,4 +102,7 @@ ion-item ion-label {
         padding: 20px; /* Reduce el padding en pantallas pequeñas */
         margin: 10px; /* Agrega margen lateral */
     }
+}
+.item-password{
+    background-color: #000000;
 }

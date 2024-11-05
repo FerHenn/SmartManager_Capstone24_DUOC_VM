@@ -1,10 +1,11 @@
-<ion-header>
-  <ion-toolbar color="dark">
+<ion-header class="header">
+  <ion-toolbar class="toolbar">
     <ion-title>Tipopipo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" color="medium">
+<ion-content class="ion-padding content-container">
+  <ion-item class="space"></ion-item>
   <div class="login-container">
     <h2>Inicio Sesión</h2>
     <ion-icon name="person" size="large" class="icon-large"></ion-icon>
@@ -12,19 +13,19 @@
       <ion-item color="dark">
         <ion-label position="floating" color="light">
           <ion-icon slot="start" name="mail"></ion-icon>
-          Correo Electrónico
+          Correo electrónico
         </ion-label>
         <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
-        <ion-label color="light">Por favor, ingresa un correo electrónico válido.</ion-label>
+        <ion-label>Por favor, ingresa un correo electrónico válido.</ion-label>
       </div>
-      <ion-item color="dark">
+      <ion-item class="item-password">
         <ion-label position="floating">
           <ion-icon slot="start" name="lock-closed"></ion-icon>
           Contraseña
         </ion-label>
-        <ion-input color="light" type="password" name="password" required [(ngModel)]="password"></ion-input>
+        <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
         <ion-label color="light">La contraseña debe tener al menos 8 caracteres.</ion-label>
@@ -32,13 +33,12 @@
       <ion-button expand="block" type="submit" [disabled]="!loginForm.form.valid">
         Iniciar Sesión
       </ion-button>
-      <ion-item lines="none" class="ion-margin-top centered" color="medium">
-        <ion-label>
+      <ion-item lines="none" class="ion-margin-top centered">
+        <ion-label >
           <a href="/recuperar">¿Olvidaste tu contraseña?</a>
         </ion-label>
       </ion-item>
     </form>
   </div>
+<ion-item class="space"></ion-item>
 </ion-content>
-
-
