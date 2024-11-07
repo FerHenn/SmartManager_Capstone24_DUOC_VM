@@ -4,16 +4,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding content-container">
+<ion-content class="content-container">
   <ion-item class="space"></ion-item>
   <div class="login-container">
     <h2>Inicio Sesión</h2>
-    <ion-icon name="person" size="large" class="icon-large"></ion-icon>
+    <ion-icon name="person" class="icon-large"></ion-icon>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <ion-item color="dark">
-        <ion-label position="floating" color="light">
+      <ion-item class="item-email">
+        <ion-label position="floating">
           <ion-icon slot="start" name="mail"></ion-icon>
-          Correo electrónico
+          Usuario
         </ion-label>
         <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
       </ion-item>
@@ -28,9 +28,9 @@
         <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
-        <ion-label color="light">La contraseña debe tener al menos 8 caracteres.</ion-label>
+        <ion-label>La contraseña debe tener al menos 8 caracteres.</ion-label>
       </div>
-      <ion-button expand="block" type="submit" [disabled]="!loginForm.form.valid">
+      <ion-button shape="round" type="submit" [disabled]="!loginForm.form.valid">
         Iniciar Sesión
       </ion-button>
       <ion-item lines="none" class="ion-margin-top centered">
@@ -40,5 +40,4 @@
       </ion-item>
     </form>
   </div>
-<ion-item class="space"></ion-item>
 </ion-content>

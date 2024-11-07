@@ -6,13 +6,18 @@
     font-size: 20px; /* Ajusta el tamaño según lo necesites */
     
 }
-
-.space{
-    --background: #ffffff;
-    margin: 30px;
-    --border-color: transparent;
+/* Para el contenedor de ion-content */
+ion-content.content-container {
+    --background: url('/assets/images/layered-peaks-haikei.svg') no-repeat center center fixed;
+    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    padding: 20px;  /* Espaciado adicional si es necesario */
 }
 
+.space{
+    --background: #931C1C;
+    margin: 10px;
+    --border-color: transparent;
+}
 
 .login-container {
     background-color: #ffffff; /* Gris oscuro */
@@ -23,34 +28,55 @@
     margin: auto; /* Centra el contenedor horizontalmente */
     text-align: center; /* Centra el texto */
     font-family: 'Quicksand', sans-serif;
+    border: 1px solid #FF9800;
 }
 
 h2 {
     margin-bottom: 24px;
-    color: #000000;
-    font-size: 24px; /* Ajusta el tamaño si lo deseas */
+    color: #FF9800;
+    font-size: 35px; /* Ajusta el tamaño si lo deseas */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
-    font-weight: 200; /* Cambia el grosor de la letra */
+    font-weight: 1000; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
 
 ion-item {
-    --border-color: #000000; /* Cambia el color del borde a blanco */
-    color: #000000;
+    --border-color: #FF9800; /* Cambia el color del borde a blanco */
+    background-color: #ffffff;
+    margin-bottom: 16px; /* Espacio entre los items */
+    font-family: 'Quicksand', sans-serif;
+}
+.item-email {
+    --border-color: #FF9800; /* Cambia el color del borde a blanco */
+    background-color: #ffffff;
+    --border-width: 2px;
+    margin-bottom: 16px; /* Espacio entre los items */
+    font-family: 'Quicksand', sans-serif;
+}
+.item-password {
+    --border-color: #FF9800; /* Cambia el color del borde a blanco */
+    background-color: #ffffff;
+    --border-width: 2px;
     margin-bottom: 16px; /* Espacio entre los items */
     font-family: 'Quicksand', sans-serif;
 }
 
-ion-label {
-    color: #000000;
+.label { 
+    --border-color: transparent;
+    --highlight-border-color: transparent; /* Elimina el borde cuando está en foco */
+    color:#970000;
     font-size: 16px; /* Tamaño de las etiquetas */
     font-family: 'Quicksand', sans-serif;
+}
+div{
+    color: #970000;
 }
 
 a {
     color: #FF9800; /* Color del enlace */
     text-decoration: none; /* Sin subrayado */
     font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
 }
 
 ion-input {
@@ -59,7 +85,8 @@ ion-input {
 }
 
 ion-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder */
+    color: #FF9800; /* Color del texto del placeholder */
+    background-color: #970000;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -76,24 +103,30 @@ ion-input::placeholder {
 }
 
 ion-button {
-    border-radius: 30px; /* Bordes más circulares */
     --background: #FF9800; /* Color de fondo */
     --color: #ffffff; /* Color del texto */
-    width: 100%; /* Asegura que el botón ocupe todo el ancho */
-    margin-top: 20px; /* Espacio en la parte superior del botón */
+    border-radius: 50px; /* Borde redondeado más grande para un efecto ovalado */
+    height: 50px; /* Ajusta la altura del botón */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
     font-family: 'Quicksand', sans-serif;
+    font-size: 16px; /* Tamaño de la fuente */
+    margin-top: 20px; /* Espacio superior */
+    padding-left: 20px; /* Relleno a la izquierda para un texto más centrado */
+    padding-right: 20px; /* Relleno a la derecha */
 }
 
+
 .icon-large {
-    font-size: 48px; /* Ajusta el tamaño del ícono */
-    color: #ffffff; /* Cambia el color según tu tema */
+    size: 40px;   /* Ajusta el tamaño del ícono */
+    color: #FF9800; /* Cambia el color según tu tema */
     margin-bottom: 16px; /* Espaciado debajo del ícono */
     font-family: 'Quicksand', sans-serif;
 }
 ion-item ion-label {
     font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand */
     font-size: 16px; /* Ajusta el tamaño de la fuente si es necesario */
-    color: #ffffff; /* Asegúrate de que el color sea blanco o el que prefieras */
+    color: #000000; /* Asegúrate de que el color sea blanco o el que prefieras */
+    font-weight: bold;
 }
 
 /* Espaciado adicional en dispositivos pequeños */
@@ -102,7 +135,4 @@ ion-item ion-label {
         padding: 20px; /* Reduce el padding en pantallas pequeñas */
         margin: 10px; /* Agrega margen lateral */
     }
-}
-.item-password{
-    background-color: #000000;
 }
