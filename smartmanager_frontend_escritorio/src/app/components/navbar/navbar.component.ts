@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
       { label: 'Usuario', icon: 'pi pi-calendar', routerLink: ['/usuario'] },
       { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
       { label: 'Registro', icon: 'pi pi-cog', routerLink: ['/registro'] },
+      { label: 'Recuperar contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] },
       { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] }
     ];
 

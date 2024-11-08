@@ -130,4 +130,15 @@ eliminarUsuario(id: number): Observable<any> {
     console.log('Usuario autenticado:', token);  // Log para verificar si el usuario está autenticado
     return token;
   }
+
+  // Método para recuperar contraseña
+  recuperarContrasena(data: any): Observable<any> {
+    const url = `${this.apiUrl}recuperar-contrasena/`;
+    const token = localStorage.getItem('authToken');  // Obtén el token de autenticación
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`,  // Agrega el token al encabezado
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(url, data, { headers });
+  }
 }

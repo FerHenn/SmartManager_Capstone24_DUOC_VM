@@ -1,0 +1,56 @@
+<p-card header="Recuperación de Contraseña" class="recover-card">
+  <form (ngSubmit)="onSubmit()" [formGroup]="recuperarForm" class="recover-form">
+
+    <!-- Nombre de Usuario -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput type="text" formControlName="nombreUsuario" required>
+    </mat-form-field>
+
+    <!-- Nueva Contraseña -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nueva Contraseña</mat-label>
+      <input matInput type="password" formControlName="nuevaContrasena" required>
+    </mat-form-field>
+
+    <!-- Confirmar Nueva Contraseña -->
+    <mat-form-field appearance="fill">
+      <mat-label>Confirmar Nueva Contraseña</mat-label>
+      <input matInput type="password" formControlName="confirmarContrasena" required>
+    </mat-form-field>
+
+    <!-- Contraseña del Administrador -->
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña del Administrador</mat-label>
+      <input matInput type="password" formControlName="contrasenaAdmin" required>
+    </mat-form-field>
+
+    <!-- Botón para Recuperar Contraseña -->
+    <div class="recover-actions">
+      <button pButton type="submit" label="Recuperar Contraseña" class="recover-button" [disabled]="!recuperarForm.valid"></button>
+    </div>
+
+  </form>
+</p-card>
+
+<!-- Diálogo de éxito -->
+<p-dialog header="Recuperación Exitosa" [(visible)]="displaySuccessDialog" modal="true" [closable]="false">
+  <div class="dialog-content">
+    <i class="pi pi-check-circle" style="font-size: 3rem; color: green;"></i>
+    <p>Contraseña actualizada correctamente.</p>
+  </div>
+  <div class="dialog-actions">
+    <button pButton label="Cerrar" icon="pi pi-times" (click)="displaySuccessDialog = false"></button>
+  </div>
+</p-dialog>
+
+<!-- Diálogo de error -->
+<p-dialog header="Error en la Recuperación" [(visible)]="displayErrorDialog" modal="true" [closable]="false">
+  <div class="dialog-content">
+    <i class="pi pi-times-circle" style="font-size: 3rem; color: red;"></i>
+    <p>No se pudo actualizar la contraseña. Verifique los datos ingresados.</p>
+  </div>
+  <div class="dialog-actions">
+    <button pButton label="Cerrar" icon="pi pi-times" (click)="displayErrorDialog = false"></button>
+  </div>
+</p-dialog>
