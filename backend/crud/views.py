@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.db import transaction
 from django.db.models import Sum, Count, F
 from django_filters.rest_framework import DjangoFilterBackend
@@ -78,6 +78,46 @@ class ListaUsuarios(APIView):
         usuarios = Usuario.objects.all() # Obtiene todos los usuarios
         serializer = UsuarioSerializer(usuarios, many=True) # Serializa todos los usuarios
         return Response(serializer.data)
+    
+# Vista para recuperar cuenta de usuario (solo para administradores)
+
+class RecuperarContrasenaView(APIView):
+    permission_classes = [IsAuthenticated]  # Solo usuarios autenticados
+
+    def post(self, request):
+        try:
+            nombre_usuario = request.data.get('nombreUsuario')
+            nueva_contrasena = request.data.get('nuevaContrasena')
+            confirmar_contrasena = request.data.get('confirmarContrasena')
+            contrasena_admin = request.data.get('contrasenaAdmin')
+
+            # Validación de campos
+            if not all([nombre_usuario, nueva_contrasena, confirmar_contrasena, contrasena_admin]):
+                return Response({'error': 'Todos los campos son requeridos.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            if nueva_contrasena != confirmar_contrasena:
+                return Response({'error': 'Las contraseñas no coinciden.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            administrador = request.user
+            if not administrador.check_password(contrasena_admin) or administrador.role != 'Administrador':
+                return Response({'error': 'Contraseña de administrador incorrecta o usuario no autorizado.'},
+                                status=status.HTTP_403_FORBIDDEN)
+
+            # Buscar el usuario por nombre de usuario
+            usuario = Usuario.objects.get(nombreUsuario=nombre_usuario)
+            usuario.password = make_password(nueva_contrasena)
+            usuario.save()
+
+            return Response({'mensaje': 'Contraseña actualizada correctamente.'}, status=status.HTTP_200_OK)
+        
+        except Usuario.DoesNotExist:
+            return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as e:
+            # Registrar el error para más detalles
+            print("Error en la vista de recuperar contraseña:", e)
+            return Response({'error': 'Error interno en el servidor.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 #--------------------Manejo y automatización del CRUD--------------------------#
 
