@@ -1,3 +1,11 @@
+.toolbar {
+  --background: #FF9800; /* Morado */
+  --color: #ffffff; /* Color del texto blanco */
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px; /* Ajusta el tamaño según lo necesites */
+
+}
+
 ion-content {
   --background: var(--ion-color-medium); /* Cambia el fondo a color medio */
   color: #333;
