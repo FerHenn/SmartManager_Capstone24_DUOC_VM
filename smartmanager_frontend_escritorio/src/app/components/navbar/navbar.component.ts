@@ -44,11 +44,20 @@ export class NavbarComponent implements OnInit {
     this.menuItems = [
       { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
       { label: 'Productos', icon: 'pi pi-cog', routerLink: ['/productos'] },
-      { label: 'Usuario', icon: 'pi pi-calendar', routerLink: ['/usuario'] },
-      { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
-      { label: 'Registro', icon: 'pi pi-cog', routerLink: ['/registro'] },
-      { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] }
     ];
+    
+    // Agrega "Recuperar Contraseña" solo si el usuario es administrador
+    this.authService.getPerfil().subscribe(perfil => {
+      if (perfil.role === 'Administrador') {
+        this.menuItems.push(
+          { label: 'Usuario', icon: 'pi pi-calendar', routerLink: ['/usuario'] },
+          { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
+          { label: 'Registro', icon: 'pi pi-cog', routerLink: ['/registro'] },
+          { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] },
+          { label: 'Recuperar Contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] }
+        );
+      }
+    });
 
     // Definir los elementos del menú de perfil solo si el usuario está autenticado
     if (this.isAuthenticated) {

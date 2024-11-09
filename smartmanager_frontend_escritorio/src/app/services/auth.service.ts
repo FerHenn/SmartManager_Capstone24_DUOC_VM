@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Routes } from '@angular/router';
 import { PerfilUsuario } from '../interfaces/usuario.interface';  // Importar la interfaz de perfil de usuario
+import { environment } from '../../environments/environment'; // Importa environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'https://smartmanager-capstone24-duoc-vm.onrender.com/api';  // Aquí el enlace de la API  https://smartmanager-capstone24-duoc-vm.onrender.com/api
+  private apiUrl = environment.apiUrl;  // Aquí el enlace de la API  https://smartmanager-capstone24-duoc-vm.onrender.com/api
 
 
   constructor(private http: HttpClient) { }
@@ -21,7 +22,7 @@ export class AuthService {
   }
   // Método para hacer login 
   login(nombreUsuario: string, password: string): Observable<any> {
-    const loginUrl = `${this.apiUrl}/login/`;
+    const loginUrl = `${this.apiUrl}login/`;
     const body = { nombreUsuario, password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -41,7 +42,7 @@ export class AuthService {
 
   // Método para hacer registro
   register(data: any): Observable<any> {
-    const registerUrl = `${this.apiUrl}/register/`;
+    const registerUrl = `${this.apiUrl}register/`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     
     return this.http.post<any>(registerUrl, data, { headers }).pipe(
@@ -54,7 +55,7 @@ export class AuthService {
 
   // Método para hacer logout
   logout(): Observable<any> {
-    const logoutUrl = `${this.apiUrl}/logout/`;
+    const logoutUrl = `${this.apiUrl}logout/`;
     const token = this.getToken();  // Obtener el token actualizado
 
     console.log('Token almacenado en localStorage:', token);  // Log del token almacenado
@@ -91,7 +92,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.get<PerfilUsuario>(`${this.apiUrl}/perfil/`, { headers });
+    return this.http.get<PerfilUsuario>(`${this.apiUrl}perfil/`, { headers });
   }
   // Obtener la lista de usuarios (solo administradores)
   getUsuarios(): Observable<any> {
@@ -101,14 +102,14 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.get(`${this.apiUrl}/usuarios/`, { headers });
+    return this.http.get(`${this.apiUrl}usuarios/`, { headers });
   }
 
 
 // Método para eliminar un usuario
 eliminarUsuario(id: number): Observable<any> {
   // Solo utilizamos la URL y hacemos la solicitud DELETE de forma simple
-  return this.http.delete<any>(`${this.apiUrl}/usuarios/${id}/`);
+  return this.http.delete<any>(`${this.apiUrl}usuarios/${id}/`);
 }
 
 
@@ -120,7 +121,7 @@ eliminarUsuario(id: number): Observable<any> {
       'Content-Type': 'application/json'
     });
 
-    return this.http.put(`${this.apiUrl}/usuarios/${usuario.id}/`, usuario, { headers });
+    return this.http.put(`${this.apiUrl}usuarios/${usuario.id}/`, usuario, { headers });
   }
 
   // Método para verificar si el usuario está autenticado
@@ -128,5 +129,16 @@ eliminarUsuario(id: number): Observable<any> {
     const token = !!localStorage.getItem('authToken');
     console.log('Usuario autenticado:', token);  // Log para verificar si el usuario está autenticado
     return token;
+  }
+
+  // Método para recuperar contraseña
+  recuperarContrasena(data: any): Observable<any> {
+    const url = `${this.apiUrl}recuperar-contrasena/`;
+    const token = localStorage.getItem('authToken');  // Obtén el token de autenticación
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`,  // Agrega el token al encabezado
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(url, data, { headers });
   }
 }

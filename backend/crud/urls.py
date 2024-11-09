@@ -17,6 +17,7 @@ router.register(r'ingrediente', views.IngredienteViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('register/', views.RegistroUsuario.as_view(), name='registro'),
+    path('recuperar-contrasena/', views.RecuperarContrasenaView.as_view(), name='recuperar_contrasena'),
     path('login/', views.LoginUsuario.as_view(), name='login'),
     path('logout/', views.LogoutUsuario.as_view(), name='logout'),
     path('perfil/', views.PerfilUsuario.as_view(), name='perfil'),

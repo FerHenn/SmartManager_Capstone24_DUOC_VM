@@ -19,6 +19,13 @@ class ListaUsuariosSerializer(serializers.ModelSerializer):
                   'usuario_administrador',
                   'is_staff',
                   'is_superuser']
+
+class RecuperarContrasenaSerializer(serializers.Serializer):
+    correo = serializers.EmailField()
+    nueva_contrasena = serializers.CharField(write_only=True)
+    confirmar_contrasena = serializers.CharField(write_only=True)
+    contrasena_admin = serializers.CharField(write_only=True)
+
   
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
