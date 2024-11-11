@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authService: AuthService,private router: Router) {}
 
-   ngOnInit() {
+  ngOnInit() {
     console.log('Inicializando NavbarComponent');
 
     // Verificar si el usuario está autenticado
