@@ -15,10 +15,10 @@
           <ion-icon slot="start" name="mail"></ion-icon>
           Usuario
         </ion-label>
-        <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
+        <ion-input class ="ion-input-email" type="email" name="email" required [(ngModel)]="email"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
-        <ion-label>Por favor, ingresa un correo electrónico válido.</ion-label>
+        <ion-label>Por favor, ingresa un usuario válido.</ion-label>
       </div>
       <ion-item class="item-password">
         <ion-label position="floating">

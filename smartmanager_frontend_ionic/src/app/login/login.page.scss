@@ -8,7 +8,7 @@
 }
 /* Para el contenedor de ion-content */
 ion-content.content-container {
-    --background: url('/assets/images/layered-peaks-haikei.svg') no-repeat center center fixed;
+    --background: url('/assets/images/fondo.svg') no-repeat center center fixed;
     --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
     padding: 20px;  /* Espaciado adicional si es necesario */
 }
@@ -40,34 +40,22 @@ h2 {
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
 
-ion-item {
-    --border-color: #FF9800; /* Cambia el color del borde a blanco */
-    background-color: #ffffff;
-    margin-bottom: 16px; /* Espacio entre los items */
-    font-family: 'Quicksand', sans-serif;
-}
-.item-email {
-    --border-color: #FF9800; /* Cambia el color del borde a blanco */
-    background-color: #ffffff;
-    --border-width: 2px;
-    margin-bottom: 16px; /* Espacio entre los items */
-    font-family: 'Quicksand', sans-serif;
-}
-.item-password {
-    --border-color: #FF9800; /* Cambia el color del borde a blanco */
-    background-color: #ffffff;
-    --border-width: 2px;
-    margin-bottom: 16px; /* Espacio entre los items */
-    font-family: 'Quicksand', sans-serif;
-}
 
 .label { 
-    --border-color: transparent;
-    --highlight-border-color: transparent; /* Elimina el borde cuando está en foco */
     color:#970000;
     font-size: 16px; /* Tamaño de las etiquetas */
     font-family: 'Quicksand', sans-serif;
 }
+
+ion-item.item-email:focus-within {
+    --border-color: #FF9800; /* Cambia el color del borde cuando el item tiene el foco */
+}
+
+ion-item.item-password:focus-within {
+    --border-color: #FF9800; /* Cambia el color del borde cuando el item tiene el foco */
+}
+
+
 div{
     color: #970000;
 }
@@ -83,10 +71,13 @@ ion-input {
     color: #FF9800; /* Texto de entrada en blanco */
     font-family: 'Quicksand', sans-serif;
 }
+.ion-input-email{
+    --border-width: 0; /* Quita el borde */
+    --border-bottom: 2px solid #000000; /* Agrega solo la línea debajo */
+}
 
 ion-input::placeholder {
     color: #FF9800; /* Color del texto del placeholder */
-    background-color: #970000;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -122,7 +113,7 @@ ion-button {
     margin-bottom: 16px; /* Espaciado debajo del ícono */
     font-family: 'Quicksand', sans-serif;
 }
-ion-item ion-label {
+ion-item ion-label { 
     font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand */
     font-size: 16px; /* Ajusta el tamaño de la fuente si es necesario */
     color: #000000; /* Asegúrate de que el color sea blanco o el que prefieras */

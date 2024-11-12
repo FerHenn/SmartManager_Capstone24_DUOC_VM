@@ -7,9 +7,9 @@
 }
 
 ion-content {
-  --background: var(--ion-color-medium); /* Cambia el fondo a color medio */
-  color: #333;
-  font-family: 'Quicksand', sans-serif;
+  --background: url('/assets/images/fondo-home.svg') no-repeat center center fixed;
+  --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+  padding: 20px;  /* Espaciado adicional si es necesario */
 }
 .dashboard {
   text-align: center;
@@ -28,18 +28,24 @@ ion-card {
 }
   
 ion-card-header {
-  --background: var(--ion-color-dark); /* Cambia el fondo a color medio */
+  --background: #ffffff; /* Cambia el fondo a color medio */
   font-family: 'Quicksand', sans-serif;
   }
 
+  ion-col{
+    border-color: #000000;
+    background-color: #000000;
+  }
+
 ion-card-title {
-  color: #ffffff; /* Color personalizado para el título del módulo */
+  color: #000000; /* Color personalizado para el título del módulo */
   font-size: 1.2rem;
   font-family: 'Quicksand', sans-serif;
   }
 }
 ion-card-content {
-  color: #ffffff; /* Color personalizado para el contenido del módulo */
+  background-color: #ffffff;
+  color: #000000; /* Color personalizado para el contenido del módulo */
   font-family: 'Quicksand', sans-serif;
 }
 ion-toolbar ion-title {
