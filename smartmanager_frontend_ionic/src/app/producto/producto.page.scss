@@ -3,3 +3,14 @@ ion-header ion-toolbar ion-title {
     color: #ffffff; /* Cambia el color del texto si es necesario */
     font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
 }
+.toolbar {
+    --background: #FF9800; /* Morado */
+    --color: #ffffff; /* Color del texto blanco */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+}
+h2 {
+    color: #000000;
+    font-weight: bold; /* Cambia el grosor de la letra */
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+}
