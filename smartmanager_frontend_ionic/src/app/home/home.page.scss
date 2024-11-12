@@ -18,13 +18,15 @@ ion-content {
 h2 {
     margin-bottom: 20px;
     font-weight: bold;
-    color: var(--ion-color-dark);
+    color: #ffffff;
     font-family: 'Quicksand', sans-serif;
 }
 ion-card {
   margin-bottom: 16px; /* Espaciado entre tarjetas */
-  background: var(--ion-color-dark); /* Cambia el fondo a color medio */
+  background: 0000000; /* Cambia el fondo a color medio */
   font-family: 'Quicksand', sans-serif;
+  border-radius: 15px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que el contenido no sobresalga del borde redondeado */
 }
   
 ion-card-header {
@@ -32,12 +34,9 @@ ion-card-header {
   font-family: 'Quicksand', sans-serif;
   }
 
-  ion-col{
-    border-color: #000000;
-    background-color: #000000;
-  }
 
 ion-card-title {
+  font-weight: bold;
   color: #000000; /* Color personalizado para el título del módulo */
   font-size: 1.2rem;
   font-family: 'Quicksand', sans-serif;
@@ -45,8 +44,10 @@ ion-card-title {
 }
 ion-card-content {
   background-color: #ffffff;
+  border-color: #000000;
   color: #000000; /* Color personalizado para el contenido del módulo */
   font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
 }
 ion-toolbar ion-title {
   font-family: 'Quicksand', sans-serif;
@@ -56,13 +57,14 @@ ion-toolbar ion-title {
 }
 /* Estilo para todo el menú */
 ion-menu {
+  color: #000000;
   font-family: 'Quicksand', sans-serif;
 }
 
 /* Estilo específico para el perfil dentro del menú */
 ion-menu ion-item.profile {
   font-family: 'Quicksand', sans-serif;
-  color: #ffffff;
+  color: #000000;
   font-size: 16px; /* Ajusta el tamaño del texto */
   padding: 10px; /* Ajusta el padding si es necesario */
 }
@@ -74,6 +76,3 @@ ion-menu ion-item.logout {
   font-size: 16px; /* Ajusta el tamaño del texto */
   padding: 10px; /* Ajusta el padding si es necesario */
 }
-
-
-
