@@ -5,6 +5,7 @@ import { InicioComponent} from './components/inicio/inicio.component';
 import { VentasComponent } from './components/ventas/ventas.component'; 
 import { ProductoComponent } from './components/producto/producto.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'; 
+import { ProductoCarritoComponent } from './components/producto-carrito/producto-carrito.component';
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { UsuarioComponent } from './components/usuario/usuario.component'; 
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'productos', component: ProductoComponent, canActivate: [AuthGuard]},
   { path: 'ventas', component: VentasComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'carrito', component: ProductoCarritoComponent },
   { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent, canActivate: [AuthGuard], data: { roles: ['Administrador'] }},
   { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},

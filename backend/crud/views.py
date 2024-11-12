@@ -137,6 +137,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]
+    filterset_fields = ['categoria']  # Permitir el filtro por categoría
     search_fields = ['nombre', 'descripcion'] # Campos por los que se puede buscar
     ordering_fields = ['precio', 'nombre'] # Campos permitidos para ordenar los resultados
 

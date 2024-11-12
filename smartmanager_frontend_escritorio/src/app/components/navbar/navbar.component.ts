@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit {
     this.menuItems = [
       { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
       { label: 'Productos', icon: 'pi pi-cog', routerLink: ['/productos'] },
+      { label: 'Carrito', icon: 'pi pi-cog', routerLink: ['/carrito'] },
     ];
     
     // Agrega "Recuperar Contraseña" solo si el usuario es administrador

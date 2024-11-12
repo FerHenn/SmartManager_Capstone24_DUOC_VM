@@ -1,0 +1,65 @@
+// Estilos Generales de la Página
+.contenido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  // Centra el contenido horizontalmente
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  
+  // Título Principal (Categorías)
+  .titulo-principal {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  // Botón de Retroceso
+  .retroceder {
+    position: absolute;
+    top: calc(64px + 8px);  // Ajusta según la altura del navbar
+    left: 16px;
+    z-index: 10;
+  }
+  
+  // Estilos de Categorías y Productos
+  .categoria-card, .producto-card {
+    width: calc(25% - 1rem);  // Máximo de 4 imágenes por fila
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  // Nombre de la Categoría
+  .nombre-categoria {
+    margin-top: 10%;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  // Imágenes de Categorías y Productos
+  .categoria-card img, .producto-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  // Control de Cantidad
+  .cantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  button[mat-icon-button] {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  

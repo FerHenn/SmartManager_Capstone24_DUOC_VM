@@ -42,4 +42,13 @@ export class ProductoService {
   getIngredientes(): Observable<Ingrediente[]> {
     return this.http.get<Ingrediente[]>(`${this.apiUrl}ingrediente/`);
   }
+
+  getProductosByCategoria(categoriaId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}producto/?categoria=${categoriaId}`);
+  }
+
+  crearOrden(productos: any[], metodoPagoId: number): Observable<any> {
+    const body = { productos, metodoPago: metodoPagoId };
+    return this.http.post(`${this.apiUrl}crear-orden/`, body);
+  }
 }

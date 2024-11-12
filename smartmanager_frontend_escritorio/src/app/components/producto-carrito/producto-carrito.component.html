@@ -1,0 +1,37 @@
+<!-- Título Principal -->
+<h1 class="titulo-principal">{{ categoriaSeleccionada?.nombreCategoria || 'Categorías' }}</h1>
+
+<!-- Botón de Retroceso (visible solo cuando una categoría está seleccionada) -->
+<div *ngIf="categoriaSeleccionada" class="retroceder">
+  <button mat-icon-button (click)="retroceder()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<!-- Vista de Categorías -->
+<div *ngIf="!categoriaSeleccionada" class="contenido">
+  <div *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)" class="categoria-card">
+    <h3 class="nombre-categoria">{{ categoria.nombreCategoria }}</h3>
+    <img [src]="categoria.imagen" alt="{{ categoria.nombreCategoria }}">
+  </div>
+</div>
+
+<!-- Vista de Productos (visible solo cuando una categoría está seleccionada) -->
+<div *ngIf="categoriaSeleccionada" class="contenido">
+  <div *ngFor="let producto of productos" class="producto-card">
+    <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+    <h3>{{ producto.nombreProducto }}</h3>
+    <p>Precio: {{ producto.precio | currency }}</p>
+    <p>Stock: {{ producto.cantidadActual }}</p>
+    <div class="cantidad">
+      <button mat-mini-fab color="primary" (click)="quitarDelCarrito(producto)">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <!-- Usar || 0 para mostrar siempre un valor numérico -->
+      <span>{{ carrito[producto.id]?.cantidad || 0 }}</span>
+      <button mat-mini-fab color="primary" (click)="agregarAlCarrito(producto)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
