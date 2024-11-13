@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,50 +9,58 @@ import { AlertController, LoadingController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  email: string = '';
+  nombreUsuario: string = '';
   password: string = '';
+  errorMessage: string = '';
 
-  constructor(private router: Router, private alertController: AlertController, private loadingController: LoadingController) {}
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private authService: AuthService
+  ) {}
 
   async onSubmit() {
-    if (!this.validateEmail(this.email)) {
-      await this.showAlert('Error', 'Por favor, ingresa un correo electrónico válido.');
+    console.log('Iniciando proceso de login...');
+    console.log('Usuario:', this.nombreUsuario);
+    console.log('Contraseña:', this.password);
+
+    if (!this.nombreUsuario) {
+      await this.showAlert('Error', 'Por favor, ingresa un usuario válido.');
+      console.log('Validación fallida: Usuario no es válido');
       return;
     }
 
     if (!this.validatePassword(this.password)) {
       await this.showAlert('Error', 'La contraseña debe tener al menos 8 caracteres.');
+      console.log('Validación fallida: Contraseña es demasiado corta');
       return;
     }
 
-    // Mostrar el loading
     const loading = await this.loadingController.create({
       message: 'Iniciando sesión...',
-      duration: 3000, // Muestra el loading durante 3 segundos
     });
     await loading.present();
 
-    // Simula un retraso en la autenticación
-    setTimeout(async () => {
-      // Aquí iría la lógica real de inicio de sesión
-      console.log('Correo:', this.email);
-      console.log('Contraseña:', this.password);
-      
-      // Navegar a la página de inicio
-      this.router.navigate(['/home']);
-      
-      // Cerrar el loading
-      await loading.dismiss();
-    }, 3000);
-  }
+    console.log('Enviando solicitud de login al backend...');
 
-  validateEmail(email: string): boolean {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
+    this.authService.login(this.nombreUsuario, this.password).subscribe({
+      next: async (response) => {
+        console.log('Respuesta del backend recibida:', response);
+        localStorage.setItem('token', response.token);
+        await loading.dismiss();
+        this.router.navigate(['/home']);
+      },
+      error: async (error) => {
+        console.error('Error de autenticación:', error);
+        await loading.dismiss();
+        this.showAlert('Error', 'Usuario o contraseña incorrectos');
+      }
+    });
   }
 
   validatePassword(password: string): boolean {
-    return password.length >= 8; // Asegúrate de que tenga al menos 8 caracteres
+    return password.length >= 3; // configurado como 3 en desarrollo 
   }
 
   async showAlert(header: string, message: string) {

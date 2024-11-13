@@ -10,14 +10,14 @@
     <h2>Inicio Sesión</h2>
     <ion-icon name="person" class="icon-large"></ion-icon>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <ion-item class="item-email">
+      <ion-item class="item-usuario">
         <ion-label position="floating">
-          <ion-icon slot="start" name="mail"></ion-icon>
+          <ion-icon slot="start" name="person"></ion-icon>
           Usuario
         </ion-label>
-        <ion-input class ="ion-input-email" type="email" name="email" required [(ngModel)]="email"></ion-input>
+        <ion-input class="ion-input-usuario" type="text" name="nombreUsuario" required [(ngModel)]="nombreUsuario"></ion-input>
       </ion-item>
-      <div *ngIf="loginForm.controls['email']?.invalid && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
+      <div *ngIf="loginForm.controls['nombreUsuario']?.invalid && (loginForm.controls['nombreUsuario']?.dirty || loginForm.controls['nombreUsuario']?.touched)">
         <ion-label>Por favor, ingresa un usuario válido.</ion-label>
       </div>
       <ion-item class="item-password">
@@ -34,7 +34,7 @@
         Iniciar Sesión
       </ion-button>
       <ion-item lines="none" class="ion-margin-top centered">
-        <ion-label >
+        <ion-label>
           <a href="/recuperar">¿Olvidaste tu contraseña?</a>
         </ion-label>
       </ion-item>
