@@ -76,3 +76,21 @@ ion-menu ion-item.logout {
   font-size: 16px; /* Ajusta el tamaño del texto */
   padding: 10px; /* Ajusta el padding si es necesario */
 }
+.title-with-arrow {
+  display: flex;                     /* Usamos flexbox */
+  justify-content: center;           /* Centra el contenido horizontalmente */
+  align-items: center;               /* Alinea verticalmente */
+  position: relative;                /* Necesario para posicionar la flecha */
+}
+
+.card-title {
+  flex: 1;                           /* Permite que el título ocupe todo el espacio disponible */
+  text-align: center;                /* Centra el texto dentro de su espacio */
+}
+
+.arrow-icon {
+  color:#FF9800;
+  position: absolute;                /* Posiciona la flecha de forma absoluta */
+  right: 0;                           /* Coloca la flecha al borde derecho */
+  margin-left: 10px;                  /* Espacio entre el texto y la flecha */
+}

@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-producto',
-  templateUrl: './producto.page.html', // Asegúrate de que el nombre del archivo HTML también sea correcto
+  templateUrl: './producto.page.html',
   styleUrls: ['./producto.page.scss'],
 })
-export class ProductoPage { // Este debe ser el nombre de la clase
+
+export class ProductoPage { 
+  private apiUrl = `${environment.apiUrl}producto/`;
   products: any[] = [];
 
   constructor(private http: HttpClient) {
@@ -14,7 +17,7 @@ export class ProductoPage { // Este debe ser el nombre de la clase
   }
 
   loadProducts() {
-    this.http.get<any[]>('http://localhost:8100/producto')
+    this.http.get<any[]>(this.apiUrl) // Usa apiUrl en lugar de la URL directa
       .subscribe(data => {
         this.products = data;
       });
