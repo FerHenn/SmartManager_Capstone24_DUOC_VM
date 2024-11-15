@@ -1,9 +1,9 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-import { Router,RouterModule,NavigationEnd } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
@@ -14,17 +14,27 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [BsDropdownModule,RouterModule,MenubarModule,TieredMenuModule,MenuModule,ButtonModule,SidebarModule,PanelMenuModule,CommonModule,], // Importa los módulos necesarios
+  imports: [
+    BsDropdownModule,
+    RouterModule,
+    MenubarModule,
+    TieredMenuModule,
+    MenuModule,
+    ButtonModule,
+    SidebarModule,
+    PanelMenuModule,
+    CommonModule
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
   visibleSidebar1: boolean = false;
-  isAuthenticated: boolean = false;  // Variable para saber si el usuario está autenticado
+  isAuthenticated: boolean = false;
   menuItems: MenuItem[] = [];
   profileItems: MenuItem[] = [];
 
-  constructor(private authService: AuthService,private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     console.log('Inicializando NavbarComponent');
@@ -33,42 +43,46 @@ export class NavbarComponent implements OnInit {
     this.isAuthenticated = this.authService.isAuthenticated();
     console.log('Estado de autenticación:', this.isAuthenticated);
 
-    // Si el usuario está autenticado, redirigir a la página de inicio
     if (this.isAuthenticated) {
-      console.log('Redirigiendo a la página de inicio');
-      this.router.navigate(['/inicio']);  // Redirige a la página de inicio
+      // Cargar el perfil y las opciones de menú correspondientes
+      this.cargarPerfilYMenu();
     }
-  
+  }
 
-    // Definir los elementos del menú
-    this.menuItems = [
-      { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
-      { label: 'Productos', icon: 'pi pi-cog', routerLink: ['/productos'] },
-      { label: 'Carrito', icon: 'pi pi-cog', routerLink: ['/carrito'] },
-    ];
-    
-    // Agrega "Recuperar Contraseña" solo si el usuario es administrador
-    this.authService.getPerfil().subscribe(perfil => {
-      if (perfil.role === 'Administrador') {
-        this.menuItems.push(
-          { label: 'Usuario', icon: 'pi pi-calendar', routerLink: ['/usuario'] },
-          { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
-          { label: 'Registro', icon: 'pi pi-cog', routerLink: ['/registro'] },
-          { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] },
-          { label: 'Recuperar Contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] }
-        );
+  cargarPerfilYMenu() {
+    // Llamar al servicio para obtener el perfil del usuario
+    this.authService.getPerfil().subscribe({
+      next: perfil => {
+        console.log('Perfil del usuario:', perfil);
+
+        // Definir los elementos del menú básico
+        this.menuItems = [
+          { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
+          { label: 'Productos', icon: 'pi pi-cog', routerLink: ['/productos'] },
+          { label: 'Carrito', icon: 'pi pi-cog', routerLink: ['/carrito'] },
+        ];
+
+        // Agregar opciones de administración si el usuario es administrador
+        if (perfil.role === 'Administrador') {
+          this.menuItems.push(
+            { label: 'Usuario', icon: 'pi pi-calendar', routerLink: ['/usuario'] },
+            { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
+            { label: 'Registro', icon: 'pi pi-cog', routerLink: ['/registro'] },
+            { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] },
+            { label: 'Recuperar Contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] }
+          );
+        }
+
+        // Definir los elementos del menú de perfil
+        this.profileItems = [
+          { label: 'Ver Perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
+          { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
+        ];
+      },
+      error: err => {
+        console.error('Error al obtener el perfil del usuario:', err);
       }
     });
-
-    // Definir los elementos del menú de perfil solo si el usuario está autenticado
-    if (this.isAuthenticated) {
-      this.profileItems = [
-        { label: 'Ver Perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
-        { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
-      ];
-    } else {
-      console.log('Usuario no autenticado, no se muestra el menú de perfil');
-    }
   }
 
   // Método para ver el perfil
@@ -77,20 +91,20 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/perfil']);
   }
 
-    // Método para hacer logout
-    logout() {
-      this.authService.logout().subscribe({
-        next: () => {
-          console.log('Logout exitoso, redirigiendo al login');
-          
-          // Redirigir al login y recargar la página
-          this.router.navigate(['/login']).then(() => {
-            window.location.reload();  // Recargar la página después de redirigir
-          });
-        },
-        error: (err) => {
-          console.error('Error durante el logout:', err);
-        }
-      });
-    }
+  // Método para hacer logout
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        console.log('Logout exitoso, redirigiendo al login');
+        
+        // Redirigir al login y recargar la página
+        this.router.navigate(['/login']).then(() => {
+          window.location.reload();  // Recargar la página después de redirigir
+        });
+      },
+      error: (err) => {
+        console.error('Error durante el logout:', err);
+      }
+    });
   }
+}
