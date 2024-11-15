@@ -48,7 +48,17 @@ export class ProductoService {
   }
 
   crearOrden(productos: any[], metodoPagoId: number): Observable<any> {
+    const token = localStorage.getItem('authToken');  // Obtén el token de autenticación
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+    });
+  
     const body = { productos, metodoPago: metodoPagoId };
-    return this.http.post(`${this.apiUrl}crear-orden/`, body);
+    return this.http.post(`${this.apiUrl}crear-orden/`, body, { headers });
+  }
+  getMetodosPago(): Observable<any> {
+    const url = `${this.apiUrl}metodo-pago/`;  // Asegúrate de que la URL coincida con el endpoint en el backend
+    return this.http.get<any>(url);
   }
 }

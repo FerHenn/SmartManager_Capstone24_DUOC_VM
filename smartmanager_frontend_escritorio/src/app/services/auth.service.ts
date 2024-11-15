@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Routes } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse  } from '@angular/common/http';
+import { tap, catchError, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 import { PerfilUsuario } from '../interfaces/usuario.interface';  // Importar la interfaz de perfil de usuario
 import { environment } from '../../environments/environment'; // Importa environment
 
@@ -15,32 +14,25 @@ export class AuthService {
   private apiUrl = environment.apiUrl;  // Aquí el enlace de la API  https://smartmanager-capstone24-duoc-vm.onrender.com/api
 
 
-  constructor(private http: HttpClient) { }
-  // Método para obtener el token de localStorage cada vez que se necesite
+  constructor(private http: HttpClient, private router: Router) {}
+
   private getToken(): string | null {
     return localStorage.getItem('authToken');
   }
-  // Método para hacer login 
-  login(nombreUsuario: string, password: string): Observable<any> {
-    const loginUrl = `${this.apiUrl}login/`;
-    const body = { nombreUsuario, password };
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<any>(loginUrl, body, { headers }).pipe(
-      map(response => {
-        if (response && response.token) {
-          console.log('Token recibido:', response.token);  // Log del token recibido
-          localStorage.setItem('authToken', response.token);  // Guarda el token correctamente
-
-          // Redirigir en lugar de recargar la página
-          window.location.href = '/';  // Evita un reload completo y usa redirección para cargar componentes correctamente
-        }
-        return response;
-      })
-    );
+  private autoLogout() {
+    localStorage.removeItem('authToken'); // Elimina el token de localStorage
+    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
   }
 
-  // Método para hacer registro
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status === 401) {
+      console.warn('Token inválido o expirado, cerrando sesión automáticamente.');
+      this.autoLogout(); // Cierra sesión si se recibe un error 401
+    }
+    return throwError(error);
+  }
+
   register(data: any): Observable<any> {
     const registerUrl = `${this.apiUrl}register/`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -49,31 +41,46 @@ export class AuthService {
       map(response => {
         console.log('Usuario registrado exitosamente:', response);
         return response;
-      })
+      }),
+      catchError(this.handleError.bind(this)) // Manejo de errores
     );
   }
 
-  // Método para hacer logout
+  login(nombreUsuario: string, password: string): Observable<any> {
+    const loginUrl = `${this.apiUrl}login/`;
+    const body = { nombreUsuario, password };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(loginUrl, body, { headers }).pipe(
+      map(response => {
+        if (response && response.token) {
+          console.log('Token recibido:', response.token);
+          localStorage.setItem('authToken', response.token);
+          window.location.href = '/';
+        }
+        return response;
+      }),
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
+  }
+
   logout(): Observable<any> {
     const logoutUrl = `${this.apiUrl}logout/`;
-    const token = this.getToken();  // Obtener el token actualizado
+    const token = this.getToken();
 
-    console.log('Token almacenado en localStorage:', token);  // Log del token almacenado
-    
     if (token) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Token ${token}`
       });
 
-      console.log('Enviando solicitud de logout con token:', headers);
-
       return this.http.post<any>(logoutUrl, {}, { headers }).pipe(
         map(response => {
           console.log('Respuesta del servidor de logout:', response);
-          localStorage.removeItem('authToken');  // Eliminar el token del localStorage
+          localStorage.removeItem('authToken');
           return response;
-        })
+        }),
+        catchError(this.handleError.bind(this)) // Manejo de errores
       );
     } else {
       console.log('No se encontró token en localStorage');
@@ -84,61 +91,65 @@ export class AuthService {
     }
   }
 
-  // Método para obtener el perfil del usuario autenticado
   getPerfil(): Observable<PerfilUsuario> {
-    const token = localStorage.getItem('authToken');
+    const token = this.getToken();
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`,
       'Content-Type': 'application/json'
     });
 
-    return this.http.get<PerfilUsuario>(`${this.apiUrl}perfil/`, { headers });
+    return this.http.get<PerfilUsuario>(`${this.apiUrl}perfil/`, { headers }).pipe(
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
   }
-  // Obtener la lista de usuarios (solo administradores)
+
   getUsuarios(): Observable<any> {
-    const token = this.getToken();  // Obtener el token de localStorage
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`,  // Enviar el token en los headers
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.get(`${this.apiUrl}usuarios/`, { headers });
-  }
-
-
-// Método para eliminar un usuario
-eliminarUsuario(id: number): Observable<any> {
-  // Solo utilizamos la URL y hacemos la solicitud DELETE de forma simple
-  return this.http.delete<any>(`${this.apiUrl}usuarios/${id}/`);
-}
-
-
-  // Actualizar usuario (usar PUT o PATCH dependiendo de tu API)
-  actualizarUsuario(usuario: any): Observable<any> {
-    const token = this.getToken();  // Obtener el token actualizado
+    const token = this.getToken();
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`,
       'Content-Type': 'application/json'
     });
 
-    return this.http.put(`${this.apiUrl}usuarios/${usuario.id}/`, usuario, { headers });
+    return this.http.get(`${this.apiUrl}usuarios/`, { headers }).pipe(
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
   }
 
-  // Método para verificar si el usuario está autenticado
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}usuarios/${id}/`).pipe(
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
+  }
+
+  actualizarUsuario(usuario: any): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put(`${this.apiUrl}usuarios/${usuario.id}/`, usuario, { headers }).pipe(
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
+  }
+
   isAuthenticated(): boolean {
     const token = !!localStorage.getItem('authToken');
-    console.log('Usuario autenticado:', token);  // Log para verificar si el usuario está autenticado
+    console.log('Usuario autenticado:', token);
     return token;
   }
 
-  // Método para recuperar contraseña
   recuperarContrasena(data: any): Observable<any> {
     const url = `${this.apiUrl}recuperar-contrasena/`;
-    const token = localStorage.getItem('authToken');  // Obtén el token de autenticación
+    const token = this.getToken();
     const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`,  // Agrega el token al encabezado
+      'Authorization': `Token ${token}`,
       'Content-Type': 'application/json'
     });
-    return this.http.post<any>(url, data, { headers });
+
+    return this.http.post<any>(url, data, { headers }).pipe(
+      catchError(this.handleError.bind(this)) // Manejo de errores
+    );
   }
 }
+
