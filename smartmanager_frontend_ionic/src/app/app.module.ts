@@ -1,32 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // Importar HTTP_INTERCEPTORS
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-// Importar el MenuPopoverComponent
 import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
+import { AuthInterceptor } from './services/auth-interceptor.service'; // Importar el interceptor
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuPopoverComponent // Declarar el componente aquí
+    MenuPopoverComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule // Añadir HttpClientModule aquí
+    HttpClientModule
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } // Registrar el interceptor
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-

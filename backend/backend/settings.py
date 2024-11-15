@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4a6pjyw3!3jf-vyg&+v3)#%edirom@j5*0y3&@!-=u)xh43p*r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Debug debe estar desactivado en producción para evitar fugas de información sensible
-DEBUG = False
+DEBUG = True
 
 # Hosts permitidos para acceder a la aplicación
 ALLOWED_HOSTS = [
@@ -109,13 +109,13 @@ DATABASES = {
 }
 
 # Configuración adicional de la base de datos para entorno de despliegue
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,  # Optimiza la reutilización de conexiones
-        ssl_require=True,
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL'),
+#         # conn_max_age=600,  # Optimiza la reutilización de conexiones
+#         ssl_require=True,
+#     )
+# }
 
 
 # Configuración de la base de datos local para desarrollo

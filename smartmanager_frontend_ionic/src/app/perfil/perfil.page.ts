@@ -1,17 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
-export class PerfilPage {
-  usuario = {
-    nombre: 'Juan Pérez',
-    email: 'juan.perez@example.com',
-    telefono: '123-456-7890',
-    direccion: 'Calle Falsa 123, Ciudad, País'
-  };
+export class PerfilPage implements OnInit {
+  usuario: any = {}; // Inicializar como objeto vacío
 
-  constructor() {}
+  constructor(private perfilService: PerfilService) {}
+
+  ngOnInit() {
+    this.cargarPerfil();
+  }
+
+  cargarPerfil() {
+    this.perfilService.getPerfil().subscribe(
+      (data) => {
+        this.usuario = data;
+      },
+      (error) => {
+        console.error('Error al cargar el perfil', error);
+      }
+    );
+  }
 }
+

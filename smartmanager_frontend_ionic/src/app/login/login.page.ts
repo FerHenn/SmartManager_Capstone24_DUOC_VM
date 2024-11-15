@@ -47,9 +47,19 @@ export class LoginPage {
     this.authService.login(this.nombreUsuario, this.password).subscribe({
       next: async (response) => {
         console.log('Respuesta del backend recibida:', response);
-        localStorage.setItem('token', response.token);
-        await loading.dismiss();
-        this.router.navigate(['/home']);
+
+        if (response && response.token) {
+          console.log('Token recibido:', response.token);
+          localStorage.setItem('authToken', response.token); // Guardar token en localStorage
+          console.log('Token guardado en localStorage');
+          await loading.dismiss();
+          console.log('Redirigiendo a la página de inicio...');
+          this.router.navigate(['/home']);
+        } else {
+          console.error('Error: No se recibió un token en la respuesta.');
+          await this.showAlert('Error', 'No se recibió un token en la respuesta.');
+          await loading.dismiss();
+        }
       },
       error: async (error) => {
         console.error('Error de autenticación:', error);
