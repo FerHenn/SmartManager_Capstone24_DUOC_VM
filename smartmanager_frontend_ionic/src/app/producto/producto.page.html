@@ -12,8 +12,8 @@
   <ion-list>
     <ion-item *ngFor="let product of products">
       <ion-label>
-        <h2>{{ product.nombre }}</h2>
-        <p>Precio: {{ product.precio | currency }}</p>
+        <h2>{{ product.nombreProducto }}</h2> <!-- Cambiado para coincidir con el serializer -->
+        <p>Precio: {{ product.precio | currency:'CLP':'symbol':'1.0-0' }}</p> <!-- Sin decimales extra -->
       </ion-label>
     </ion-item>
   </ion-list>
