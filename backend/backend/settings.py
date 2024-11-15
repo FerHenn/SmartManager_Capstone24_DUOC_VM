@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',  # Motor PostgreSQL
         'NAME': 'smartmanagerdb',  # Nombre de la base de datos
         'USER': 'tipopipo',  # Usuario de la base de datos
-        'PASSWORD': 'Isc_2002$',  # Contraseña de la base de datos
+        'PASSWORD': 'Pipo_1234',  # Contraseña de la base de datos
         'HOST': 'dbsmartmanagertp.postgres.database.azure.com',  # Host del servidor
         'PORT': '5432',  # Puerto de PostgreSQL
         'OPTIONS': {
