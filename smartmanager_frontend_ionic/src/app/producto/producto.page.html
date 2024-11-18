@@ -3,18 +3,83 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Producto</ion-title>
+    <ion-title>Lista de Productos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>Productos Disponibles</h2>
+<ion-content>
+  <!-- Botón para crear un nuevo producto -->
+  <ion-button expand="full" (click)="nuevoProducto()">Nuevo Producto</ion-button>
+
+  <!-- Mostrar productos en una lista -->
   <ion-list>
-    <ion-item *ngFor="let product of products">
+    <ion-item *ngFor="let producto of productos">
       <ion-label>
-        <h2>{{ product.nombreProducto }}</h2> <!-- Cambiado para coincidir con el serializer -->
-        <p>Precio: {{ product.precio | currency:'CLP':'symbol':'1.0-0' }}</p> <!-- Sin decimales extra -->
+        <h2>{{ producto.nombreProducto }}</h2>
+        <p>{{ producto.descripcion }}</p>
+        <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
       </ion-label>
+      <!-- Botón para editar el producto -->
+      <ion-button (click)="nuevoProducto()" color="primary">Editar</ion-button>
     </ion-item>
   </ion-list>
+
+  <!-- Modal para crear o editar producto -->
+  <ion-modal [isOpen]="displayDialog" (isOpenChange)="onModalChange($event)">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ productoSeleccionado.id ? 'Editar Producto' : 'Nuevo Producto' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="cerrarDialogo()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <form (ngSubmit)="guardarProducto()">
+        <ion-item>
+          <ion-label position="floating">Nombre del Producto</ion-label>
+          <ion-input [(ngModel)]="productoSeleccionado.nombreProducto" name="nombreProducto" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input [(ngModel)]="productoSeleccionado.descripcion" name="descripcion" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Precio</ion-label>
+          <ion-input [(ngModel)]="productoSeleccionado.precio" name="precio" type="number" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Categoría</ion-label>
+          <ion-select [(ngModel)]="productoSeleccionado.categoria" name="categoria" required>
+            <ion-select-option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria.nombreCategoria }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Proveedor</ion-label>
+          <ion-select [(ngModel)]="productoSeleccionado.proveedor" name="proveedor" required>
+            <ion-select-option *ngFor="let proveedor of proveedores" [value]="proveedor">{{ proveedor.nombre_proveedor }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Imagen -->
+        <ion-item>
+          <ion-label position="floating">Imagen</ion-label>
+          <input type="file" (change)="onImageSelected($event)" />
+        </ion-item>
+
+        <!-- Previsualización de la imagen seleccionada -->
+        <div *ngIf="selectedImageUrl">
+          <img [src]="selectedImageUrl" alt="Imagen del producto" style="max-width: 100%; margin-top: 10px;" />
+        </div>
+
+        <!-- Botón para guardar -->
+        <ion-button expand="full" type="submit" color="primary">{{ productoSeleccionado.id ? 'Actualizar' : 'Guardar' }}</ion-button>
+      </form>
+    </ion-content>
+  </ion-modal>
 </ion-content>

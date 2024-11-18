@@ -7,11 +7,15 @@
     
 }
 /* Para el contenedor de ion-content */
-ion-content.content-container {
+ion-content {
     --background: url('/assets/images/fondo.svg') no-repeat center center fixed;
     --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
-    padding: 20px;  /* Espaciado adicional si es necesario */
+    padding: 20px;
+    background-position: center; /* Asegura que la imagen esté centrada */
+    background-attachment: fixed; /* Hace que la imagen se quede fija al hacer scroll */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
+
 
 .space{
     --background: #931C1C;
@@ -20,16 +24,17 @@ ion-content.content-container {
 }
 
 .login-container {
-    background-color: #ffffff; /* Gris oscuro */
-    color: #ffffff; /* Texto blanco para contraste */
-    padding: 30px; /* Aumentar el espaciado interno */
-    border-radius: 8px; /* Bordes redondeados (opcional) */
-    max-width: 400px; /* Aumentar el ancho máximo */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 2rem; /* Aumentar el espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    max-width: 350px; /* Ancho máximo */
     margin: auto; /* Centra el contenedor horizontalmente */
     text-align: center; /* Centra el texto */
     font-family: 'Quicksand', sans-serif;
-    border: 1px solid #FF9800;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border: 1px solid #FF9800; /* Borde naranja */
 }
+
 
 h2 {
     margin-bottom: 24px;
@@ -121,7 +126,7 @@ ion-item ion-label {
 }
 
 /* Espaciado adicional en dispositivos pequeños */
-@media (max-width: 600px) {
+@media (max-width: 200px) {
     .login-container {
         padding: 20px; /* Reduce el padding en pantallas pequeñas */
         margin: 10px; /* Agrega margen lateral */
