@@ -11,18 +11,26 @@
   <!-- Botón para crear un nuevo producto -->
   <ion-button expand="full" (click)="nuevoProducto()">Nuevo Producto</ion-button>
 
-  <!-- Mostrar productos en una lista -->
-  <ion-list>
-    <ion-item *ngFor="let producto of productos">
-      <ion-label>
-        <h2>{{ producto.nombreProducto }}</h2>
-        <p>{{ producto.descripcion }}</p>
-        <p><strong>Precio:</strong> {{ producto.precio | currency }}</p>
-      </ion-label>
-      <!-- Botón para editar el producto -->
-      <ion-button (click)="nuevoProducto()" color="primary">Editar</ion-button>
-    </ion-item>
-  </ion-list>
+  <!-- Mostrar productos en una tabla -->
+  <ion-grid>
+    <ion-row>
+      <!-- Encabezados de la tabla -->
+      <ion-col size="3"><strong>Nombre</strong></ion-col>
+      <ion-col size="4"><strong>Descripción</strong></ion-col>
+      <ion-col size="2"><strong>Precio</strong></ion-col>
+      <ion-col size="3"><strong>Acciones</strong></ion-col>
+    </ion-row>
+
+    <!-- Iterar sobre los productos y mostrarlos en filas -->
+    <ion-row *ngFor="let producto of productos">
+      <ion-col size="3">{{ producto.nombreProducto }}</ion-col>
+      <ion-col size="4">{{ producto.descripcion }}</ion-col>
+      <ion-col size="2">{{ producto.precio | currency }}</ion-col>
+      <ion-col size="3">
+        <ion-button (click)="editarProducto(producto)" color="primary">Editar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <!-- Modal para crear o editar producto -->
   <ion-modal [isOpen]="displayDialog" (isOpenChange)="onModalChange($event)">

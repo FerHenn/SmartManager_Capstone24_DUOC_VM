@@ -1,39 +1,103 @@
+/* Estilo para el header y toolbar */
+ion-header ion-toolbar ion-title {
+    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
+    color: #ffffff; /* Cambia el color del texto a blanco */
+    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
+}
+
+/* Estilo de la barra de herramientas (toolbar) */
+.toolbar {
+    --background: #FF9800; /* Establece el color de fondo a un tono anaranjado */
+    --color: #ffffff; /* Color blanco para el texto */
+    font-family: 'Quicksand', sans-serif; /* Aplica la fuente Quicksand */
+    font-size: 20px; /* Ajusta el tamaño de la fuente */
+}
+
+/* Fondo y espaciado del contenido */
+ion-content.ion-padding {
+    --background: url('/assets/images/fondo-home.svg') no-repeat center center fixed;
+    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    padding: 20px;  /* Espaciado adicional si es necesario */
+}
+
+/* Estilo del contenedor de ventas */
 .ventas-container {
+    background-color: #ffffff;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
 
-h2 {
+.ventas-container h2 {
     margin-bottom: 20px;
-    }
+    font-weight: bold;
+    font-size: 24px; /* Tamaño adecuado para los títulos */
+    color: #333; /* Título en un color oscuro */
+}
 
+/* Estilo de ion-grid para alineación de columnas */
 ion-grid {
     margin-top: 20px;
-    }
+}
 
 ion-col {
+    font-weight: bold;
+    color: #000000; /* Color personalizado para el título del módulo */
+    font-size: 1.4rem;
+    font-family: 'Quicksand', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    }
-ion-input {
-    max-width: 80px;
-    text-align: center;
-    }
-
-ion-button {
-    margin-top: 10px;
-    }}
-ion-header ion-toolbar ion-title {
-    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
-    color: #ffffff; /* Cambia el color del texto si es necesario */
-    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
+    padding: 12px 10px;
 }
+
+/* Estilo para el input de cantidad */
+ion-input {
+    max-width: 100px; /* Ajusta el tamaño del input para que sea más compacto */
+    text-align: center;
+}
+
+/* Estilo para los botones dentro de la tabla */
 ion-button {
-    border-radius: 30px; /* Bordes más circulares */
-    --background: #565458; /* Color de fondo */
-    --color: #ffffff; /* Color del texto */
-    width: 100%; /* Asegura que el botón ocupe todo el ancho */
-    margin-top: 20px; /* Espacio en la parte superior del botón */
-    font-family: 'Quicksand', sans-serif;
+    margin-top: 10px; /* Espaciado entre botones */
+    margin-right: 5px; /* Espacio a la derecha entre los botones */
+    padding: 8px 15px; /* Ajusta el tamaño del botón */
+    font-size: 14px; /* Un tamaño de fuente adecuado para los botones */
+}
+
+/* Botón "Agregar Venta" */
+.boton_agregar {
+    width: 300px;
+    --background: #FF9800;
+    border-radius: 30px; /* Bordes más redondeados */
+}
+
+/* Botones dentro de la tabla */
+ion-button.boton_guardar {
+    --background-color: #0062ff;
+    border-color: #333;
+    --color: white;
+    border-radius: 25px;
+}
+
+ion-button.boton_eliminar {
+    --background: #f44336;
+    --color: white;
+    border-radius: 25px;
+}
+
+/* Diseño responsivo: Ajustar la tabla para pantallas pequeñas */
+@media (max-width: 767px) {
+    ion-col {
+        font-size: 12px; /* Reducir el tamaño de la fuente en pantallas pequeñas */
+        padding: 8px;
+    }
+    ion-input {
+        max-width: 80px; /* Hacer los inputs más pequeños en pantallas pequeñas */
+    }
+    .ventas-container h2 {
+        font-size: 20px; /* Reducir el tamaño del título en pantallas pequeñas */
+    }
 }
