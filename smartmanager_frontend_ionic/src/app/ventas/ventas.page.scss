@@ -1,39 +1,67 @@
+/* Contenedor general */
 .ventas-container {
-    text-align: center;
-    font-family: 'Quicksand', sans-serif;
-
-h2 {
-    margin-bottom: 20px;
-    }
-
-ion-grid {
-    margin-top: 20px;
-    }
-
-ion-col {
+    padding: 1rem;
+  }
+  
+  /* Tabla responsive */
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Estilo de la cabecera */
+  .header {
+    display: none; /* Ocultamos la cabecera en celulares */
+  }
+  
+  /* Ajuste de filas en celulares */
+  .row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    flex-direction: column; /* Las celdas se apilan */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo de las celdas */
+  .cell {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+  
+  .cell strong {
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
+  
+  /* Responsividad: Pantallas mayores a 768px */
+  @media screen and (min-width: 768px) {
+    .responsive-table {
+      display: table;
     }
-ion-input {
-    max-width: 80px;
-    text-align: center;
+  
+    .header {
+      display: flex;
+      background-color: #f8f8f8;
+      font-weight: bold;
+      text-align: left;
     }
-
-ion-button {
-    margin-top: 10px;
-    }}
-ion-header ion-toolbar ion-title {
-    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
-    color: #ffffff; /* Cambia el color del texto si es necesario */
-    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
-}
-ion-button {
-    border-radius: 30px; /* Bordes más circulares */
-    --background: #565458; /* Color de fondo */
-    --color: #ffffff; /* Color del texto */
-    width: 100%; /* Asegura que el botón ocupe todo el ancho */
-    margin-top: 20px; /* Espacio en la parte superior del botón */
-    font-family: 'Quicksand', sans-serif;
-}
+  
+    .row {
+      display: table-row; /* Regresa a formato tabla */
+      border: none;
+      box-shadow: none;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .cell {
+      display: table-cell; /* Celdas en formato tabla */
+      padding: 8px;
+      text-align: left;
+    }
+  }
+  

@@ -51,33 +51,10 @@ export class AuthService {
     );
   }
 
-    // Método para hacer logout
-    logout(): Observable<any> {
-      const logoutUrl = `${this.apiUrl}logout/`;
-      const token = this.getToken();
-  
-      if (token) {
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}` 
-        });
-  
-        return this.http.post<any>(logoutUrl, {}, { headers }).pipe(
-          map(response => {
-            console.log('Respuesta del servidor de logout:', response);
-            localStorage.removeItem('authToken'); // Eliminar el token del localStorage
-            this.navCtrl.navigateRoot('/login'); // Redirige al login
-            return response;
-          })
-        );
-      } else {
-        console.log('No se encontró token en localStorage');
-        return new Observable(observer => {
-          observer.next(null);
-          observer.complete();
-        });
-      }
-    }
+  logout() {
+    localStorage.removeItem('token');
+    sessionStorage.clear();
+  }
 
   // Método para obtener el perfil del usuario autenticado
   getPerfil(): Observable<any> {

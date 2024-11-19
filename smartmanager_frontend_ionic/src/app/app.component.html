@@ -2,7 +2,7 @@
   <ion-menu contentId="main-content" side="start" menuId="first">
     <ion-header>
       <ion-toolbar>
-        <ion-title >Menú</ion-title>
+        <ion-title>Menú</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -32,4 +32,7 @@
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>
+
+  <!-- Contenedor del botpress -->
+  <div id="botpress-container" *ngIf="shouldShowBot()"></div>
 </ion-app>
