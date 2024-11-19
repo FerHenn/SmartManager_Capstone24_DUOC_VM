@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit {
 
     if (this.isAuthenticated) {
       // Cargar el perfil y las opciones de menú correspondientes
+      this.router.navigate(['/inicio']);
       this.cargarPerfilYMenu();
     }
   }
