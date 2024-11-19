@@ -1,28 +1,55 @@
-import { Component } from '@angular/core';
-import { Router,RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; // Servicio de autenticación
+import { MenuItem } from 'primeng/api'; // Para representar las rutas disponibles
 import { CommonModule } from '@angular/common';
-import { SidebarModule } from 'primeng/sidebar';
-import { MenuItem } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [MatToolbarModule,MatIconModule,MatCardModule,MatGridListModule,RouterModule,CommonModule,SidebarModule,TieredMenuModule,], // BrowserAnimationsModule,
+  imports: [RouterModule, CommonModule, MatCardModule],
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.scss'
+  styleUrl: './inicio.component.scss',
 })
-export class InicioComponent {
-  usuario: string | null;
-  constructor(private router: Router) {
-    this.usuario = localStorage.getItem('usuario'); // Recupera el nombre de usuario
+export class InicioComponent implements OnInit {
+  menuItems: MenuItem[] = []; // Rutas dinámicas basadas en el rol del usuario
+  isAuthenticated: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated(); // Verifica autenticación
+    if (this.isAuthenticated) {
+      this.cargarRutas(); // Cargar rutas dinámicamente
+    } else {
+      this.router.navigate(['/login']); // Redirige al login si no está autenticado
+    }
+  }
+
+  cargarRutas(): void {
+    this.authService.getPerfil().subscribe({
+      next: (perfil) => {
+        // Rutas comunes para todos los usuarios
+        this.menuItems = [
+          { label: 'Gestión de productos', routerLink: '/productos', description: 'Control de productos' },
+          { label: 'Carrito', routerLink: '/carrito', description: 'Realiza compras' },
+        ];
+
+        // Rutas adicionales para administradores
+        if (perfil.role === 'Administrador') {
+          this.menuItems.push(
+            { label: 'Gestión de Usuarios', routerLink: '/usuario', description: 'Administra los usuarios registrados' },
+            { label: 'Gestión de Ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
+            { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
+            { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
+            { label: 'Recuperar Contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' }
+          );
+        }
+      },
+      error: (err) => {
+        console.error('Error al cargar el perfil del usuario:', err);
+      },
+    });
   }
 }
-  
- 
-

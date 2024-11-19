@@ -1,53 +1,13 @@
-<h2 class="titulo">Bienvenido al panel de control </h2>
-<div class="dashboard-container" fxLayout="column" fxLayoutAlign="center center">
-  
-  <div class="dashboard" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-
-    <mat-card [routerLink]="['/productos']">
+<h2 class="titulo">Bienvenido al panel de control</h2>
+<div class="dashboard-container">
+  <div class="dashboard">
+    <mat-card *ngFor="let item of menuItems" [routerLink]="item.routerLink">
       <mat-card-header>
-        <mat-card-title class="colortext">Gestión de productos</mat-card-title>
+        <mat-card-title class="colortext">{{ item.label }}</mat-card-title>
       </mat-card-header>
       <mat-card-content class="colortext card-content">
-        Busqueda de productos
+        {{ item['description'] }}
       </mat-card-content>
     </mat-card>
-
-    <mat-card [routerLink]="['/usuario']" >
-      <mat-card-header>
-        <mat-card-title class="colortext">Gestión de Usuarios</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="colortext card-content">
-        Administra los usuarios registrados.
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card ><!-- [routerLink]="['/productos']" -->
-      <mat-card-header>
-        <mat-card-title class="colortext">Gestión de Stock</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="colortext card-content">
-        Agrega, edita o elimina productos.
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card > <!--[routerLink]="['/ventas']"" -->
-      <mat-card-header>
-        <mat-card-title class="colortext">Gestión de Ventas</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="colortext card-content">
-        Revisa y gestiona las ventas realizadas.
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card [routerLink]="['/dashboard']" > 
-      <mat-card-header>
-        <mat-card-title class="colortext">Dashboard</mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="colortext card-content">
-        Consulta las estadísticas de ventas y usuarios.
-      </mat-card-content>
-    </mat-card>
-
-
   </div>
 </div>
