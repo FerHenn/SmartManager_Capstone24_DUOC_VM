@@ -18,9 +18,9 @@
         <ion-input class="ion-input-usuario" type="text" name="nombreUsuario" required [(ngModel)]="nombreUsuario"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['nombreUsuario']?.invalid && (loginForm.controls['nombreUsuario']?.dirty || loginForm.controls['nombreUsuario']?.touched)">
-        <ion-label>Por favor, ingresa un usuario válido.</ion-label>
+        <ion-label>* Por favor, ingresa un usuario válido.</ion-label>
       </div>
-      <ion-item class="item-password">
+      <ion-item class="item-contraseña">
         <ion-label position="floating">
           <ion-icon slot="start" name="lock-closed"></ion-icon>
           Contraseña
@@ -28,16 +28,11 @@
         <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
-        <ion-label>La contraseña debe tener al menos 8 caracteres.</ion-label>
+        <ion-label>* La contraseña debe tener al menos 8 carácteres.</ion-label>
       </div>
       <ion-button shape="round" type="submit" [disabled]="!loginForm.form.valid">
         Iniciar Sesión
       </ion-button>
-      <ion-item lines="none" class="ion-margin-top centered">
-        <ion-label>
-          <a href="/recuperar">¿Olvidaste tu contraseña?</a>
-        </ion-label>
-      </ion-item>
     </form>
   </div>
 </ion-content>

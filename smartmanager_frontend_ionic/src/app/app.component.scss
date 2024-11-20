@@ -38,3 +38,10 @@ ion-toolbar {
 ion-title {
     color: #ffffff !important; /* Forzar el color blanco en el título */
 }
+ion-footer.cerrar_sesion {
+    --background:#ffffff;
+    color: #ffffff;
+}
+ion-icon{
+    --color: #000000;
+}
