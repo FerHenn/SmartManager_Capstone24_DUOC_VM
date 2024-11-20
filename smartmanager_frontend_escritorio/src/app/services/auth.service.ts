@@ -22,7 +22,7 @@ export class AuthService {
 
   private autoLogout() {
     localStorage.removeItem('authToken'); // Elimina el token de localStorage
-    this.router.navigate(['/login']); // Redirige al usuario a la página de inicio de sesión
+    this.router.navigate(['login/']); // Redirige al usuario a la página de inicio de sesión
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
