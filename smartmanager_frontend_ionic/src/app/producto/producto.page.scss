@@ -14,36 +14,3 @@ h2 {
     font-weight: bold; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
-
-/* Estilo para el fondo */
-.background-image {
-    background: url('/assets/images/fondo.svg') no-repeat center center fixed;
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-}
-
-  /* Estilo para la tabla responsiva */
-p-table {
-    width: 100%;
-    margin-bottom: 20px; /* Espaciado inferior */
-}
-
-@media (max-width: 768px) {
-    p-table {
-      font-size: 12px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
-    }
-    p-table th, p-table td {
-      padding: 8px; /* Reduce el padding para pantallas más pequeñas */
-    }
-}
-
-button {
-    margin-top: 10px;
-}
-
-img {
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
