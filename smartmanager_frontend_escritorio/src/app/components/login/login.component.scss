@@ -3,17 +3,19 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #272727;
+  background-color: #FF9800;
 }
 
 .login-card {
-  background: rgb(29, 26, 26);
+  background: rgb(255, 255, 255);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
   text-align: center;
+  color: black;
+  font-weight:bold;
 }
 
 .p-field {
@@ -23,14 +25,20 @@
 .error-message {
   margin-top: 1rem;
   color: red;
+  
 }
 
 h2 {
   margin-bottom: 1.5rem;
+  color: rgb(0, 0, 0);
 }
 
 @media (max-width: 600px) {
   .login-card {
     padding: 1.5rem;
   }
+}
+.p-mt-2 p-button-primary{
+  background-color: #FF9800;
+  background: p-mt-2 p-button-primary;
 }

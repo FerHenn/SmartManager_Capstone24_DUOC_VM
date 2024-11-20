@@ -4,7 +4,7 @@
   align-items: center;
   font-size: 2em; /* Tamaño del título */
   margin: 20px 0; /* Reduce el margen */
-  color: rgb(245, 230, 16); /* Color amarillo */
+  color: rgb(255, 255, 255); /* Color amarillo */
 }
 
 .dashboard-container {
@@ -27,8 +27,8 @@
 
 /* Estilo para las cartas */
 mat-card {
-  background-color: #111; /* Fondo oscuro */
-  color: rgb(245, 230, 16); /* Texto amarillo */
+  background-color: #ff9d00; /* Fondo oscuro */
+  color: rgb(0, 0, 0); /* Texto amarillo */
   border-radius: 8px; /* Esquinas redondeadas */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones para hover */
