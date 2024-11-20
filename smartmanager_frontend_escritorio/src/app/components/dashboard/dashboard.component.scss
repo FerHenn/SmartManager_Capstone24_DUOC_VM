@@ -1,14 +1,15 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
 
-.p-grid {
-    margin: 20px;
-  }
-  
-  .p-card {
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 2em;
-  }
-  
+p-card {
+  padding: 10px;
+}
+
+ngx-charts-bar-vertical {
+  width: 100%;
+  height: auto;
+}

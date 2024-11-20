@@ -1,56 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DashboardService } from '../../services/dashboard.service';
+import { VentasDiarias, VentasMensuales, ResumenInventario } from '../../interfaces/dashboard.interface';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [TableModule, NgxChartsModule, CardModule],
+  imports: [CommonModule, CardModule, NgxChartsModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit{
-  ventasDiarias: number = 5000;
-  ventasMensuales: number = 120000;
-  totalInventario: number = 350;
+export class DashboardComponent implements OnInit {
+  ventasDiarias: number = 0;
+  ventasMensuales: number = 0;
+  totalTransacciones: number = 0;
 
+  totalProductosAgotandose: number = 0;
+  totalIngredientesAgotandose: number = 0;
 
-  // Usamos el nombre de un esquema predefinido en lugar de un objeto con 'domain'
-  colorScheme: string = 'vivid';
+  ventasDiariasData: Array<{ name: string; value: number }> = [];
+  ventasMensualesData: Array<{ name: string; value: number }> = [];
 
-  // Datos para el gráfico de barras (Ventas Mensuales)
-  ventasMensualesData = [
-    { name: 'Enero', value: 65000 },
-    { name: 'Febrero', value: 59000 },
-    { name: 'Marzo', value: 80000 },
-    { name: 'Abril', value: 81000 },
-    { name: 'Mayo', value: 56000 },
-    { name: 'Junio', value: 55000 },
-    { name: 'Julio', value: 40000 },
-    { name: 'Agosto', value: 60000 },
-    { name: 'Septiembre', value: 70000 },
-    { name: 'Octubre', value: 90000 }
-  ];
+  // Definición del esquema de colores
+  colorScheme: Color = {
+    name: 'customScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+  };
 
-  // Datos para el gráfico de líneas (Ventas Diarias)
-  ventasDiariasData = [
-    {
-      name: 'Ventas Diarias',
-      series: [
-        { name: 'Lunes', value: 5000 },
-        { name: 'Martes', value: 4000 },
-        { name: 'Miércoles', value: 3500 },
-        { name: 'Jueves', value: 4500 },
-        { name: 'Viernes', value: 6000 },
-        { name: 'Sábado', value: 7000 },
-        { name: 'Domingo', value: 3000 }
-      ]
-    }
-  ];
+  constructor(private dashboardService: DashboardService) {}
 
-  constructor() {}
+  ngOnInit() {
+    this.cargarDatos();
+  }
 
-  ngOnInit(): void {}
+  cargarDatos() {
+    this.dashboardService.getResumenInventario().subscribe((data: ResumenInventario) => {
+      this.totalProductosAgotandose = data.productos_agotandose.length;
+      this.totalIngredientesAgotandose = data.ingredientes_agotandose.length;
+    });
+
+    this.dashboardService.getVentasDiarias().subscribe((data: VentasDiarias) => {
+      this.ventasDiarias = data.ventas.reduce((sum, venta) => sum + venta.montoTotal, 0);
+      this.ventasDiariasData = data.ventas.map((venta) => ({
+        name: venta.fechaOrden,
+        value: venta.montoTotal,
+      }));
+    });
+
+    this.dashboardService.getVentasMensuales().subscribe((data: VentasMensuales) => {
+      this.ventasMensuales = data.total_ventas;
+      this.totalTransacciones = data.total_transacciones;
+      this.ventasMensualesData = data.ventas.map((venta) => ({
+        name: venta.fechaOrden,
+        value: venta.montoTotal,
+      }));
+    });
+  }
 }

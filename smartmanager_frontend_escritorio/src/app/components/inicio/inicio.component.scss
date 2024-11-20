@@ -1,89 +1,75 @@
-
-
-.title {
-  flex: 1 1 auto;
-  font-weight: bold;
-  color: white;
-  
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
 .titulo {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2em; // Tamaño de fuente más grande
-  margin: 40px 0; // Margen superior e inferior
-  color: rgb(245, 230, 16); // Color para el título
-  padding-bottom: 40px;
+  font-size: 2em; /* Tamaño del título */
+  margin: 20px 0; /* Reduce el margen */
+  color: rgb(245, 230, 16); /* Color amarillo */
 }
 
-.colortext {
-  color: rgb(245, 230, 16);
-}
-
-/* Añadimos una altura completa al contenedor principal */
 .dashboard-container {
-  height: 50vh; /* Ocupa toda la pantalla */
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Asegura que el título esté encima de las cartas */
+  justify-content: flex-start; /* Mueve el contenido hacia arriba */
   align-items: center;
-  padding-top: 100px;
+  height: calc(100vh - 50px); /* Reduce el espacio restante */
+  padding: 1rem;
 }
 
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%; // Se asegura de ocupar el ancho completo
-  padding: 0 20px; // Padding para evitar que el contenido toque los bordes
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Diseño de 4 columnas */
+  gap: 1.5rem; /* Espaciado entre las cartas */
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo del contenedor */
+  margin-top: 20px; /* Espacio entre el título y las cartas */
 }
 
-/* Ajustes de estilo para las tarjetas */
-mat-toolbar {
-  background-color: #3f51b5; /* Dark color for toolbar */
-}
-
+/* Estilo para las cartas */
 mat-card {
-  margin: 10px;
+  background-color: #111; /* Fondo oscuro */
+  color: rgb(245, 230, 16); /* Texto amarillo */
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones para hover */
   cursor: pointer;
-  width: 100%; /* Cambiamos el ancho a 100% para que sea responsivo */
-  // max-width: 800px; /* Establecemos un ancho máximo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px; // Esquinas redondeadas
-  overflow: hidden; // Oculta cualquier contenido que sobresalga
-  background-color: black;
-}
 
-mat-card-title {
-  font-weight: bold;
-  font-size: 1.5em; // Tamaño de fuente más grande
-}
-
-.card-content {
-  font-size: 1em; // Tamaño de fuente para el contenido
-  line-height: 1.5; // Espaciado de línea para mejor legibilidad
-}
-
-/* Media queries para hacer el diseño más responsivo */
-@media (max-width: 768px) {
-  .titulo {
-    font-size: 1.5em;
-  }
-
-  mat-card {
-    max-width: 100%; // Se asegura que las tarjetas ocupen el 100% en pantallas pequeñas
+  &:hover {
+    transform: translateY(-5px); /* Efecto flotante */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
   }
 
   mat-card-title {
-    font-size: 1.2em; // Tamaño de fuente más pequeño en pantallas pequeñas
+    font-weight: bold;
+    font-size: 1.2em; /* Tamaño del título */
   }
 
   .card-content {
-    font-size: 0.9em; // Tamaño de fuente más pequeño en pantallas pequeñas
+    font-size: 1em; /* Tamaño del contenido */
+    line-height: 1.5; /* Espaciado de línea */
+    text-align: center; /* Centra el contenido */
+  }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 1.5em; /* Reduce el tamaño del título */
+  }
+
+  .dashboard {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Columnas más pequeñas */
+  }
+
+  mat-card {
+    max-width: 100%; /* Asegura que las tarjetas ocupen el ancho completo */
+  }
+
+  mat-card-title {
+    font-size: 1.1em; /* Reduce el tamaño del título de las cartas */
+  }
+
+  .card-content {
+    font-size: 0.9em; /* Reduce el tamaño del contenido */
   }
 }

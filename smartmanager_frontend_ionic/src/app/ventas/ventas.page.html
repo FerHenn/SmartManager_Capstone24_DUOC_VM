@@ -6,41 +6,96 @@
     <ion-title>Gestión de Ventas</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
-
   <div class="ventas-container">
     <h2>Ventas Registradas</h2>
-    <ion-grid>
-      <ion-row>
-        <ion-col><strong>Producto</strong></ion-col>
-        <ion-col><strong>Cantidad</strong></ion-col>
-        <ion-col><strong>Precio</strong></ion-col>
-        <ion-col><strong>Total</strong></ion-col>
+
+    <!-- Mostrar tabla si no hay orden seleccionada -->
+    <ion-grid *ngIf="!ordenSeleccionada" class="responsive-table">
+      <ion-row class="header">
+        <ion-col><strong>Fecha</strong></ion-col>
+        <ion-col><strong>Usuario</strong></ion-col>
+        <ion-col><strong>Método de Pago</strong></ion-col>
+        <ion-col><strong>Monto Total</strong></ion-col>
+        <ion-col><strong>Productos</strong></ion-col>
         <ion-col><strong>Acciones</strong></ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let venta of ventas; let i = index">
-        <ion-col>{{ venta.producto }}</ion-col>
-        <ion-col>
-          <ion-input [(ngModel)]="venta.cantidad" type="number" min="0"></ion-input>
+      <ion-row *ngFor="let orden of ordenes" class="row">
+        <ion-col class="cell"><strong>Fecha:</strong> {{ orden.fechaOrden | date: 'short' }}</ion-col>
+        <ion-col class="cell"><strong>Usuario:</strong> {{ orden.usuarioNombre }}</ion-col>
+        <ion-col class="cell"><strong>Método:</strong> {{ orden.metodoPagoNombre }}</ion-col>
+        <ion-col class="cell"><strong>Total:</strong> ${{ orden.montoTotal }}</ion-col>
+        <ion-col class="cell">
+          <strong>Productos:</strong>
+          <ul>
+            <li *ngFor="let producto of orden.productos_ordenados">
+              Producto: {{ producto.producto }} - Cantidad: {{ producto.cantidad }}
+            </li>
+          </ul>
         </ion-col>
-        <ion-col>${{ venta.precio }}</ion-col>
-        <ion-col>${{ venta.cantidad * venta.precio }}</ion-col>
-        <ion-col>
-          <ion-button fill="outline" color="primary" (click)="guardarCambios(venta)">
-            Guardar
+        <ion-col class="cell">
+          <ion-button fill="outline" color="primary" (click)="editarOrden(orden)">
+            Actualizar
           </ion-button>
-          <ion-button fill="outline" color="danger" (click)="eliminarVenta(i)">
+          <ion-button fill="outline" color="danger" (click)="eliminarOrden(orden.id)">
             Eliminar
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    <ion-button expand="block" (click)="agregarVenta()">
-      Agregar Venta
-    </ion-button>
   </div>
-</ion-content>
 
+  <!-- Mostrar formulario de edición si hay una orden seleccionada -->
+  <div *ngIf="ordenSeleccionada">
+    <h3>Actualizar Orden</h3>
+
+    <!-- Selector de usuario -->
+    <ion-item>
+      <ion-label position="stacked">Usuario</ion-label>
+      <ion-select [(ngModel)]="ordenSeleccionada.usuario">
+        <ion-select-option *ngFor="let usuario of usuarios" [value]="usuario.id">
+          {{ usuario.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Selector de método de pago -->
+    <ion-item>
+      <ion-label position="stacked">Método de Pago</ion-label>
+      <ion-select [(ngModel)]="ordenSeleccionada.metodoPago">
+        <ion-select-option *ngFor="let metodo of metodosPago" [value]="metodo.id">
+          {{ metodo.nombre_metodo_pago }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Productos Ordenados -->
+    <div>
+      <h4>Productos Ordenados</h4>
+
+      <!-- Mostrar productos si existen -->
+      <ul *ngIf="ordenSeleccionada.productos_ordenados.length > 0">
+        <li *ngFor="let producto of ordenSeleccionada.productos_ordenados">
+          Producto: {{ producto.producto }} - Cantidad: {{ producto.cantidad }}
+        </li>
+      </ul>
+
+      <!-- Mostrar mensaje si no hay productos -->
+      <p *ngIf="ordenSeleccionada.productos_ordenados.length === 0">
+        No hay productos en esta orden.
+      </p>
+    </div>
+
+    <!-- Monto total -->
+    <ion-item>
+      <ion-label><strong>Total:</strong></ion-label>
+      <ion-text>${{ ordenSeleccionada.montoTotal }}</ion-text>
+    </ion-item>
+
+    <!-- Botones -->
+    <ion-button expand="block" (click)="guardarOrden()">Guardar Cambios</ion-button>
+    <ion-button expand="block" color="medium" (click)="cancelarEdicion()">Cancelar</ion-button>
+  </div>
+
+</ion-content>
