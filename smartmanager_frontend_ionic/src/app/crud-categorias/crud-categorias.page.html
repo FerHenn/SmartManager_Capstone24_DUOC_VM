@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Categorías</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="crearCategoria()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Crear Categoría
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Lista de categorías -->
+  <ion-list>
+    <ion-item *ngFor="let categoria of categorias">
+      <ion-label>
+        <h2>{{ categoria.nombreCategoria }}</h2>
+        <p>{{ categoria.descripcionCategoria }}</p>
+        <p *ngIf="categoria.imagen">
+          <img [src]="categoria.imagen" alt="Imagen de categoría" width="50" height="50" />
+        </p>
+        <p *ngIf="!categoria.imagen">Sin imagen</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button class="editar" (click)="editarCategoria(categoria)">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button class="eliminar" (click)="eliminarCategoria(categoria.id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulario de creación/edición -->
+  <ion-card *ngIf="isCreating || showEditForm" class="form-container">
+    <ion-card-header>
+      <ion-card-title>{{ isCreating ? 'Crear Categoría' : 'Editar Categoría' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="isCreating ? guardarNuevaCategoria() : guardarCambios()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombreCategoria"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea formControlName="descripcionCategoria"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>Imagen</ion-label>
+          <input type="file" (change)="onFileSelected($event)" />
+        </ion-item>
+        <ion-button expand="block" type="submit" color="primary">
+          {{ isCreating ? 'Guardar' : 'Actualizar' }}
+        </ion-button>
+        <ion-button expand="block" color="medium" (click)="cancelarCreacion()">Cancelar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

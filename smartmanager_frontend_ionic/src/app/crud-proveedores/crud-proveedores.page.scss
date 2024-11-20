@@ -1,0 +1,185 @@
+/* Asegurar que el componente ocupe todo el espacio disponible */
+:host {
+  display: block;
+  height: 100%; /* Asegura que el contenido ocupe toda la pantalla */
+  background-color: #f8f9fa; /* Fondo claro */
+}
+
+/* Ajustes para el encabezado */
+ion-header {
+  --background: #ff9800; /* Fondo del toolbar */
+  --color: white; /* Color del texto */
+  padding: 0; /* Eliminar cualquier padding */
+  margin: 0; /* Eliminar márgenes */
+}
+
+/* Asegúrate de que ion-content permita el desplazamiento completo */
+ion-content {
+  --padding-top: 0px; /* Quita el padding superior */
+  --padding-start: 16px; /* Espaciado lateral */
+  --padding-end: 16px; /* Espaciado lateral */
+  --padding-bottom: 16px; /* Agrega espacio inferior */
+  background-color: #f8f9fa; /* Fondo claro */
+  height: 100%; /* Asegura que ocupe toda la pantalla */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+}
+
+/* Título principal */
+.titulo {
+  text-align: center;
+  color: #ff9800; /* Color del texto */
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 16px; /* Espaciado inferior */
+  font-size: 24px; /* Tamaño del título */
+}
+
+/* Lista de proveedores */
+.proveedores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaciado entre elementos */
+}
+
+/* Estilo para cada proveedor */
+ion-list {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  background-color: white; /* Fondo de la lista */
+  padding: 8px;
+}
+
+/* Ajustes de los ítems */
+ion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px; /* Espaciado entre ítems */
+}
+
+/* Texto de los proveedores */
+ion-item ion-label h2 {
+  font-size: 18px; /* Tamaño del nombre */
+  font-weight: bold; /* Nombre destacado */
+  color: #333;
+}
+
+ion-item ion-label p {
+  font-size: 14px; /* Tamaño del texto secundario */
+  color: #666; /* Color gris para información adicional */
+  margin: 4px 0; /* Espaciado entre líneas */
+}
+
+/* Botones dentro de cada proveedor */
+/* Botones en los ítems */
+ion-item ion-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px; /* Espaciado entre botones */
+}
+
+/* Botón de editar */
+.editar {
+  --background: #488af3; /* Azul para editar */
+  --color: white; /* Texto blanco */
+  border-radius: 30px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de fuente */
+  font-weight: bold;
+}
+
+/* Botón de eliminar */
+.eliminar {
+  --background: #fc2828; /* Rojo para eliminar */
+  --color: white;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Formulario */
+.form-container {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Título del formulario */
+.form-container ion-card-title {
+  text-align: center;
+  color: #ff9800;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* Elementos del formulario */
+ion-item {
+  margin-bottom: 12px;
+}
+
+/* Botón de Crear/Actualizar */
+ion-button[color="primary"] {
+  --background: #ff9800; /* Fondo naranja */
+  --color: white; /* Texto blanco */
+  font-size: 16px; /* Tamaño de fuente */
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Botón de Cancelar */
+ion-button[color="medium"] {
+  --background: #ccc; /* Fondo gris */
+  --color: black; /* Texto negro */
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* Espaciado y diseño responsivo */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 20px; /* Reducir tamaño del título */
+  }
+
+  ion-item ion-label h2 {
+    font-size: 16px; /* Reducir tamaño del nombre */
+  }
+
+  ion-item ion-label p {
+    font-size: 12px; /* Reducir tamaño del texto secundario */
+  }
+
+  ion-button {
+    font-size: 14px; /* Ajustar botones para pantallas pequeñas */
+  }
+  
+}
+ion-header {
+  --background: #FF9800; /* Fondo naranja */
+  --color: white; /* Texto blanco */
+  padding: 0; /* Eliminar cualquier padding adicional */
+  margin: 0; /* Eliminar márgenes */
+}
+
+ion-toolbar {
+  --background: #FF9800; /* Fondo naranja */
+  --color: white; /* Color del texto */
+  padding: 0; /* Quitar rellenos internos */
+
+}
+/* Asegúrate de que el último ítem no quede oculto */
+ion-list {
+  margin-bottom: 16px; /* Espaciado inferior entre la lista y el final de la página */
+}
+/* Último ítem bien visible */
+ion-item:last-child {
+  margin-bottom: 16px; /* Asegura espacio adicional al final */
+}

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>Gestión de Proveedores</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="crearProveedor()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Crear Proveedor
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding proveedores-container">
+  <!-- Tabla de proveedores -->
+  <ion-list>
+    <ion-item *ngFor="let proveedor of proveedores">
+      <ion-label>
+        <h2>{{ proveedor.nombre_proveedor }}</h2>
+        <p>Teléfono: {{ proveedor.numero_telefonico }}</p>
+        <p>Estado: {{ proveedor.estado_activo ? 'Activo' : 'Inactivo' }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button class="editar" (click)="editarProveedor(proveedor)">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button class="eliminar" (click)="eliminarProveedor(proveedor.id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulario de creación/edición -->
+  <ion-card *ngIf="isCreating || showEditForm" class="form-container">
+    <ion-card-header>
+      <ion-card-title>{{ isCreating ? 'Crear Proveedor' : 'Editar Proveedor' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="isCreating ? guardarNuevoProveedor() : guardarCambios()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombre_proveedor"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input formControlName="numero_telefonico"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Estado</ion-label>
+          <ion-select formControlName="estado_activo">
+            <ion-select-option [value]="true">Activo</ion-select-option>
+            <ion-select-option [value]="false">Inactivo</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button expand="block" type="submit" color="primary">
+          {{ isCreating ? 'Guardar' : 'Actualizar' }}
+        </ion-button>
+        <ion-button expand="block" color="medium" (click)="cancelarCreacion()">Cancelar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -15,6 +15,12 @@ const routes: Routes = [
   { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule) , canActivate: [AuthGuard] },
   {path: 'producto',loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule), canActivate: [AuthGuard]  },
   { path: 'error', loadChildren: () => import('./error/error.module').then(m => m.ErrorPageModule) },
+  { path: 'crud-proveedores', loadChildren: () => import('./crud-proveedores/crud-proveedores.module').then( m => m.CrudProveedoresPageModule), canActivate: [AuthGuard]  },
+  { path: 'crud-categorias', loadChildren: () => import('./crud-categorias/crud-categorias.module').then( m => m.CrudCategoriasPageModule), canActivate: [AuthGuard]  },
+  { path: 'crud-productos', loadChildren: () => import('./crud-productos/crud-productos.module').then( m => m.CrudProductosPageModule), canActivate: [AuthGuard]  },
+  { path: 'crud-ingredientes', loadChildren: () => import('./crud-ingredientes/crud-ingredientes.module').then( m => m.CrudIngredientesPageModule), canActivate: [AuthGuard]  },
+  { path: 'dashboard-crud', loadChildren: () => import('./dashboard-crud/dashboard-crud.module').then( m => m.DashboardCrudPageModule), canActivate: [AuthGuard]  },
+
 
   // Otras rutas que desees añadir...
 ];

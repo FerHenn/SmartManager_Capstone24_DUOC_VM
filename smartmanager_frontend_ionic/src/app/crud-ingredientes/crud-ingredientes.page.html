@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Ingredientes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="crearIngrediente()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Crear Ingrediente
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Lista de ingredientes -->
+  <ion-list>
+    <ion-item *ngFor="let ingrediente of ingredientes">
+      <ion-label>
+        <h2>{{ ingrediente.nombreIngrediente }}</h2>
+        <p>Cantidad Mínima: {{ ingrediente.cantidadMinima }}</p>
+        <p>Cantidad Actual: {{ ingrediente.cantidadActual }}</p>
+        <p>Proveedor: {{ getNombreProveedor(ingrediente.proveedor) }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button class="editar" (click)="editarIngrediente(ingrediente)">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button class="eliminar" *ngIf="ingrediente.id" (click)="eliminarIngrediente(ingrediente.id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulario de creación/edición -->
+  <ion-card *ngIf="isCreating || showEditForm" class="form-container">
+    <ion-card-header>
+      <ion-card-title>{{ isCreating ? 'Crear Ingrediente' : 'Editar Ingrediente' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="isCreating ? guardarNuevoIngrediente() : guardarCambios()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombreIngrediente"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cantidad Mínima</ion-label>
+          <ion-input type="number" formControlName="cantidadMinima"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Cantidad Actual</ion-label>
+          <ion-input type="number" formControlName="cantidadActual"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Proveedor</ion-label>
+          <ion-select formControlName="proveedor" placeholder="Selecciona un proveedor">
+            <ion-select-option [value]="null">No asignado</ion-select-option>
+            <ion-select-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
+              {{ proveedor.nombre_proveedor }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button expand="block" type="submit" color="primary">
+          {{ isCreating ? 'Guardar' : 'Actualizar' }}
+        </ion-button>
+        <ion-button expand="block" color="medium" (click)="cancelarCreacion()">Cancelar</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

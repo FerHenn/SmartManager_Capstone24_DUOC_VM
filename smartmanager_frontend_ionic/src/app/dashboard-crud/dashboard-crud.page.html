@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="dashboard">
+    <h2>Gestion de tipopipo</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card routerLink="/crud-productos">
+            <ion-card-header>
+              <ion-card-title class="title-with-arrow">
+                <span class="card-title">Gestión de productos</span>
+                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Gestionar todos los productos existentes
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card routerLink="/crud-categorias">
+            <ion-card-header>
+              <ion-card-title class="title-with-arrow">
+                <span class="card-title">Gestión de categorias</span>
+                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Gestionar categorias existentes
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card routerLink="/crud-ingredientes">
+            <ion-card-header>
+              <ion-card-title class="title-with-arrow">
+                <span class="card-title">Gestión de ingredientes</span>
+                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Gestionar ingredientes existentes
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card routerLink="/crud-proveedores">
+            <ion-card-header>
+              <ion-card-title class="title-with-arrow">
+                <span class="card-title">Gestión de proveedores</span>
+                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Gestionar proovedores existentes
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
