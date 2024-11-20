@@ -1,0 +1,13 @@
+<h2 class="titulo">Panel de CRUDs</h2>
+<div class="dashboard-container">
+  <div class="dashboard">
+    <mat-card *ngFor="let item of menuItems" [routerLink]="item.routerLink" class="menu-card">
+      <mat-card-header>
+        <mat-card-title class="colortext">{{ item.label }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="colortext card-content">
+        {{ item.description }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<h2 class="titulo">
+    Gestión de Categorías
+    <button mat-button color="primary" class="crear-button" (click)="crearCategoria()">Crear Categoría</button>
+  </h2>
+  
+  <!-- Tabla de categorías -->
+  <div class="proveedores-container">
+    <table mat-table [dataSource]="categorias" class="mat-elevation-z8">
+      <!-- Columna ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let categoria">{{ categoria.id }}</td>
+      </ng-container>
+  
+      <!-- Columna Nombre -->
+      <ng-container matColumnDef="nombreCategoria">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let categoria">{{ categoria.nombreCategoria }}</td>
+      </ng-container>
+  
+      <!-- Columna Descripción -->
+      <ng-container matColumnDef="descripcionCategoria">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let categoria">{{ categoria.descripcionCategoria }}</td>
+      </ng-container>
+  
+      <!-- Columna Imagen -->
+      <ng-container matColumnDef="imagen">
+        <th mat-header-cell *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let categoria">
+          <img *ngIf="categoria.imagen" [src]="categoria.imagen" alt="Imagen de categoría" width="50" height="50" />
+          <span *ngIf="!categoria.imagen">Sin imagen</span>
+        </td>
+      </ng-container>
+  
+      <!-- Columna Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let categoria">
+          <button mat-button color="primary" (click)="editarCategoria(categoria)">Editar</button>
+          <button mat-button color="warn" (click)="eliminarCategoria(categoria.id)">Eliminar</button>
+        </td>
+      </ng-container>
+  
+      <!-- Renderización de encabezados y filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  
+  <!-- Formulario de creación -->
+  <div *ngIf="isCreating" class="form-container">
+    <h3>Crear Categoría</h3>
+    <form [formGroup]="editForm" (ngSubmit)="guardarNuevaCategoria()">
+      <label for="nombreCategoria">Nombre:</label>
+      <input id="nombreCategoria" formControlName="nombreCategoria" />
+  
+      <label for="descripcionCategoria">Descripción:</label>
+      <textarea id="descripcionCategoria" formControlName="descripcionCategoria"></textarea>
+  
+      <label for="imagen">Imagen:</label>
+      <input id="imagen" type="file" (change)="onFileSelected($event)" />
+  
+      <div class="form-actions">
+        <button type="submit" mat-button color="primary">Guardar</button>
+        <button type="button" mat-button color="warn" (click)="cancelarCreacion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Formulario de edición -->
+  <div *ngIf="showEditForm" class="form-container">
+    <h3>Editar Categoría</h3>
+    <form [formGroup]="editForm" (ngSubmit)="guardarCambios()">
+      <label for="nombreCategoria">Nombre:</label>
+      <input id="nombreCategoria" formControlName="nombreCategoria" />
+  
+      <label for="descripcionCategoria">Descripción:</label>
+      <textarea id="descripcionCategoria" formControlName="descripcionCategoria"></textarea>
+  
+      <label for="imagen">Imagen:</label>
+      <input id="imagen" type="file" (change)="onFileSelected($event)" />
+  
+      <div class="form-actions">
+        <button type="submit" mat-button color="primary">Guardar</button>
+        <button type="button" mat-button color="warn" (click)="cancelarEdicion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
