@@ -3,14 +3,26 @@ ion-header ion-toolbar ion-title {
     color: #ffffff; /* Cambia el color del texto si es necesario */
     font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
 }
+ion-content {
+    --background: url('/assets/images/fondo_usuario.svg') no-repeat center center fixed;
+    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    padding: 20px;  /* Espaciado adicional si es necesario */
+}
 .toolbar {
     --background: #FF9800; /* Morado */
     --color: #ffffff; /* Color del texto blanco */
     font-family: 'Quicksand', sans-serif;
     font-size: 20px; /* Ajusta el tamaño según lo necesites */
 }
+
 h2 {
     color: #000000;
+    font-weight: bold; /* Cambia el grosor de la letra */
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+}
+.titulo{
+    text-align: center;
+    color: #FF9800;
     font-weight: bold; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }

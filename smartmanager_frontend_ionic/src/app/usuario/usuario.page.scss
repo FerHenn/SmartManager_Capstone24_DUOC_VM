@@ -1,21 +1,27 @@
+/* Mantén el estilo original de la barra de herramientas */
+.toolbar {
+    --background: #FF9800; /* Fondo de la barra de herramientas */
+    --color: #ffffff; /* Color del texto blanco */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+}
+.titulo{
+    text-align: center;
+    color: #FF9800;
+    font-weight: bold; /* Cambia el grosor de la letra */
+    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+}
+ion-content {
+    --background: url('/assets/images/fondo_usuario.svg') no-repeat center center fixed;
+    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    padding: 20px;  /* Espaciado adicional si es necesario */
+}
+/* Contenedor de usuarios con padding general */
 .usuario-container {
-ion-button {
-    margin-bottom: 20px; // Espacio entre el botón y la lista
-    }
-
-ion-item {
-    margin: 10px 0; // Espacio entre los items de la lista
-    }
-
-ion-alert {
-    margin-top: 20px; // Espacio de alerta
-    }
+  padding: 16px;
 }
-ion-header ion-toolbar ion-title {
-    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
-    color: #ffffff; /* Cambia el color del texto si es necesario */
-    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
-}
+
+/* Estilo para los botones (se mantiene igual) */
 ion-button {
     border-radius: 30px; /* Bordes más circulares */
     --background: #565458; /* Color de fondo */
@@ -24,15 +30,74 @@ ion-button {
     margin-top: 20px; /* Espacio en la parte superior del botón */
     font-family: 'Quicksand', sans-serif;
 }
-.header-row {
-    background-color: #4a4a4a;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+
+/* Agregar estilo para los recuadros de los usuarios */
+.usuario-container ion-item {
+    border: 1px solid #000; /* Borde negro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 16px; /* Padding dentro del recuadro */
+    margin-bottom: 12px; /* Separación entre recuadros */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo para el texto dentro de los items */
+.usuario-container ion-item ion-label h2 {
+    margin: 0;
+    font-size: 18px; /* Tamaño de la fuente del nombre */
     font-weight: bold;
-    font-family: 'Quicksand', sans-serif;
 }
-ion-button[color="medium"] {
-    margin-top: 30px;
-    font-family: 'Quicksand', sans-serif;
+
+.usuario-container ion-item ion-label p {
+    margin: 0;
+    font-size: 14px; /* Tamaño de la fuente del email */
+    color: #666; /* Color gris para el email */
 }
+
+/* Espacio entre los botones de editar y eliminar */
+.usuario-container ion-item ion-buttons {
+    display: flex;
+    gap: 8px; /* Espacio entre los botones */
+}
+
+/* Estilo del botón agregar (sin cambios en cuanto a estilo básico) */
+.boton_agregar {
+    width: 300px; /* Puedes ajustar el ancho si lo necesitas */
+    --background: #d58102d7; /* Color de fondo */
+    border-radius: 30px; /* Bordes redondeados */
+    margin: 20px auto; /* Centra el botón horizontalmente y le da un pequeño margen vertical */
+    display: block; /* Asegura que sea un bloque para aplicar auto margin */
+    text-transform: none; /* Desactiva la transformación a mayúsculas */
+}
+
+/* Ajustes opcionales para los iconos dentro de los botones */
+.boton_agregar ion-icon {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+/* Estilo del título dentro del ion-header */
+ion-header ion-toolbar ion-title {
+    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
+    color: #ffffff; /* Cambia el color del texto si es necesario */
+    font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
+}
+/* Estilo para el botón de editar */
+ion-button.editar {
+    background: #488af3;
+    color: #ffffff;
+    text-transform: none; /* Desactiva la transformación a mayúsculas */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+    border-radius: 30px; /* Bordes redondeados (si quieres mantenerlos) */
+    margin-top: 10px; /* Espacio superior si lo necesitas */
+}
+
+/* Estilo para el botón de eliminar */
+ion-button.eliminar {
+    background: #fc2828;
+    color: #ffffff;
+    text-transform: none; /* Desactiva la transformación a mayúsculas */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+    border-radius: 30px; /* Bordes redondeados (si quieres mantenerlos) */
+    margin-top: 10px; /* Espacio superior si lo necesitas */
+}
+

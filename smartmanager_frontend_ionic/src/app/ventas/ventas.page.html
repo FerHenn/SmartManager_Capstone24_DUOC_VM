@@ -1,14 +1,14 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Gestión de Ventas</ion-title>
+    <ion-title>Gestión de ventas</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <div class="ventas-container">
-    <h2>Ventas Registradas</h2>
+    <h2 class="titulo">Ventas registradas</h2>
 
     <!-- Mostrar tabla si no hay orden seleccionada -->
     <ion-grid *ngIf="!ordenSeleccionada" class="responsive-table">
