@@ -43,8 +43,7 @@ export class InicioComponent implements OnInit {
             { label: 'Gestión de Ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
             { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
             { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
-            { label: 'Recuperar Contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' },
-            { label: 'Crud completo', routerLink: '/CrudDashboard', description: 'Se puede revisar, agregar y eliminar diferentes componentes' },
+            { label: 'Recuperar Contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' }
           );
         }
       },

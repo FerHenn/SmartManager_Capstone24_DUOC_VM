@@ -13,22 +13,12 @@ import { PerfilComponent } from './components/perfil/perfil.component'
 import { ErrorComponent } from './components/error/error.component'
 import { AdminGuard } from './guards/admin-guard.guard';  
 import { AuthGuard } from './guards/admin-guard.guard';  
-import { CrudCategoriasComponent } from './components/crud-categorias/crud-categorias.component';
-import { CrudIngredientesComponent } from './components/crud-ingredientes/crud-ingredientes.component';
-import { CrudProductosComponent } from './components/crud-productos/crud-productos.component';
-import { CrudProveedoresComponent } from './components/crud-proveedores/crud-proveedores.component';
-import { DashboardCrudComponent } from './components/dashboard-crud/dashboard-crud.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard]},
+  { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard]},// autenticacion para los tokens
   { path: 'login', component: LoginComponent  },
-  { path: 'CrudDashboard', component: DashboardCrudComponent, canActivate: [AuthGuard] },
-  { path: 'CrudProveedores', component: CrudProveedoresComponent, canActivate: [AuthGuard] },
-  { path: 'CrudCategorias', component: CrudCategoriasComponent, canActivate: [AuthGuard] },
-  { path: 'CrudProductos', component: CrudProductosComponent, canActivate: [AuthGuard] },
-  { path: 'CrudIngredientes', component: CrudIngredientesComponent, canActivate: [AuthGuard] },
-  { path: 'usuario', component: UsuarioComponent, canActivate: [AdminGuard]}, 
+  { path: 'usuario', component: UsuarioComponent, canActivate: [AdminGuard]}, // autenticacion para los admins
   { path: 'productos', component: ProductoComponent, canActivate: [AuthGuard]},
   { path: 'ventas', component: VentasComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

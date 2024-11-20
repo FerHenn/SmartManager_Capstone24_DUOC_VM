@@ -70,7 +70,6 @@ export class NavbarComponent implements OnInit {
             { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
             { label: 'Registro', icon: 'pi pi-user', routerLink: ['/registro'] },
             { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] },
-            { label: 'Crud completo',icon: 'pi pi-cog', routerLink: ['/CrudDashboard']  },
             { label: 'Recuperar Contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] }
           );
         }
