@@ -23,7 +23,7 @@ interface Producto {
 })
 export class ProductoPage {
   private apiUrl = `${environment.apiUrl}producto/`;  // URL de la API
-  productos: Producto[] = [];  // Lista de productos
+  productos: Producto[] = [];
 
   categorias = [{ nombreCategoria: 'Categoría 1' }, { nombreCategoria: 'Categoría 2' }];
   proveedores = [{ nombre_proveedor: 'Proveedor 1' }, { nombre_proveedor: 'Proveedor 2' }];
@@ -54,13 +54,6 @@ export class ProductoPage {
   nuevoProducto() {
     this.productoSeleccionado = this.crearProductoVacio();  // Resetea el producto vacío
     this.selectedImageUrl = '';  // Limpiar la imagen seleccionada
-    this.displayDialog = true;  // Mostrar el modal
-  }
-
-  // Función para abrir el modal y editar un producto existente
-  editarProducto(producto: Producto) {
-    this.productoSeleccionado = { ...producto };  // Copiar el producto seleccionado
-    this.selectedImageUrl = producto.imagen;  // Establecer la imagen seleccionada
     this.displayDialog = true;  // Mostrar el modal
   }
 

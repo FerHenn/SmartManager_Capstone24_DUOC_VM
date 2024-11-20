@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -17,6 +17,7 @@
         <ion-col><strong>Cantidad</strong></ion-col>
         <ion-col><strong>Precio</strong></ion-col>
         <ion-col><strong>Total</strong></ion-col>
+        <ion-col><strong>Acciones</strong></ion-col>
       </ion-row>
 
       <ion-row *ngFor="let venta of ventas; let i = index">
@@ -27,21 +28,17 @@
         <ion-col>${{ venta.precio }}</ion-col>
         <ion-col>${{ venta.cantidad * venta.precio }}</ion-col>
         <ion-col>
-          <ion-button class="boton_guardar" shape="round" (click)="guardarCambios(venta)">
-            <ion-icon slot="start" name="save"></ion-icon>  <!-- Icono de guardar -->
+          <ion-button fill="outline" color="primary" (click)="guardarCambios(venta)">
             Guardar
           </ion-button>
-          
-          <ion-button class="boton_eliminar" shape="round" (click)="eliminarVenta(i)">
-            <ion-icon slot="start" name="trash"></ion-icon>  <!-- Icono de basurero -->
+          <ion-button fill="outline" color="danger" (click)="eliminarVenta(i)">
             Eliminar
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-button class="boton_agregar" shape="round" (click)="agregarVenta()">
-      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+    <ion-button expand="block" (click)="agregarVenta()">
       Agregar Venta
     </ion-button>
   </div>

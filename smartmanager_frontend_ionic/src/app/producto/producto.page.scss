@@ -1,57 +1,49 @@
-/* Estilo para el header y toolbar */
 ion-header ion-toolbar ion-title {
     font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand al título */
-    color: #ffffff; /* Cambia el color del texto a blanco */
+    color: #ffffff; /* Cambia el color del texto si es necesario */
     font-weight: bold; /* Cambia el grosor de la fuente si lo deseas */
 }
-
-/* Estilo de la barra de herramientas (toolbar) */
 .toolbar {
-    --background: #FF9800; /* Establece el color de fondo a un tono anaranjado */
-    --color: #ffffff; /* Color blanco para el texto */
-    font-family: 'Quicksand', sans-serif; /* Aplica la fuente Quicksand */
-    font-size: 20px; /* Ajusta el tamaño de la fuente */
+    --background: #FF9800; /* Morado */
+    --color: #ffffff; /* Color del texto blanco */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
 }
-
-/* Estilo de los títulos h2 */
 h2 {
-    color: #000000; /* Color de texto negro */
+    color: #000000;
     font-weight: bold; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
 
-/* Estilo para el fondo del ion-content */
-ion-content {
-    background: var(--ion-color-primary); /* Aplica el color primario del tema a fondo */
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla si se usa una imagen */
+/* Estilo para el fondo */
+.background-image {
+    background: url('/assets/images/fondo.svg') no-repeat center center fixed;
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
     width: 100%;
     height: 100%;
-    padding: 20px; /* Añade espaciado alrededor del contenido */
+    padding: 20px;
 }
 
-/* Estilo para la tabla responsiva (p-table) */
+  /* Estilo para la tabla responsiva */
 p-table {
-    width: 100%; /* Ancho total de la tabla */
+    width: 100%;
     margin-bottom: 20px; /* Espaciado inferior */
 }
 
 @media (max-width: 768px) {
     p-table {
-        font-size: 12px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+      font-size: 12px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
     }
-
     p-table th, p-table td {
-        padding: 8px; /* Reduce el padding en las celdas para pantallas más pequeñas */
+      padding: 8px; /* Reduce el padding para pantallas más pequeñas */
     }
 }
 
-/* Estilo para los botones */
 button {
-    margin-top: 10px; /* Añade un margen superior a los botones */
+    margin-top: 10px;
 }
 
-/* Estilo para las imágenes */
 img {
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade sombra sutil a las imágenes */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
