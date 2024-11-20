@@ -36,7 +36,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
   { path: 'error', component: ErrorComponent},
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '/login' },
 ];
 
 @NgModule({
