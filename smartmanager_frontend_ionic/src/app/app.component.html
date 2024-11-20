@@ -27,15 +27,17 @@
           <ion-icon slot="start" name="cart"></ion-icon>
           <ion-label>Ventas</ion-label>
         </ion-item>
+        <ion-item routerLink="/recuperar">
+          <ion-icon slot="start" name="key"></ion-icon>
+          <ion-label>Recuperar contraseña</ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
 
     <ion-footer>
-      <ion-toolbar class="cerrar_sesion">
+      <ion-toolbar class="footer">
         <ion-buttons slot="start">
-          <!-- Icono de salida -->
-          <ion-icon slot="start" name="log-out"></ion-icon>
-          <ion-button>Cerrar sesión</ion-button>
+          <ion-button class="cerrar"><ion-icon slot="start" name="log-out"></ion-icon>Cerrar sesión</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>

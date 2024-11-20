@@ -35,10 +35,10 @@
           </ul>
         </ion-col>
         <ion-col class="cell">
-          <ion-button fill="outline" color="primary" (click)="editarOrden(orden)">
+          <ion-button shape="round" fill="outline" color="primary" (click)="editarOrden(orden)">
             Actualizar
           </ion-button>
-          <ion-button fill="outline" color="danger" (click)="eliminarOrden(orden.id)">
+          <ion-button shape="round" fill="outline" color="danger" (click)="eliminarOrden(orden.id)">
             Eliminar
           </ion-button>
         </ion-col>
@@ -94,8 +94,8 @@
     </ion-item>
 
     <!-- Botones -->
-    <ion-button expand="block" (click)="guardarOrden()">Guardar Cambios</ion-button>
-    <ion-button expand="block" color="medium" (click)="cancelarEdicion()">Cancelar</ion-button>
+    <ion-button shape="round" (click)="guardarOrden()">Guardar Cambios</ion-button>
+    <ion-button shape="round" color="medium" (click)="cancelarEdicion()">Cancelar</ion-button>
   </div>
 
 </ion-content>

@@ -38,10 +38,21 @@ ion-toolbar {
 ion-title {
     color: #ffffff !important; /* Forzar el color blanco en el título */
 }
-ion-footer.cerrar_sesion {
-    --background:#ffffff;
-    color: #ffffff;
-}
+
 ion-icon{
-    --color: #000000;
+    --color:#FF9800;
+}
+.cerrar_sesion{
+    --color: #FF9800;
+    text-transform: none;
+    font-weight: bold;
+}
+.cerrar{
+    font-weight: bold;
+    color: #FF9800;
+    text-transform: none;
+}
+.footer{
+    
+    --background: #ffffff;
 }
