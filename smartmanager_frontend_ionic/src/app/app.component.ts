@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular'; 
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private menu: MenuController) {}
 
   ngOnInit(): void {
     this.loadBotpress();
+    this.router.events.subscribe(() => {
+      // Cierra el menú cada vez que navegas a una nueva página
+      this.menu.close();
+    });
   }
-
   shouldShowBot(): boolean {
     // Excluye el bot de la página de login
     return this.router.url !== '/login';

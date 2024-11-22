@@ -48,3 +48,11 @@ ion-item ion-label p {
     font-size: 14px; /* Tamaño del precio */
     color: #666; /* Color gris para el precio */
 }
+.boton_agregar_producto {
+    width: 300px; /* Puedes ajustar el ancho si lo necesitas */
+    --background: #d58102d7; /* Color de fondo */
+    border-radius: 30px; /* Bordes redondeados */
+    margin: 20px auto; /* Centra el botón horizontalmente y le da un pequeño margen vertical */
+    display: block; /* Asegura que sea un bloque para aplicar auto margin */
+    text-transform: none; /* Desactiva la transformación a mayúsculas */
+}

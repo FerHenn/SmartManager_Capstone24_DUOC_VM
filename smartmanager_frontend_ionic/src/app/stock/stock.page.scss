@@ -38,13 +38,6 @@ ion-input {
     font-family: 'Quicksand', sans-serif;
 }
 
-/* Botones generales */
-ion-button {
-    --border-radius: 8px;
-    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    font-family: 'Quicksand', sans-serif;
-}
 
 /* Botón de agregar producto */
 ion-button[color="medium"] {
@@ -87,7 +80,6 @@ ion-header ion-toolbar ion-title {
     --background: #d58102d7; /* Color de fondo */
     border-radius: 30px; /* Bordes redondeados */
     margin: 20px auto; /* Centra el botón horizontalmente y le da un pequeño margen vertical */
-    display: block; /* Asegura que sea un bloque para aplicar auto margin */
     text-transform: none; /* Desactiva la transformación a mayúsculas */
 }
 

@@ -1,13 +1,13 @@
-.p-menubar {
-  background-color: rgb(245, 230, 16);
+::ng-deep .p-menubar {
+  background-color: #FF9800 !important;
 }
 
-.p-button {
-  background-color: #d0ff25;
-  border: none;
-  color: white;
+::ng-deep .p-button {
+  background-color: #FF9800 !important;
+  border: none !important;
+  color: white !important;
 }
 
-.p-button:hover {
-  background-color: rgb(245, 230, 16);
+::ng-deep .p-button:hover {
+  background-color: #ae6a05 !important;
 }

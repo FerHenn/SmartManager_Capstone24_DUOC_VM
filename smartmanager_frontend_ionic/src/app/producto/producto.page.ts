@@ -22,4 +22,16 @@ export class ProductoPage {
         this.products = data;
       });
   }
+  // Método para agregar el producto
+  agregarProducto() {
+    // Lógica para agregar un producto, puede ser abrir un modal, redirigir, o llamar a un servicio
+    console.log("Producto agregado");
+    
+    // Ejemplo de redirección a una página para agregar el producto
+    // this.router.navigate(['/agregar-producto']);
+    
+    // O mostrar un modal
+    // this.modalController.create({component: AddProductModal}).then(modal => modal.present());
+  }
 }
+
