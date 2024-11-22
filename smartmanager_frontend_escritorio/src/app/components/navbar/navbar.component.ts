@@ -59,26 +59,25 @@ export class NavbarComponent implements OnInit {
         // Definir los elementos del menú básico
         this.menuItems = [
           { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
-          { label: 'Productos', icon: 'pi pi-cog', routerLink: ['/productos'] },
-          { label: 'Carrito', icon: 'pi pi-shopping-cart', routerLink: ['/carrito'] },
-        ];
+          { label: 'Productos', icon: 'pi pi-box', routerLink: ['/productos'] },  // Cambié pi-cog por pi-box
+          { label: 'Carrito', icon: 'pi pi-shopping-cart', routerLink: ['/carrito'] }
+        ];        
 
         // Agregar opciones de administración si el usuario es administrador
         if (perfil.role === 'Administrador') {
           this.menuItems.push(
             { label: 'Usuario', icon: 'pi pi-user', routerLink: ['/usuario'] },
-            { label: 'Ventas', icon: 'pi pi-cog', routerLink: ['/ventas'] },
-            { label: 'Registro', icon: 'pi pi-user', routerLink: ['/registro'] },
-            { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] },
-            { label: 'Crud completo',icon: 'pi pi-cog', routerLink: ['/CrudDashboard']  },
-            { label: 'Recuperar Contraseña', icon: 'pi pi-cog', routerLink: ['/recuperar-contrasena'] }
+            { label: 'Ventas', icon: 'pi pi-chart-line', routerLink: ['/ventas'] },  // Icono de gráfico
+            { label: 'Registro', icon: 'pi pi-user-plus', routerLink: ['/registro'] }, // Icono de añadir usuario
+            { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] },  // Icono de tablero
+            { label: 'Crud completo', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla
+            { label: 'Recuperar contraseña', icon: 'pi pi-lock', routerLink: ['/recuperar-contrasena'] } // Icono de candado
           );
-        }
-
+        }        
         // Definir los elementos del menú de perfil
         this.profileItems = [
-          { label: 'Ver Perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
-          { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
+          { label: 'Ver perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
+          { label: 'Cerrar sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
         ];
       },
       error: err => {

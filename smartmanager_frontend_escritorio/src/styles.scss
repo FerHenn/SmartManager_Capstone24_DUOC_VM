@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-image: url('assets/images/login-fondo-web.png');
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Hace que la imagen cubra toda el área disponible */
+    background-position: center center; /* Centra la imagen en el fondo */
+    height: 100vh; /* Asegura que el fondo ocupe toda la altura de la ventana */
+}
+
+
