@@ -300,3 +300,18 @@ class ReporteVentasMensual(APIView):
         
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class ProductosVendidosPorDia(APIView):
+    def get(self, request):
+        try:
+            hoy = timezone.now().date()
+            productos_vendidos = (
+                ProductoOrden.objects.filter(orden__fechaOrden__date=hoy)
+                .values("producto__nombreProducto")
+                .annotate(total_vendidos=Sum("cantidad"))
+                .order_by("-total_vendidos")
+            )
+
+            return Response(productos_vendidos, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

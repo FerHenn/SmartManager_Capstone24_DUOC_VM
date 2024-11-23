@@ -25,6 +25,7 @@ urlpatterns = [
     path('resumen-inventario-diario/', views.ResumenInventarioDiario.as_view(), name='resumen-inventario-diario'),
     path('reporte-ventas-diario/', views.ReporteVentasDiario.as_view(), name='reporte-ventas-diario'),
     path('reporte-ventas-mensual/', views.ReporteVentasMensual.as_view(), name='reporte-ventas-mensual'),
+    path('productos-vendidos-dia/', views.ProductosVendidosPorDia.as_view(), name='productos_vendidos_dia'),
 ]
 
 if settings.DEBUG:
