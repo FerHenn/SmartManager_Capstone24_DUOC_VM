@@ -2,7 +2,7 @@ export interface Producto {
   id?: number;
   nombreProducto: string;
   descripcion: string;
-  imagen?: string | File;
+  imagen_url?: string | File;
   precio: number;
   cantidadMinima?: number;
   cantidadActual: number;
@@ -16,7 +16,7 @@ export interface Categoria {
   id: number;
   nombreCategoria: string;
   descripcionCategoria: string;
-  imagen?: string | File;
+  imagen_url?: string | File;
 }
 
 export interface Proveedor {

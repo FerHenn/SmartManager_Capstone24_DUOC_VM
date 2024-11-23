@@ -207,7 +207,6 @@ export class CrudProductosComponent implements OnInit {
     formData.append('cantidadActual', data.cantidadActual.toString());
     formData.append('categoria_id', data.categoria?.id || '');
     formData.append('proveedor_id', data.proveedor?.id || '');
-
     const ingredientesIds = data.ingredientes ? data.ingredientes.map((ing: Ingrediente) => ing.id) : [];
     formData.append('ingredientes', JSON.stringify(ingredientesIds));
 
@@ -239,6 +238,8 @@ export class CrudProductosComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
-    this.editForm.patchValue({ imagen: file });
+    if (file) {
+      this.editForm.patchValue({ imagen: file });
+    }
   }
 }
