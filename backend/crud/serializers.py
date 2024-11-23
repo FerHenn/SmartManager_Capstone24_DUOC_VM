@@ -36,9 +36,16 @@ class ProveedorSerializer(serializers.ModelSerializer):
         }
   
 class CategoriaSerializer(serializers.ModelSerializer):
+    imagen = serializers.SerializerMethodField()
     class Meta:
         model=Categoria
         fields='__all__'
+    
+    def get_imagen(self, obj):
+        if obj.imagen:
+            return obj.imagen.url  # Devuelve la ruta relativa
+        return None
+    
 
 # Serializer para Ingredientes, permitiendo campos nulos
 class IngredienteSerializer(serializers.ModelSerializer):
@@ -54,6 +61,7 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
 # Serializer para Productos, maneja ingredientes y categorías
 class ProductoSerializer(serializers.ModelSerializer):
+    imagen = serializers.ImageField(required=False)  # Asegura que el campo imagen esté disponible
     proveedor = ProveedorSerializer(read_only=True)  # Incluye el proveedor completo en el GET
     proveedor_id = serializers.PrimaryKeyRelatedField(
         queryset=Proveedor.objects.all(), 
@@ -81,6 +89,11 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = '__all__'
+        
+    def get_imagen(self, obj):
+        if obj.imagen:
+            return obj.imagen.url  # Devuelve la ruta relativa
+        return None
 
     # Método para crear un Producto
     def create(self, validated_data):
@@ -88,6 +101,7 @@ class ProductoSerializer(serializers.ModelSerializer):
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
         categoria = validated_data.pop('categoria')
         proveedor = validated_data.pop('proveedor_id', None)  # Proveedor puede ser None
+        imagen = validated_data.pop('imagen', None)
 
         # Creamos el producto
         producto = Producto.objects.create(**validated_data, categoria=categoria, proveedor=proveedor)
@@ -95,13 +109,20 @@ class ProductoSerializer(serializers.ModelSerializer):
         # Asignamos los ingredientes al producto, si existen
         if ingredientes_data:
             producto.ingredientes.set(ingredientes_data) # Asignar los ingredientes
-
+        
+        # Asignamos la imagen al producto, si existe
+        if imagen:
+            producto.imagen = imagen  # Asignamos la imagen si existe
+            producto.save()
+            
         return producto
+
     
     # Método para actualizar un Producto
     def update(self, instance, validated_data):
         # Extraemos los IDs de los ingredientes (pueden ser None)
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
+        imagen = validated_data.pop('imagen', None)
         
         # Actualizamos los campos del producto
         instance.nombreProducto = validated_data.get('nombreProducto', instance.nombreProducto)
@@ -111,6 +132,10 @@ class ProductoSerializer(serializers.ModelSerializer):
         instance.proveedor = validated_data.pop('proveedor_id', instance.proveedor)  # Proveedor puede ser None
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
+            
+        if imagen:
+            instance.imagen = imagen  # Actualizamos la imagen si existe
+            
         instance.save()
 
         # Si hay ingredientes, los actualizamos
