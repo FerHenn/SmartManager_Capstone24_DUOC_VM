@@ -80,7 +80,7 @@ class Proveedor(models.Model):
 class Categoria(models.Model):
     nombreCategoria = models.CharField(max_length=100)
     descripcionCategoria = models.TextField()
-    imagen = models.ImageField('Imagen de categoría', upload_to='categorias/', null=True, blank=True)
+    imagen_path = models.CharField('Imagen de categoría', null=True, blank=True)
 
     def __str__(self):
         return self.nombreCategoria
@@ -98,7 +98,7 @@ class Ingrediente(models.Model):
 class Producto(models.Model):
     nombreProducto = models.CharField(max_length=100)
     descripcion = models.TextField()
-    imagen = models.ImageField('Imagen de producto', upload_to='productos/', null=True, blank=True)  # Permitimos valores nulos y vacíos
+    imagen_path = models.CharField('Imagen de producto',max_length=255, blank=True, null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     cantidadMinima = models.IntegerField(null=True, blank=True)
     cantidadActual = models.PositiveIntegerField(default=0)

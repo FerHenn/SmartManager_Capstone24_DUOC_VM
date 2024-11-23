@@ -78,21 +78,7 @@ class ProductoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Producto
-        fields = [
-            'id',
-            'nombreProducto',
-            'descripcion',
-            'imagen',
-            'precio',
-            'cantidadMinima',
-            'cantidadActual',
-            'ultimaActualizacion',
-            'categoria',
-            'categoria_id',
-            'proveedor',
-            'ingredientes',
-            'ingredientes_ids'
-        ]
+        fields = '__all__'
 
     # Método para crear un Producto
     def create(self, validated_data):
