@@ -54,6 +54,13 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
 # Serializer para Productos, maneja ingredientes y categorías
 class ProductoSerializer(serializers.ModelSerializer):
+    proveedor = ProveedorSerializer(read_only=True)  # Incluye el proveedor completo en el GET
+    proveedor_id = serializers.PrimaryKeyRelatedField(
+        queryset=Proveedor.objects.all(), 
+        write_only=True,  # Solo para el POST/PUT
+        required=False, 
+        allow_null=True
+    )
     # Esto mostrará los ingredientes en el GET
     ingredientes = IngredienteSerializer(many=True, read_only=True)
     # Para manejar los IDs de ingredientes al crear o actualizar productos
@@ -70,11 +77,6 @@ class ProductoSerializer(serializers.ModelSerializer):
         source='categoria', 
         write_only=True
     )
-    proveedor = serializers.PrimaryKeyRelatedField(
-        queryset=Proveedor.objects.all(), 
-        required=False, 
-        allow_null=True
-    )
 
     class Meta:
         model = Producto
@@ -85,7 +87,7 @@ class ProductoSerializer(serializers.ModelSerializer):
         # Extraemos los IDs de los ingredientes (pueden ser None)
         ingredientes_data = validated_data.pop('ingredientes_ids', None)
         categoria = validated_data.pop('categoria')
-        proveedor = validated_data.get('proveedor', None)  # Proveedor puede ser None
+        proveedor = validated_data.pop('proveedor_id', None)  # Proveedor puede ser None
 
         # Creamos el producto
         producto = Producto.objects.create(**validated_data, categoria=categoria, proveedor=proveedor)
@@ -106,7 +108,9 @@ class ProductoSerializer(serializers.ModelSerializer):
         instance.descripcion = validated_data.get('descripcion', instance.descripcion)
         instance.precio = validated_data.get('precio', instance.precio)
         instance.categoria = validated_data.get('categoria', instance.categoria)
-        instance.proveedor = validated_data.get('proveedor', instance.proveedor)  # Proveedor puede ser None
+        instance.proveedor = validated_data.pop('proveedor_id', instance.proveedor)  # Proveedor puede ser None
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
         instance.save()
 
         # Si hay ingredientes, los actualizamos
