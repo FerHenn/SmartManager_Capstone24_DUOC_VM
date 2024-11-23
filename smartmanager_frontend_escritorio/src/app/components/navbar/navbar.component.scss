@@ -11,34 +11,3 @@
 ::ng-deep .p-button:hover {
   background-color: #ae6a05 !important;
 }
-
-::ng-deep .p-panelMenu {
-  background-color: #FF9800 !important;
-  border: none !important;
-  color: white !important;
-}
-::ng-deep .p-sidebar {
-  background-color: #FF9800 !important;
-  border: none !important;
-  color: white !important;
-}
-::ng-deep .p-panelMenu {
-  background-color: #FF9800 !important;
-  border: 2px solid red !important;  /* Añadir un borde para probar si se aplica */
-}
-
-::ng-deep .p-panelMenu .p-menuitem-link {
-  color: white !important; /* Cambia el color del texto de los elementos del menú */
-}
-
-::ng-deep .p-panelMenu .p-menuitem {
-  background-color: #FF9800 !important; /* Fondo del item */
-}
-
-::ng-deep .p-panelMenu .p-menuitem:hover {
-  background-color: #ae6a05 !important; /* Fondo del item al hacer hover */
-}
-
-::ng-deep .p-panelMenu .p-menuitem .pi {
-  color: white !important; /* Color de los iconos */
-}
