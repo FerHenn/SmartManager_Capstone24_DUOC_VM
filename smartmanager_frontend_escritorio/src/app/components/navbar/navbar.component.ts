@@ -59,15 +59,15 @@ export class NavbarComponent implements OnInit {
         // Definir los elementos del menú básico
         this.menuItems = [
           { label: 'Inicio', icon: 'pi pi-home', routerLink: ['/inicio'] },
-          { label: 'Productos', icon: 'pi pi-box', routerLink: ['/productos'] },  // Cambié pi-cog por pi-box
+          //{ label: 'Productos', icon: 'pi pi-box', routerLink: ['/productos'] },  // Cambié pi-cog por pi-box
           { label: 'Carrito', icon: 'pi pi-shopping-cart', routerLink: ['/carrito'] }
         ];        
 
         // Agregar opciones de administración si el usuario es administrador
         if (perfil.role === 'Administrador') {
           this.menuItems.push(
-            { label: 'Usuario', icon: 'pi pi-user', routerLink: ['/usuario'] },
-            { label: 'Ventas', icon: 'pi pi-chart-line', routerLink: ['/ventas'] },  // Icono de gráfico
+            //{ label: 'Usuario', icon: 'pi pi-user', routerLink: ['/usuario'] },
+            //{ label: 'Ventas', icon: 'pi pi-chart-line', routerLink: ['/ventas'] },  // Icono de gráfico
             { label: 'Registro', icon: 'pi pi-user-plus', routerLink: ['/registro'] }, // Icono de añadir usuario
             { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] },  // Icono de tablero
             { label: 'Crud completo', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla

@@ -32,7 +32,7 @@ export class InicioComponent implements OnInit {
       next: (perfil) => {
         // Rutas comunes para todos los usuarios
         this.menuItems = [
-          { label: 'Gestión de productos', routerLink: '/productos', description: 'Control de productos' },
+          //{ label: 'Gestión de productos', routerLink: '/productos', description: 'Control de productos' },
           { label: 'Carrito', routerLink: '/carrito', description: 'Realiza compras' },
         ];
 
@@ -40,7 +40,7 @@ export class InicioComponent implements OnInit {
         if (perfil.role === 'Administrador') {
           this.menuItems.push(
             { label: 'Gestión de usuarios', routerLink: '/usuario', description: 'Administra los usuarios registrados' },
-            { label: 'Gestión de ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
+           // { label: 'Gestión de ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
             { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
             { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
             { label: 'Recuperar contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' },

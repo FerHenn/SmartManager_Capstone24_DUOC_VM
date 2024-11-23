@@ -1,14 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-html, body { height: 100%; }
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-image: url('assets/images/login-fondo-web.png');
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-size: cover; /* Hace que la imagen cubra toda el área disponible */
-    background-position: center center; /* Centra la imagen en el fondo */
-    height: 100vh; /* Asegura que el fondo ocupe toda la altura de la ventana */
+html, body {
+    height: 100%; /* Ocupa toda la altura de la ventana */
+    margin: 0; /* Elimina márgenes globales */
+    font-family: Roboto, "Helvetica Neue", sans-serif; /* Fuente predeterminada */
 }
 
+/* Configurar el fondo de la página */
+body {
+    background-image: url('assets/images/login-fondo-web.png'); /* Ruta de la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Hace que la imagen cubra todo el área disponible */
+    background-position: center center; /* Centra la imagen */
+    background-attachment: fixed; /* Mantiene el fondo fijo mientras se hace scroll */
+    height: 100vh; /* Asegura que ocupe toda la altura */
+}
 
+/* Estilos para inputs, selects y textareas */
+input, textarea, select, mat-form-field input {
+    background-color: white !important; /* Fondo blanco */
+    color: black !important; /* Texto negro */
+    border: 1px solid #ccc !important; /* Borde gris claro */
+    padding: 8px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Sobrescribir estilos de Angular Material específicamente */
+.mat-input-element {
+    background-color: white !important; /* Fondo blanco en inputs de Angular Material */
+    color: black !important; /* Texto negro */
+}
+
+/* Sobrescribir estilos de los campos de Angular Material */
+.mat-form-field {
+    background-color: white !important; /* Fondo blanco */
+    color: black !important; /* Texto negro */
+}
+
+/* Estilos adicionales para formularios de Angular Material */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white !important; /* Fondo blanco dentro del campo */
+}
+
+.mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0 8px; /* Espaciado interno del campo */
+}
+
+/* Botones y elementos interactivos globales */
+button {
+    border-radius: 4px; /* Bordes redondeados para botones */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Otros estilos globales */
+.container {
+    padding: 16px; /* Espaciado interno para contenedores generales */
+    margin: 0 auto; /* Centra el contenedor */
+    max-width: 1200px; /* Establece un ancho máximo */
+}

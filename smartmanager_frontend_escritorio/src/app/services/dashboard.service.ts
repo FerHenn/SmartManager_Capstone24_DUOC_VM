@@ -23,4 +23,7 @@ export class DashboardService {
   getVentasMensuales(): Observable<VentasMensuales> {
     return this.http.get<VentasMensuales>(`${this.apiBaseUrl}reporte-ventas-mensual/`);
   }
+  getProductosVendidosPorDia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiBaseUrl}productos-vendidos-dia/`);
+  }
 }
