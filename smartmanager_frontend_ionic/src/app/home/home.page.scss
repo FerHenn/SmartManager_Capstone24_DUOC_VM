@@ -26,15 +26,37 @@ ion-content {
   color: #ffffff;
 }
 
-/* Estilos para ion-card */
+/* Estilo de la tarjeta con elevación predeterminada */
 ion-card {
   margin-bottom: 16px;
   background: #ffffff; /* Fondo blanco */
   font-family: 'Quicksand', sans-serif;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle efecto */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  transform: translateY(-5px); /* La tarjeta empieza ligeramente elevada */
 }
+
+/* Efecto cuando pasa el mouse */
+ion-card:hover {
+  transform: translateY(-10px); /* Aumenta la elevación cuando pasa el mouse */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra más profunda al pasar el mouse */
+}
+
+/* Asegurarse de que se aplique también en dispositivos móviles */
+@media (max-width: 768px) {
+  ion-card {
+    transform: translateY(-5px); /* Asegurarse de que la tarjeta inicie ligeramente elevada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  ion-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
 
 /* Estilos para ion-card-header */
 ion-card-header {

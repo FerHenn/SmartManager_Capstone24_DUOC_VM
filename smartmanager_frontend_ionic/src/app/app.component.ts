@@ -17,13 +17,28 @@ export class AppComponent implements OnInit {
       this.menu.close();
     });
   }
+
+  /**
+   * Función para cerrar sesión y redirigir al login.
+   */
+  cerrarSesion(): void {
+    // Aquí puedes limpiar datos de sesión si es necesario
+    console.log('Cerrando sesión...');
+    this.router.navigate(['/login']); // Redirige al login
+  }
+
+  /**
+   * Determina si el bot debe mostrarse o no.
+   */
   shouldShowBot(): boolean {
     // Excluye el bot de la página de login
     return this.router.url !== '/login';
   }
 
+  /**
+   * Carga el script de Botpress si no estás en la página de login.
+   */
   private loadBotpress(): void {
-    // Asegura que Botpress se inyecte solo si no estamos en login
     if (this.shouldShowBot()) {
       // Configura Botpress
       (window as any).botpressWebChat = {
@@ -36,7 +51,6 @@ export class AppComponent implements OnInit {
       botScript.async = true;
       botScript.defer = true;
 
-      // Asegúrate de que se cargue al final del body
       botScript.onload = () => {
         console.log('Botpress loaded successfully.');
       };
