@@ -28,8 +28,8 @@
               "assets": [
                 {
                   "glob": "**/*",
-                  "input": "src/assets",
-                  "output": "/assets"
+                  "input": "./backend/media",
+                  "output": "/media"
                 }
               ]
               ,
