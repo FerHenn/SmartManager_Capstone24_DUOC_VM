@@ -1,15 +1,64 @@
-.dashboard-grid {
+/* Estilos principales del dashboard */
+.dashboard-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-p-card {
-  padding: 10px;
+/* Estilo general de las tarjetas */
+.card {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s ease;
 }
 
-ngx-charts-bar-vertical {
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilo específico para las tarjetas de resumen y ventas */
+.resumen-card {
+  grid-column: span 2; /* Ocupa dos columnas si el espacio lo permite */
+  background-color: #ffe5e2;
+  color: #333;
+}
+
+.ventas-card {
+  background-color: #e3f2fd;
+  color: #0277bd;
+}
+
+/* Estilo específico para gráficos */
+.chart-card {
+  grid-column: span 2; /* Ambos gráficos ocupan el ancho completo */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .chart-card {
+    grid-column: span 1; /* Ajusta a una sola columna en pantallas pequeñas */
+    width: 100%; /* Asegura que no se salga de la pantalla */
+  }
+
+  .resumen-card {
+    grid-column: span 1; /* Ocupa solo una columna en pantallas pequeñas */
+  }
 }

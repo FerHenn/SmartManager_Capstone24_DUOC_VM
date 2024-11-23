@@ -1,46 +1,52 @@
-<div class="dashboard-grid">
-  <!-- Resumen del Inventario -->
-  <p-card header="Resumen de Inventario">
-    <p>Total productos agotándose: {{ totalProductosAgotandose }}</p>
-    <p>Total ingredientes agotándose: {{ totalIngredientesAgotandose }}</p>
-  </p-card>
+<div class="dashboard-container">
+  <!-- Resumen de Inventario -->
+  <div class="card resumen-card">
+    <h3>Resumen de Inventario</h3>
+    <p>Total productos agotándose: <strong>{{ totalProductosAgotandose }}</strong></p>
+    <p>Total ingredientes agotándose: <strong>{{ totalIngredientesAgotandose }}</strong></p>
+  </div>
 
   <!-- Ventas Diarias -->
-  <p-card header="Ventas Diarias">
+  <div class="card ventas-card">
+    <h3>Ventas Diarias</h3>
     <h2>{{ ventasDiarias | currency }}</h2>
-  </p-card>
+  </div>
 
   <!-- Ventas Mensuales -->
-  <p-card header="Ventas Mensuales">
+  <div class="card ventas-card">
+    <h3>Ventas Mensuales</h3>
     <h2>{{ ventasMensuales | currency }}</h2>
-    <p>Total transacciones: {{ totalTransacciones }}</p>
-  </p-card>
+    <p>Total transacciones: <strong>{{ totalTransacciones }}</strong></p>
+  </div>
 
-  <!-- Gráfico de Ventas Diarias -->
-  <ngx-charts-bar-vertical
-    [view]="[700, 400]"
-    [scheme]="colorScheme"
-    [results]="ventasDiariasData"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="false"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
-    [xAxisLabel]="'Fecha'"
-    [yAxisLabel]="'Ventas ($)'"
-  ></ngx-charts-bar-vertical>
+  <!-- Gráfico de torta -->
+  <div class="chart-card">
+    <h3>Productos Vendidos (Hoy)</h3>
+    <ngx-charts-pie-chart
+      [results]="productosVendidosData"
+      [view]="[700, 500]"
+      [legend]="true"
+      [explodeSlices]="false"
+      [doughnut]="true"
+      [labels]="true"
+      [scheme]="colorScheme">
+    </ngx-charts-pie-chart>
+  </div>
 
-  <!-- Gráfico de Ventas Mensuales -->
-  <ngx-charts-bar-vertical
-    [view]="[700, 400]"
-    [scheme]="colorScheme"
-    [results]="ventasMensualesData"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="false"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
-    [xAxisLabel]="'Fecha'"
-    [yAxisLabel]="'Ventas ($)'"
-  ></ngx-charts-bar-vertical>
+  <!-- Gráfico de barras -->
+  <div class="chart-card">
+    <h3>Ventas Mensuales</h3>
+    <ngx-charts-bar-vertical
+      [view]="[700, 500]"
+      [scheme]="colorScheme"
+      [results]="ventasMensualesData"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Fecha'"
+      [yAxisLabel]="'Ventas ($)'">
+    </ngx-charts-bar-vertical>
+  </div>
 </div>
