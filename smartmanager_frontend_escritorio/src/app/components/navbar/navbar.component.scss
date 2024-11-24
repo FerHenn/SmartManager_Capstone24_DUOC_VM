@@ -4,8 +4,17 @@
 
 ::ng-deep .p-button {
   background-color: #FF9800 !important;
-  border: none !important;
   color: white !important;
+  border-radius: 50px;
+  height: 50px; 
+  width: 50%;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 16px;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-color: #FF9800;
+
 }
 
 ::ng-deep .p-button:hover {

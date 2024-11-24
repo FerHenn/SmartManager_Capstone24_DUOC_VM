@@ -1,9 +1,10 @@
 /* login.page.scss */
 .toolbar {
-    --background: #FF9800; /* Morado */
-    --color: #ffffff; /* Color del texto blanco */
+    --background: #FF9800; 
+    --color: #ffffff; 
     font-family: 'Quicksand', sans-serif;
-    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+    font-size: 20px;
+    text-align: left;
     
 }
 /* Para el contenedor de ion-content */
@@ -57,8 +58,6 @@ ion-item.item-contraseña:focus-within {
     font-weight: bold !important;
     --border-color: #FF9800 !important;
 }
-
-
 
 div{
     color: #970000;

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 html, body {
@@ -5,6 +7,17 @@ html, body {
     margin: 0; /* Elimina márgenes globales */
     font-family: Roboto, "Helvetica Neue", sans-serif; /* Fuente predeterminada */
 }
+.login-card i {
+    font-size: 2.5rem; /* Tamaño del ícono */
+    color: #FF9800; /* Color naranjo */
+    display: block;
+    margin: 10px auto; /* Centra el ícono */
+}
+.p-card-body {
+    background-color: #FF9800; /* Cambia a verde */
+    color: white; /* Texto en blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */  }
 
 /* Configurar el fondo de la página */
 body {
@@ -19,7 +32,7 @@ body {
 /* Estilos para inputs, selects y textareas */
 input, textarea, select, mat-form-field input {
     background-color: white !important; /* Fondo blanco */
-    color: black !important; /* Texto negro */
+    color: #FF9800 !important; /* Texto negro */
     border: 1px solid #ccc !important; /* Borde gris claro */
     padding: 8px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
