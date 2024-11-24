@@ -27,7 +27,7 @@
         <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
       </ion-item>
       <div *ngIf="loginForm.controls['password']?.invalid && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
-        <ion-label>* La contraseña debe tener al menos 8 carácteres.</ion-label>
+        <ion-label>* Por favor, ingresa un contraseña válida.</ion-label>
       </div>
       <ion-button shape="round" type="submit" [disabled]="!loginForm.form.valid">
         Iniciar Sesión

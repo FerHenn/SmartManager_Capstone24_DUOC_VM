@@ -6,7 +6,12 @@
   font-size: 20px; /* Ajusta el tamaño según lo necesites */
   font-weight: bold;
 }
-
+.person{
+  --color: #ffffff;
+}
+.menu{
+  --color: #ffffff;
+}
 /* Fondo del contenido con imagen */
 ion-content {
   --background: url('/assets/images/fondo_home.svg') no-repeat center center fixed;
