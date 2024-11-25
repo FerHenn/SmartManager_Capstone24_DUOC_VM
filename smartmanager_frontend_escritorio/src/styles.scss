@@ -14,7 +14,6 @@ html, body {
     margin: 10px auto; /* Centra el ícono */
 }
 .p-card-body {
-    font-family: 'Quicksand', sans-serif;
     background-color: #FF9800; /* Cambia a verde */
     color: white; /* Texto en blanco */
     padding: 20px; /* Espaciado interno */
@@ -37,16 +36,6 @@ input, textarea, select, mat-form-field input {
     border: 1px solid #ccc !important; /* Borde gris claro */
     padding: 8px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
-    width: 51%;
-    box-sizing: border-box; 
-}
-/* Específico para el campo de contraseña */
-.p-password input {
-    width: 87% !important;  /* Establece el ancho para el campo de contraseña */
-}
-/* Cambiar color del icono del ojo en el campo de contraseña */
-.p-password .pi-eye, .p-password .pi-eye-slash {
-    color: #FFA500 !important;  /* Cambiar color a naranja */
 }
 
 /* Sobrescribir estilos de Angular Material específicamente */
@@ -81,7 +70,4 @@ button {
     padding: 16px; /* Espaciado interno para contenedores generales */
     margin: 0 auto; /* Centra el contenedor */
     max-width: 1200px; /* Establece un ancho máximo */
-}
-.custom-password-icon .pi-eye, .custom-password-icon .pi-eye-slash {
-    color: #FF9800 !important;
 }
