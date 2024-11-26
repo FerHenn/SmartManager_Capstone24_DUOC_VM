@@ -1,23 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 html, body {
     height: 100%; /* Ocupa toda la altura de la ventana */
     margin: 0; /* Elimina márgenes globales */
-    font-family: Roboto, "Helvetica Neue", sans-serif; /* Fuente predeterminada */
+    font-family: 'Quicksand', sans-serif !important; 
 }
 .login-card i {
     font-size: 2.5rem; /* Tamaño del ícono */
     color: #FF9800; /* Color naranjo */
     display: block;
     margin: 10px auto; /* Centra el ícono */
+    font-family: 'Quicksand', sans-serif !important;
 }
 .p-card-body {
     background-color: #ffffff; /* Cambia a verde */
     color: #FF9800; /* Texto en blanco */
     padding: 20px; /* Espaciado interno */
-    border-radius: 8px; /* Bordes redondeados */ }
+    border-radius: 8px; /* Bordes redondeados */ 
+    font-family: 'Quicksand', sans-serif !important;
+}
 
 /* Configurar el fondo de la página */
 body {
@@ -78,3 +82,9 @@ button {
 .custom-dialog .field label {
     margin-bottom: 16px; /* Puedes ajustar este valor según lo necesites */
 }
+.login-card i {
+    font-size: 3rem !important;  /* Asegúrate de que el tamaño sea grande */
+    color: #FFA500 !important;   /* Color naranjo */
+}
+/* Asegurarte de que los iconos se muestren correctamente */
+

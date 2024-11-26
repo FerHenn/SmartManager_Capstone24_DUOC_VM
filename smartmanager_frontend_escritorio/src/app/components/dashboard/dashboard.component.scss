@@ -7,6 +7,7 @@
   background-color: #f4f4f9;
   min-height: 100vh;
   box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a todo el contenedor */
 }
 
 /* Estilo general de las tarjetas */
@@ -17,8 +18,10 @@
   border-radius: 8px;
   text-align: center;
   transition: transform 0.2s ease;
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas */
 }
 
+/* Hover para las tarjetas */
 .card:hover {
   transform: translateY(-5px);
 }
@@ -28,11 +31,20 @@
   grid-column: span 2; /* Ocupa dos columnas si el espacio lo permite */
   background-color: #ffe5e2;
   color: #333;
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a la tarjeta de resumen */
 }
 
 .ventas-card {
   background-color: #e3f2fd;
   color: #0277bd;
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a la tarjeta de ventas */
+}
+
+/* Asegurarse de que los textos dentro de Ventas Diarias y Ventas Mensuales también usen la fuente */
+.ventas-card h3,
+.ventas-card h2,
+.ventas-card p {
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a todos los textos dentro de ventas */
 }
 
 /* Estilo específico para gráficos */
@@ -49,6 +61,12 @@
   justify-content: center;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas de gráficos */
+}
+
+/* Asegurarse de que los títulos de los gráficos también usen la fuente correcta */
+.chart-card h3 {
+  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a los títulos de los gráficos */
 }
 
 /* Responsividad */

@@ -35,6 +35,7 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Título principal */
@@ -44,6 +45,8 @@
   text-align: center;
   color: #333; /* Contraste adecuado */
   margin-bottom: 20px;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
+  color: #FF9800; 
 }
 
 /* Contenedor de las categorías/productos */
@@ -72,7 +75,7 @@
   cursor: pointer;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
   /* Asegurar que el contenido se ajuste sin desbordar */
   overflow: hidden;
 }
@@ -101,12 +104,14 @@
   color: #333;
   text-align: center;
   line-height: 1.2; /* Espaciado entre líneas */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 .categoria-card h3 {
   margin: 10px 0;
   font-size: 16px;
   color: #333; /* Contraste con el fondo */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Botones de cantidad siempre en la parte inferior */
@@ -116,6 +121,7 @@
   justify-content: center;
   gap: 0.5rem;
   margin-top: auto; /* Empuja los botones hacia abajo */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Panel del carrito */
@@ -130,6 +136,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Cabecera del carrito */
@@ -137,7 +144,8 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #333; /* Contraste adecuado */
+  color: #FF9800; 
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Lista de productos en el carrito */
@@ -145,6 +153,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Elementos individuales del carrito */
@@ -156,6 +165,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Textos en el carrito */
@@ -164,6 +174,7 @@
   margin: 0;
   font-size: 14px;
   color: #333; /* Contraste con el fondo */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Resumen del carrito */
@@ -172,17 +183,20 @@
   border-top: 1px solid #ddd;
   padding-top: 10px;
   color: #000; /* Cambia el color del texto a negro para contraste */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 .carrito-acciones {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Botones */
 button {
   border-radius: 50px;
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
 
 /* Responsividad */
@@ -211,5 +225,5 @@ button {
 .carrito-item span {
   color: #000; /* Asegura que el texto de la cantidad y el total sean negros */
   font-weight: bold; /* Opcional: para mejor visibilidad */
+  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
-

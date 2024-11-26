@@ -4,6 +4,10 @@
   align-items: center;
   height: 100vh;
 }
+.login-card i {
+  font-size: 3rem !important;  /* Asegúrate de que el tamaño sea grande */
+  color: #FFA500 !important;   /* Color naranjo */
+}
 
 .login-card {
   background: rgb(255, 255, 255);
@@ -12,12 +16,13 @@
   border: 1px solid #FF9800;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  width: 100%;
+  width: 80%;
   text-align: center;
   color: black;
   font-weight:bold;
   font-family: 'Quicksand', sans-serif;
-  border-color: #FF9800;;
+  border-color: #FF9800;
+  
 }
 
 .p-field {
