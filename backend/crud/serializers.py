@@ -36,15 +36,37 @@ class ProveedorSerializer(serializers.ModelSerializer):
         }
   
 class CategoriaSerializer(serializers.ModelSerializer):
-    imagen = serializers.SerializerMethodField()
+    # Cambiar el manejo de la imagen a un ImageField
+    imagen = serializers.ImageField(required=False, allow_null=True)
+
     class Meta:
-        model=Categoria
-        fields='__all__'
+        model = Categoria
+        fields = '__all__'
     
+    # Método opcional para obtener la URL de la imagen
     def get_imagen(self, obj):
         if obj.imagen:
-            return obj.imagen.url  # Devuelve la ruta relativa
+            return obj.imagen.url  # Devuelve la URL de la imagen
         return None
+
+    # Método para crear una nueva categoría
+    def create(self, validated_data):
+        imagen = validated_data.pop('imagen', None)  # Manejo de la imagen si es enviada
+        categoria = Categoria.objects.create(**validated_data)
+        if imagen:
+            categoria.imagen = imagen  # Asignar la imagen al modelo
+            categoria.save()
+        return categoria
+
+    # Método para actualizar una categoría existente
+    def update(self, instance, validated_data):
+        imagen = validated_data.pop('imagen', None)  # Manejo de la imagen si es enviada
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)  # Actualizar otros campos
+        if imagen:
+            instance.imagen = imagen  # Actualizar la imagen
+        instance.save()
+        return instance
     
 
 # Serializer para Ingredientes, permitiendo campos nulos
