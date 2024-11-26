@@ -105,27 +105,15 @@ DATABASES = {
 }
 
 # Configuración adicional de la base de datos para entorno de despliegue
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.getenv('DATABASE_URL'),
-#         conn_max_age=600,  # Optimiza la reutilización de conexiones
-#         ssl_require=True,
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,  # Optimiza la reutilización de conexiones
+        ssl_require=True,
+    )
+}
 
 
-# Configuración de la base de datos local para desarrollo
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',  # Asegúrate de que 'ENGINE' esté bien configurado
-#         'NAME': 'postgres',  # El nombre de la base de datos
-#         'USER': 'postgres',  # Tu nombre de usuario de PostgreSQL
-#         'PASSWORD': 'Isc_2002$',  # La contraseña del usuario
-#         'HOST': 'localhost',  # O usa '127.0.0.1'
-#         'PORT': '5432',  # El puerto por defecto de PostgreSQL
-#     }
-# }
 
 
 # Password validation
