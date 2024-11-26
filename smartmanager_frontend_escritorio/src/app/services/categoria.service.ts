@@ -7,7 +7,7 @@ export interface Categoria {
   id: number;
   nombreCategoria: string;
   descripcionCategoria: string;
-  imagen?: File | string; 
+  imagen_url?: File | string; 
 }
 
 @Injectable({
@@ -19,14 +19,7 @@ export class CategoriaService {
   constructor(private http: HttpClient) {}
 
   
-  crearCategoria(categoria: Categoria): Observable<Categoria> {
-    const formData = new FormData();
-    formData.append('nombreCategoria', categoria.nombreCategoria);
-    formData.append('descripcionCategoria', categoria.descripcionCategoria);
-    if (categoria.imagen) {
-      formData.append('imagen', categoria.imagen as File);
-    }
-
+  crearCategoria(formData: FormData): Observable<Categoria> {
     return this.http.post<Categoria>(`${this.apiUrl}categoria/`, formData);
   }
 
@@ -36,14 +29,7 @@ export class CategoriaService {
   }
 
 
-  actualizarCategoria(id: number, categoria: Categoria): Observable<Categoria> {
-    const formData = new FormData();
-    formData.append('nombreCategoria', categoria.nombreCategoria);
-    formData.append('descripcionCategoria', categoria.descripcionCategoria);
-    if (categoria.imagen instanceof File) {
-      formData.append('imagen', categoria.imagen);
-    }
-
+  actualizarCategoria(id: number, formData: FormData): Observable<Categoria> {
     return this.http.put<Categoria>(`${this.apiUrl}categoria/${id}/`, formData);
   }
 
