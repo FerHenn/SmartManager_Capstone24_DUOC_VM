@@ -10,6 +10,8 @@ from django.db.models import Sum, Count, F
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import HttpResponseForbidden
 from django.utils import timezone
+from django.utils.timezone import now, localtime
+from django.db.models.functions import TruncDate
 from decimal import Decimal
 
 from .serializers import (
@@ -247,13 +249,16 @@ class ResumenInventarioDiario(APIView):
 class ReporteVentasDiario(APIView):
     def get(self, request):
         try:
-            hoy = timezone.now().date()  # Obtiene la fecha actual
-            ventas = OrdenCompra.objects.filter(fechaOrden__date=hoy)  # Filtra las ventas por fecha actual
+            # Obtiene la fecha actual en la zona horaria local
+            hoy = localtime(now()).date()  
+            
+            # Filtra las ventas por fecha (sin considerar la hora)
+            ventas = OrdenCompra.objects.filter(fechaOrden__date=hoy)  
             
             # Serializa las ventas
             ventas_serializer = OrdenCompraSerializer(ventas, many=True)
             
-            # Manejo de ventas vacías
+            # Si no hay ventas, retorna un mensaje
             if not ventas.exists():
                 return Response({
                     'fecha': hoy,
@@ -261,8 +266,12 @@ class ReporteVentasDiario(APIView):
                     'ventas': []
                 }, status=status.HTTP_200_OK)
             
+            # Calcula el monto total de ventas diarias
+            total_ventas = ventas.aggregate(total=Sum('montoTotal'))['total'] or 0
+            
             return Response({
                 'fecha': hoy,
+                'total_ventas': total_ventas,  # Incluye el monto total de las ventas
                 'ventas': ventas_serializer.data,
             }, status=status.HTTP_200_OK)
         
@@ -275,29 +284,23 @@ class ReporteVentasMensual(APIView):
         try:
             mes_actual = timezone.now().month  # Obtiene el mes actual
             anio_actual = timezone.now().year  # Obtiene el año actual
-            ventas = OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual)  # Filtra las ventas por mes actual y año
-            
-            # Calcula el total de ventas y el número de transacciones
-            total_ventas = ventas.aggregate(Sum('montoTotal'))['montoTotal__sum'] or 0
-            total_transacciones = ventas.count()
-            
-            # Manejo de ventas vacías
-            if not ventas.exists():
-                return Response({
-                    'mes': mes_actual,
-                    'total_ventas': total_ventas,
-                    'total_transacciones': total_transacciones,
-                    'mensaje': 'No hay ventas registradas para este mes.',
-                    'ventas': []
-                }, status=status.HTTP_200_OK)
-            
+            ventas = (
+                OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual)
+                .annotate(dia=TruncDate("fechaOrden"))  # Agrupa por día
+                .values("dia")
+                .annotate(total_vendido=Sum("montoTotal"))  # Suma el monto total por día
+                .order_by("dia")
+            )
+
+            total_ventas = sum(item["total_vendido"] for item in ventas)  # Calcula el total de ventas del mes
+            total_transacciones = OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual).count()
+
             return Response({
                 'mes': mes_actual,
                 'total_ventas': total_ventas,
                 'total_transacciones': total_transacciones,
-                'ventas': OrdenCompraSerializer(ventas, many=True).data
+                'ventas': ventas,  # Devuelve las ventas agrupadas por día
             }, status=status.HTTP_200_OK)
-        
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
