@@ -1,83 +1,87 @@
-<div class="pagina-contenedor">
-  <!-- Contenedor Principal -->
-  <div class="contenedor-principal">
-    <!-- Título Principal -->
-    <h1 class="titulo-principal">{{ categoriaSeleccionada?.nombreCategoria || 'Categorías' }}</h1>
+<div class="fondo-estatico"></div> <!-- Fondo estático -->
 
-    <!-- Botón de Retroceso (visible solo cuando una categoría está seleccionada) -->
-    <div *ngIf="categoriaSeleccionada" class="retroceder">
-      <button mat-icon-button (click)="retroceder()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-    </div>
-
-    <!-- Vista de Categorías -->
-    <div *ngIf="!categoriaSeleccionada" class="contenido-centro">
-      <div *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)" class="categoria-card">
-        <h3 class="nombre-categoria">{{ categoria.nombreCategoria }}</h3>
-        <img [src]="categoria.imagen" alt="{{ categoria.nombreCategoria }}">
+<div class="contenido-scroll pagina-contenedor">
+  <div class="pagina-contenedor">
+    <!-- Contenedor Principal -->
+    <div class="contenedor-principal">
+      <!-- Título Principal -->
+      <h1 class="titulo-principal">{{ categoriaSeleccionada?.nombreCategoria || 'Categorías' }}</h1>
+  
+      <!-- Botón de Retroceso (visible solo cuando una categoría está seleccionada) -->
+      <div *ngIf="categoriaSeleccionada" class="retroceder">
+        <button mat-icon-button (click)="retroceder()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
       </div>
-    </div>
-
-    <!-- Vista de Productos (visible solo cuando una categoría está seleccionada) -->
-    <div *ngIf="categoriaSeleccionada" class="contenido-centro">
-      <div *ngFor="let producto of productos" class="producto-card">
-        <img [src]="producto.imagen" alt="{{ producto.nombre }}">
-        <h3>{{ producto.nombreProducto }}</h3>
-        <p>Precio: {{ producto.precio | currency }}</p>
-        <p>Stock: {{ producto.cantidadActual }}</p>
-        <div class="cantidad">
-          <button mat-mini-fab color="primary" (click)="quitarDelCarrito(producto)">
-            <mat-icon>remove</mat-icon>
-          </button>
-          <span>{{ carrito[producto.id]?.cantidad || 0 }}</span>
-          <button mat-mini-fab color="primary" (click)="agregarAlCarrito(producto)">
-            <mat-icon>add</mat-icon>
-          </button>
+  
+      <!-- Vista de Categorías -->
+      <div *ngIf="!categoriaSeleccionada" class="contenido-centro">
+        <div *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)" class="categoria-card">
+          <h3 class="nombre-categoria">{{ categoria.nombreCategoria }}</h3>
+          <img [src]="categoria.imagen" alt="{{ categoria.nombreCategoria }}">
+        </div>
+      </div>
+  
+      <!-- Vista de Productos (visible solo cuando una categoría está seleccionada) -->
+      <div *ngIf="categoriaSeleccionada" class="contenido-centro">
+        <div *ngFor="let producto of productos" class="producto-card">
+          <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+          <h3>{{ producto.nombreProducto }}</h3>
+          <p>Precio: {{ producto.precio | currency }}</p>
+          <p>Stock: {{ producto.cantidadActual }}</p>
+          <div class="cantidad">
+            <button mat-mini-fab color="primary" (click)="quitarDelCarrito(producto)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span>{{ carrito[producto.id]?.cantidad || 0 }}</span>
+            <button mat-mini-fab color="primary" (click)="agregarAlCarrito(producto)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Carrito siempre visible en la parte derecha -->
-  <div class="carrito-panel">
-    <div class="carrito-header">
-      <h3>Carrito</h3>
-    </div>
-
-    <!-- Lista de Productos -->
-    <div class="carrito-lista">
-      <div *ngFor="let item of getCarritoItems()" class="carrito-item">
-        <div>
-          <h4>{{ item.producto.nombreProducto }}</h4>
-          <p>Precio: {{ item.producto.precio | currency }}</p>
+  
+    <!-- Carrito siempre visible en la parte derecha -->
+    <div class="carrito-panel">
+      <div class="carrito-header">
+        <h3>Carrito</h3>
+      </div>
+  
+      <!-- Lista de Productos -->
+      <div class="carrito-lista">
+        <div *ngFor="let item of getCarritoItems()" class="carrito-item">
+          <div>
+            <h4>{{ item.producto.nombreProducto }}</h4>
+            <p>Precio: {{ item.producto.precio | currency }}</p>
+          </div>
+          <div class="cantidad">
+            <button mat-mini-fab color="primary" (click)="quitarDelCarrito(item.producto)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span>{{ item.cantidad }}</span>
+            <button mat-mini-fab color="primary" (click)="agregarAlCarrito(item.producto)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </div>
-        <div class="cantidad">
-          <button mat-mini-fab color="primary" (click)="quitarDelCarrito(item.producto)">
-            <mat-icon>remove</mat-icon>
-          </button>
-          <span>{{ item.cantidad }}</span>
-          <button mat-mini-fab color="primary" (click)="agregarAlCarrito(item.producto)">
-            <mat-icon>add</mat-icon>
-          </button>
+      </div>
+  
+      <!-- Separador y Resumen -->
+      <hr>
+      <div class="carrito-resumen">
+        <p>Total: {{ calcularTotal() | currency }}</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Método de Pago</mat-label>
+          <mat-select [(value)]="metodoPagoSeleccionado">
+            <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">{{ metodo.nombre_metodo_pago }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="carrito-acciones">
+          <button mat-raised-button color="warn" (click)="vaciarCarrito()">Eliminar</button>
+          <button mat-raised-button color="primary" (click)="crearOrden()">Crear Orden</button>
         </div>
       </div>
     </div>
-
-    <!-- Separador y Resumen -->
-    <hr>
-    <div class="carrito-resumen">
-      <p>Total: {{ calcularTotal() | currency }}</p>
-      <mat-form-field appearance="fill">
-        <mat-label>Método de Pago</mat-label>
-        <mat-select [(value)]="metodoPagoSeleccionado">
-          <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">{{ metodo.nombre_metodo_pago }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="carrito-acciones">
-        <button mat-raised-button color="warn" (click)="vaciarCarrito()">Eliminar</button>
-        <button mat-raised-button color="primary" (click)="crearOrden()">Crear Orden</button>
-      </div>
-    </div>
-  </div>
+  </div>  
 </div>

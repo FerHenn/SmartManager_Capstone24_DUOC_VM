@@ -6,7 +6,6 @@
   margin: 20px 0; /* Reduce el margen */
   color: rgb(255, 255, 255); /* Color amarillo */
   text-align: center; /* Centra el contenido */
-  font-family: 'Quicksand', sans-serif;
 }
 
 .dashboard-container {
@@ -46,7 +45,6 @@ mat-card {
   }
 
   mat-card-title {
-    font-family: 'Quicksand', sans-serif;
     font-weight: bold;
     font-size: 1.2em; /* Tamaño del título */
     margin: 0; /* Elimina el margen por defecto */

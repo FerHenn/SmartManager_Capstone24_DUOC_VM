@@ -48,9 +48,6 @@ h2 {
   background-color: #FF9800;
   background: p-mt-2 p-button-primary;
 }
-/* Estilo para el icono */
-.custom-icon {
-  font-size: 3rem;      /* Tamaño grande */
-  color: #FFA500;       /* Color naranja */
+.custom-password-icon .pi-eye, .custom-password-icon .pi-eye-slash {
+  color: #FF9800 !important;
 }
-

@@ -14,7 +14,6 @@ html, body {
     margin: 10px auto; /* Centra el ícono */
 }
 .p-card-body {
-    font-family: 'Quicksand', sans-serif;
     background-color: #FF9800; /* Cambia a verde */
     color: white; /* Texto en blanco */
     padding: 20px; /* Espaciado interno */
@@ -37,16 +36,6 @@ input, textarea, select, mat-form-field input {
     border: 1px solid #ccc !important; /* Borde gris claro */
     padding: 8px; /* Espaciado interno */
     border-radius: 4px; /* Bordes redondeados */
-    width: 51%;
-    box-sizing: border-box; 
-}
-/* Específico para el campo de contraseña */
-.p-password input {
-    width: 87% !important;  /* Establece el ancho para el campo de contraseña */
-}
-/* Cambiar color del icono del ojo en el campo de contraseña */
-.p-password .pi-eye, .p-password .pi-eye-slash {
-    color: #FFA500 !important;  /* Cambiar color a naranja */
 }
 
 /* Sobrescribir estilos de Angular Material específicamente */
@@ -85,126 +74,3 @@ button {
 .custom-password-icon .pi-eye, .custom-password-icon .pi-eye-slash {
     color: #FF9800 !important;
 }
-/* Definir una clase CSS para cambiar el color de la tabla */
-.custom-table {
-    background-color: #FF9800 !important; /* Color de fondo de la tabla */
-    color: white !important; /* Color del texto dentro de la tabla */
-    border-collapse: collapse; /* Asegura que los bordes de las celdas se colapsen en una sola línea */
-}
-
-/* Estilo de las cabeceras */
-.custom-table th {
-    background-color: #FF9800 !important; /* Color de fondo de las cabeceras */
-    color: white !important; /* Color del texto en las cabeceras */
-    border: 1px solid #000000 !important; /* Color del borde de las cabeceras (blanco) */
-}
-
-/* Estilo de las celdas de datos */
-.custom-table td {
-    background-color: #ffffff !important; /* Color de fondo de las celdas */
-    color: black !important; /* Color del texto en las celdas */
-    border: 1px solid #000000 !important; /* Color del borde de las celdas (blanco) */
-}
-
-/* Estilo para las filas (líneas entre las filas) */
-.custom-table tr {
-    border-bottom: 1px solid #000000 !important; /* Borde blanco entre las filas */
-}
-
-/* Estilo de las filas alternadas (opcional) */
-.custom-table tr:nth-child(odd) td {
-    background-color: #f2f2f2 !important; /* Color de fondo de las filas impares */
-}
-
-
-.custom-table tr:nth-child(odd) td {
-    background-color: #ffffff !important; /* Color para las filas impares */
-    color: black;
-}
-/* Estilos personalizados para el diálogo */
-.custom-dialog .p-dialog {
-    background-color: white !important; /* Fondo blanco para el diálogo */
-    border-radius: 10px; /* Bordes redondeados para el diálogo */
-    padding: 10px; /* Padding interior para el contenido */
-}
-
-  /* Estilo de los campos */
-.custom-dialog .field {
-    margin-bottom: 20px; /* Espaciado entre campos */
-}
-
-.custom-dialog label {
-    font-weight: bold; /* Hacer las etiquetas más visibles */
-    display: block; /* Hacer que las etiquetas se muestren como bloques */
-    margin-bottom: 5px; /* Separación entre la etiqueta y el campo */
-}
-
-.custom-dialog input, .custom-dialog p-checkbox {
-    width: 100%; /* Que los campos de entrada y los checkboxes ocupen todo el ancho disponible */
-    padding: 8px; /* Espaciado interior */
-    border-radius: 4px; /* Bordes redondeados en los campos */
-    border: 1px solid #ddd; /* Borde gris claro */
-}
-
-  /* Estilos para los botones */
-.custom-dialog .p-button {
-    width: 120px; /* Ancho fijo para los botones */
-    padding: 10px; /* Padding para mayor tamaño de botones */
-    font-size: 14px; /* Tamaño de fuente para los botones */
-    border-radius: 4px; /* Bordes redondeados en los botones */
-}
-
-  /* Botón "Guardar" con color naranja */
-.p-button-naranja {
-    background-color: #FF9800 !important; /* Color de fondo naranja */
-    border: 1px solid #FF9800 !important; /* Borde naranja */
-    color: white !important; /* Texto blanco */
-}
-
-.p-button-naranja:hover {
-    background-color: #e68900 !important; /* Color de fondo al pasar el mouse */
-    border: 1px solid #e68900 !important; /* Borde al pasar el mouse */
-}
-
-  /* Estilo para el footer del diálogo */
-.custom-dialog p-footer {
-    display: flex;
-    justify-content: flex-end; /* Alinear los botones a la derecha */
-    gap: 10px; /* Espacio entre los botones */
-}
-
-  /* Ajustes para las cabeceras del diálogo */
-.custom-dialog .p-dialog-header {
-    background-color: #FF9800 !important; /* Fondo de la cabecera del diálogo en naranja */
-    color: white !important; /* Texto blanco en la cabecera */
-    font-weight: bold; /* Texto en negrita */
-    padding: 15px; /* Padding para la cabecera */
-    text-align: center; /* Centrar el texto en la cabecera */
-}
-/* Estilo para las entradas de texto (inputs) con fondo negro y texto blanco */
-.custom-dialog .p-inputtext {
-    background-color: rgb(255, 255, 255) !important; /* Fondo negro */
-    color: rgb(0, 0, 0) !important; /* Texto blanco */
-    border: 1px solid #ccc !important; /* Borde gris claro */
-    border-radius: 4px !important; /* Bordes redondeados */
-    padding: 10px !important; /* Padding dentro del input */
-    font-size: 14px !important; /* Tamaño de la fuente */
-}
-
-  /* Estilo para las entradas de texto cuando están en foco (focus) */
-.custom-dialog .p-inputtext:focus {
-    border-color: #FF9800 !important; /* Borde naranja cuando está en foco */
-    outline: none !important; /* Remueve el borde de enfoque por defecto */
-}
-/* Asegurándote de usar !important para forzar la aplicación */
-::ng-deep .p-button-rounded.p-button-danger {
-    background-color: red !important;   /* Fondo rojo */
-    border-color: red !important;       /* Borde rojo */
-    color: white !important;            /* Texto blanco */
-}
-
-::ng-deep .p-button-rounded.p-button-danger:hover {
-    background-color: darkred !important;  /* Fondo rojo oscuro */
-    border-color: darkred !important;      /* Borde rojo oscuro */
-}
-

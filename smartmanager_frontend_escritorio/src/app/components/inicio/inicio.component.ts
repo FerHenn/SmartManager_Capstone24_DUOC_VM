@@ -39,7 +39,7 @@ export class InicioComponent implements OnInit {
         // Rutas adicionales para administradores
         if (perfil.role === 'Administrador') {
           this.menuItems.push(
-            { label: 'Gestión de usuarios', routerLink: '/usuario', description: 'Administra los usuarios registrados' },
+            //{ label: 'Gestión de usuarios', routerLink: '/usuario', description: 'Administra los usuarios registrados' },
            // { label: 'Gestión de ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
             { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
             { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
