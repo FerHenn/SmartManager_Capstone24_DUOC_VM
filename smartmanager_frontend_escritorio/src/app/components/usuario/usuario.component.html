@@ -1,6 +1,6 @@
 <p-toast></p-toast> 
 
-<p-table [value]="usuarios" responsiveLayout="scroll">
+<p-table class="custom-table" [value]="usuarios" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
       <th>Nombre de Usuario</th>
@@ -33,13 +33,13 @@
 </p-table>
 
 <!-- Diálogo de edición de usuario -->
-<p-dialog header="Editar Usuario" [(visible)]="displayDialog" [modal]="true" [closable]="false" (onHide)="cerrarDialogo()">
+<p-dialog header="Editar Usuario" [(visible)]="displayDialog" [modal]="true" [closable]="false" (onHide)="cerrarDialogo()" class="custom-dialog">
   <div class="field">
-    <label for="nombreUsuario">Nombre de Usuario</label>
+    <label for="nombreUsuario">Nombre de usuario</label>
     <input pInputText id="nombreUsuario" [(ngModel)]="usuarioSeleccionado.nombreUsuario">
   </div>
   <div class="field">
-    <label for="correo">Correo Electrónico</label>
+    <label for="correo">Correo electrónico</label>
     <input pInputText id="correo" [(ngModel)]="usuarioSeleccionado.correo">
   </div>
   <div class="field">
@@ -51,15 +51,15 @@
     <input pInputText id="apellido" [(ngModel)]="usuarioSeleccionado.apellido">
   </div>
   <div class="field">
-    <label for="numeroTelefonico">Número Telefónico</label>
+    <label for="numeroTelefonico">Número telefónico</label>
     <input pInputText id="numeroTelefonico" [(ngModel)]="usuarioSeleccionado.numero_telefonico">
   </div>
   <div class="field">
-    <label for="estadoActivo">¿Está Activo?</label>
+    <label for="estadoActivo">¿Está activo?</label>
     <p-checkbox id="estadoActivo" [(ngModel)]="usuarioSeleccionado.estado_activo" binary="true"></p-checkbox>
   </div>
   <div class="field">
-    <label for="administrador">¿Es Administrador?</label>
+    <label for="administrador">¿Es administrador?</label>
     <p-checkbox id="administrador" [(ngModel)]="usuarioSeleccionado.usuario_administrador" binary="true"></p-checkbox>
   </div>
   <div class="field">
@@ -67,7 +67,7 @@
     <input pInputText id="role" [(ngModel)]="usuarioSeleccionado.role">
   </div>
   <p-footer>
-    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarUsuario()"></button>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="guardarUsuario()" class="p-button-naranja"></button>
     <button pButton label="Cancelar" icon="pi pi-times" class="p-button-secondary" (click)="cerrarDialogo()"></button>
   </p-footer>
 </p-dialog>
