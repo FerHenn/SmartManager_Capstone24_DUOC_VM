@@ -2,8 +2,26 @@
   <!-- Resumen de Inventario -->
   <div class="card resumen-card">
     <h3>Resumen de Inventario</h3>
-    <p>Total productos agotándose: <strong>{{ totalProductosAgotandose }}</strong></p>
-    <p>Total ingredientes agotándose: <strong>{{ totalIngredientesAgotandose }}</strong></p>
+    <p>
+      Total productos agotándose: 
+      <strong>{{ totalProductosAgotandose }}</strong>
+      <button 
+        *ngIf="totalProductosAgotandose > 0" 
+        class="btn-ver" 
+        (click)="abrirModalProductosAgotandose()">
+        Ver
+      </button>
+    </p>
+    <p>
+      Total ingredientes agotándose: 
+      <strong>{{ totalIngredientesAgotandose }}</strong>
+      <button 
+        *ngIf="totalIngredientesAgotandose > 0" 
+        class="btn-ver" 
+        (click)="abrirModalIngredientesAgotandose()">
+        Ver
+      </button>
+    </p>
   </div>
 
   <!-- Ventas Diarias -->
@@ -19,34 +37,48 @@
     <p>Total transacciones: <strong>{{ totalTransacciones }}</strong></p>
   </div>
 
-  <!-- Gráfico de torta -->
-  <div class="chart-card">
-    <h3>Productos Vendidos (Hoy)</h3>
+  <!-- Gráfico de Productos Vendidos (Hoy) -->
+  <div class="chart-card chart-pie">
+    <h3 class="chart-title">Productos Vendidos (Hoy)</h3>
     <ngx-charts-pie-chart
+      [legend]="false"
       [results]="productosVendidosData"
-      [view]="[700, 500]"
+      [view]="[350, 350]"
       [legend]="true"
-      [explodeSlices]="false"
-      [doughnut]="true"
       [labels]="true"
+      [doughnut]="true"
+      [explodeSlices]="false"
       [scheme]="colorScheme">
     </ngx-charts-pie-chart>
   </div>
 
-  <!-- Gráfico de barras -->
-  <div class="chart-card">
-    <h3>Ventas Mensuales</h3>
+  <!-- Gráfico de Ventas Mensuales -->
+  <div class="chart-card chart-bar">
+    <h3 class="chart-title">Ventas Mensuales</h3>
     <ngx-charts-bar-vertical
-      [view]="[700, 500]"
-      [scheme]="colorScheme"
       [results]="ventasMensualesData"
       [xAxis]="true"
       [yAxis]="true"
-      [legend]="true"
+      [legend]="false"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       [xAxisLabel]="'Fecha'"
-      [yAxisLabel]="'Ventas ($)'">
+      [yAxisLabel]="'Ventas ($)'"
+      [scheme]="colorScheme"
+      [yScaleMax]="maxYValue">
     </ngx-charts-bar-vertical>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="modalAbierto">
+  <div class="modal-content">
+    <h2>{{ modalTitulo }}</h2>
+    <ul>
+      <li *ngFor="let item of modalContenido">
+        {{ item.nombre }} - Quedan: {{ item.cantidadActual }}
+      </li>
+    </ul>
+    <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
   </div>
 </div>

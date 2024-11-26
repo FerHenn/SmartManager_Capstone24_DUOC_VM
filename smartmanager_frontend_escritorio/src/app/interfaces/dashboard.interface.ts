@@ -32,8 +32,7 @@ export interface VentasMensuales {
   total_ventas: number;
   total_transacciones: number;
   ventas: Array<{
-    id: number;
-    montoTotal: number;
-    fechaOrden: string;
+    dia: string; // Fecha en formato agrupado (día)
+    total_vendido: number; // Monto total vendido en el día
   }>;
 }

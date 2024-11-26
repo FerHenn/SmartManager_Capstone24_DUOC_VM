@@ -1,16 +1,15 @@
-/* Estilos principales del dashboard */
 .dashboard-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 20px;
   background-color: #f4f4f9;
   min-height: 100vh;
   box-sizing: border-box;
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a todo el contenedor */
+  font-family: 'Quicksand', sans-serif !important;
 }
 
-/* Estilo general de las tarjetas */
+/* Tarjetas Generales */
 .card {
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -18,70 +17,249 @@
   border-radius: 8px;
   text-align: center;
   transition: transform 0.2s ease;
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas */
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
-mat-card h2 {
-  text-align: center;  /* Centra el título */
-}
-
-
-/* Hover para las tarjetas */
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* Estilo específico para las tarjetas de resumen y ventas */
+/* Tarjeta de Resumen */
 .resumen-card {
-  grid-column: span 2; /* Ocupa dos columnas si el espacio lo permite */
+  grid-column: span 4;
   background-color: #ffe5e2;
   color: #333;
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a la tarjeta de resumen */
 }
 
+/* Tarjetas de Ventas */
 .ventas-card {
+  grid-column: span 2;
   background-color: #e3f2fd;
   color: #0277bd;
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a la tarjeta de ventas */
 }
 
-/* Asegurarse de que los textos dentro de Ventas Diarias y Ventas Mensuales también usen la fuente */
-.ventas-card h3,
-.ventas-card h2,
-.ventas-card p {
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a todos los textos dentro de ventas */
-}
-
-/* Estilo específico para gráficos */
+/* Tarjetas de Gráficos */
 .chart-card {
-  grid-column: span 2; /* Ambos gráficos ocupan el ancho completo */
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas de gráficos */
+  font-family: 'Quicksand', sans-serif !important;
+
+  h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-align: center;
+    color: #333;
+  }
 }
 
-/* Asegurarse de que los títulos de los gráficos también usen la fuente correcta */
-.chart-card h3 {
-  font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a los títulos de los gráficos */
+.chart-pie {
+  position: relative;
+
+  ngx-charts-pie-chart {
+    position: relative; // Asegura que el gráfico respete el contexto de posición del contenedor
+  }
+
+  .legend {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none; // Opcional, para que la leyenda no bloquee interacciones
+    z-index: 10; // Asegura que esté por encima del gráfico
+  }
+}
+
+.chart-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 90%;
+}
+
+.chart-bar {
+  grid-column: span 3;
+  height: 350px; /* Fija la altura del gráfico */
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
-  .chart-card {
-    grid-column: span 1; /* Ajusta a una sola columna en pantallas pequeñas */
-    width: 100%; /* Asegura que no se salga de la pantalla */
+  .dashboard-container {
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .resumen-card {
-    grid-column: span 1; /* Ocupa solo una columna en pantallas pequeñas */
+    grid-column: span 1;
+  }
+
+  .ventas-card,
+  .chart-pie,
+  .chart-bar {
+    grid-column: span 1;
   }
 }
+
+/* Personalización de ngx-charts */
+ngx-charts-pie-chart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ngx-charts-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden; /* Evita desbordamientos */
+}
+
+ngx-charts-legend-item {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  display: inline-block;
+
+  &:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    white-space: nowrap;
+  }
+}
+
+/* Estilo para entradas de la leyenda */
+.legend-entry {
+  margin: 0 5px;
+  font-size: 12px;
+  text-align: center;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #0277bd;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #025a9b;
+    }
+  }
+}
+
+.btn-ver {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: #025a9b;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    color: #333; /* Asegura que el texto sea visible */
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #0277bd;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #025a9b;
+    }
+  }
+}
+
