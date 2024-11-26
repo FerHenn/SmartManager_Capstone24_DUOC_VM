@@ -19,11 +19,13 @@ export interface ResumenInventario {
 }
 
 export interface VentasDiarias {
-  fecha: string;
-  ventas: Array<{
-    id: number;
-    montoTotal: number;
-    fechaOrden: string;
+  id: number; // ID de la orden de compra
+  fechaOrden: string; // Fecha y hora de la orden
+  montoTotal: number; // Total de la venta
+  metodoPago: string; // Método de pago usado
+  productos: Array<{
+    producto: string; // Nombre del producto
+    cantidad: number; // Cantidad vendida
   }>;
 }
 

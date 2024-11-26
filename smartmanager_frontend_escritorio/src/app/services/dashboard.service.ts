@@ -15,16 +15,26 @@ export class DashboardService {
   getResumenInventario(): Observable<ResumenInventario> {
     return this.http.get<ResumenInventario>(`${this.apiBaseUrl}resumen-inventario-diario/`);
   }
-
-  getVentasDiarias(): Observable<VentasDiarias> {
-    return this.http.get<VentasDiarias>(`${this.apiBaseUrl}reporte-ventas-diario/`);
-  }
-
-  getVentasMensuales(): Observable<VentasMensuales> {
-    return this.http.get<VentasMensuales>(`${this.apiBaseUrl}reporte-ventas-mensual/`);
-  }
   
   getProductosVendidosPorDia(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiBaseUrl}productos-vendidos-dia/`);
+  }
+
+  getVentasDiarias(fecha?: string): Observable<any> {
+    const url = fecha
+      ? `${this.apiBaseUrl}reporte-ventas-diario/?fecha=${fecha}`
+      : `${this.apiBaseUrl}reporte-ventas-diario/`;
+    return this.http.get(url);
+  }
+
+  getVentasMensuales(mes?: string): Observable<any> {
+    const url = mes
+      ? `${this.apiBaseUrl}reporte-ventas-mensual/?mes=${mes}`
+      : `${this.apiBaseUrl}reporte-ventas-mensual/`;
+    return this.http.get(url);
+  }
+
+  getFechasConVentas(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiBaseUrl}fechas-con-ventas/`);
   }
 }

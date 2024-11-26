@@ -18,6 +18,8 @@ import { CrudIngredientesComponent } from './components/crud-ingredientes/crud-i
 import { CrudProductosComponent } from './components/crud-productos/crud-productos.component';
 import { CrudProveedoresComponent } from './components/crud-proveedores/crud-proveedores.component';
 import { DashboardCrudComponent } from './components/dashboard-crud/dashboard-crud.component';
+import { ReporteVentasComponent } from './components/reporte-ventas/reporte-ventas.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard]},
@@ -34,6 +36,7 @@ export const routes: Routes = [
   { path: 'carrito', component: ProductoCarritoComponent },
   { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent, canActivate: [AuthGuard], data: { roles: ['Administrador'] }},
   { path: 'registro', component: RegistroComponent, canActivate: [AuthGuard]},
+  { path: 'reporte-ventas', component: ReporteVentasComponent, canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
   { path: 'error', component: ErrorComponent},
   { path: '**', redirectTo: '/login' },

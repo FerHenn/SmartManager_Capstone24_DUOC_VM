@@ -11,6 +11,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.http import HttpResponseForbidden
 from django.utils import timezone
 from django.utils.timezone import now, localtime
+from django.utils.dateparse import parse_date
 from django.db.models.functions import TruncDate
 from decimal import Decimal
 
@@ -249,32 +250,38 @@ class ResumenInventarioDiario(APIView):
 class ReporteVentasDiario(APIView):
     def get(self, request):
         try:
-            # Obtiene la fecha actual en la zona horaria local
-            hoy = localtime(now()).date()  
-            
-            # Filtra las ventas por fecha (sin considerar la hora)
-            ventas = OrdenCompra.objects.filter(fechaOrden__date=hoy)  
-            
+            # Obtén la fecha desde el parámetro de la URL o usa la fecha actual como predeterminada
+            fecha_str = request.GET.get('fecha')
+            if fecha_str:
+                fecha = parse_date(fecha_str)
+                if not fecha:
+                    return Response({"error": "Formato de fecha no válido. Usa AAAA-MM-DD"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                fecha = localtime(now()).date()  # Fecha actual si no se proporciona ninguna
+
+            # Filtra las ventas por fecha
+            ventas = OrdenCompra.objects.filter(fechaOrden__date=fecha)
+
             # Serializa las ventas
             ventas_serializer = OrdenCompraSerializer(ventas, many=True)
-            
+
             # Si no hay ventas, retorna un mensaje
             if not ventas.exists():
                 return Response({
-                    'fecha': hoy,
-                    'mensaje': 'No hay ventas registradas para hoy.',
+                    'fecha': fecha,
+                    'mensaje': 'No hay ventas registradas para esta fecha.',
                     'ventas': []
                 }, status=status.HTTP_200_OK)
-            
+
             # Calcula el monto total de ventas diarias
             total_ventas = ventas.aggregate(total=Sum('montoTotal'))['total'] or 0
-            
+
             return Response({
-                'fecha': hoy,
+                'fecha': fecha,
                 'total_ventas': total_ventas,  # Incluye el monto total de las ventas
                 'ventas': ventas_serializer.data,
             }, status=status.HTTP_200_OK)
-        
+
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -318,3 +325,16 @@ class ProductosVendidosPorDia(APIView):
             return Response(productos_vendidos, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class FechasConVentas(APIView):
+    def get(self, request):
+        fechas = (
+            OrdenCompra.objects
+            .annotate(fecha=TruncDate("fechaOrden"))
+            .values("fecha")
+            .annotate(ventas=Count("id"))
+            .filter(ventas__gt=0)
+            .order_by("fecha")
+        )
+        fechas_list = [str(f["fecha"]) for f in fechas]
+        return Response(fechas_list, status=200)

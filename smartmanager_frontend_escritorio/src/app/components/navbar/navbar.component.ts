@@ -71,6 +71,7 @@ export class NavbarComponent implements OnInit {
             { label: 'Registro', icon: 'pi pi-user-plus', routerLink: ['/registro'] }, // Icono de añadir usuario
             { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] },  // Icono de tablero
             { label: 'Crud completo', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla
+            { label: 'Reporte de ventas', icon: 'pi pi-table', routerLink: ['/reporte-ventas'] }, // Icono de candado
             { label: 'Recuperar contraseña', icon: 'pi pi-lock', routerLink: ['/recuperar-contrasena'] } // Icono de candado
           );
         }        
