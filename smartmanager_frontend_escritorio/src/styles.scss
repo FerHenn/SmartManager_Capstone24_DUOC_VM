@@ -82,16 +82,19 @@ button {
 .custom-dialog .field label {
     margin-bottom: 16px; /* Puedes ajustar este valor según lo necesites */
 }
-.login-card i {
-    font-size: 3rem !important;  /* Asegúrate de que el tamaño sea grande */
-    color: #FFA500 !important;   /* Color naranjo */
-}
-/* Asegurarte de que los iconos se muestren correctamente */
 
 
 .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-action {
-    color: rgba(0, 0, 0, 0.87);
+    color: #FF9800 !important;
     background-color: white;
     padding: 1rem 1.25rem;
     font-weight: bold;
+}
+
+.mat-mdc-button {
+    color:  white;
+}
+
+.password .p.icon{
+    color: #FF9800;
 }

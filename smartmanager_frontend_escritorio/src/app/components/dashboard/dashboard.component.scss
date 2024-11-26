@@ -21,6 +21,11 @@
   font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas */
 }
 
+mat-card h2 {
+  text-align: center;  /* Centra el título */
+}
+
+
 /* Hover para las tarjetas */
 .card:hover {
   transform: translateY(-5px);

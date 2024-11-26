@@ -41,7 +41,7 @@
   
   <!-- Formulario de creación -->
   <div *ngIf="isCreating" class="form-container">
-    <h3>Crear Proveedor</h3>
+    <h3 class="proveedor-titulo">Crear Proveedor</h3>
     <form [formGroup]="editForm" (ngSubmit)="guardarNuevoProveedor()">
       <label for="nombre_proveedor">Nombre:</label>
       <input id="nombre_proveedor" formControlName="nombre_proveedor" />
