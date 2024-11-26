@@ -14,10 +14,10 @@ html, body {
     margin: 10px auto; /* Centra el ícono */
 }
 .p-card-body {
-    background-color: #FF9800; /* Cambia a verde */
-    color: white; /* Texto en blanco */
+    background-color: #ffffff; /* Cambia a verde */
+    color: #FF9800; /* Texto en blanco */
     padding: 20px; /* Espaciado interno */
-    border-radius: 8px; /* Bordes redondeados */  }
+    border-radius: 8px; /* Bordes redondeados */ }
 
 /* Configurar el fondo de la página */
 body {
@@ -73,4 +73,8 @@ button {
 }
 .custom-password-icon .pi-eye, .custom-password-icon .pi-eye-slash {
     color: #FF9800 !important;
+}
+/* Agregar espacio entre el label y el input */
+.custom-dialog .field label {
+    margin-bottom: 16px; /* Puedes ajustar este valor según lo necesites */
 }
