@@ -41,7 +41,7 @@ export class InicioComponent implements OnInit {
             { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
             { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
             { label: 'Recuperar contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' },
-            { label: 'Crud completo', routerLink: '/CrudDashboard', description: 'Se puede revisar, agregar y eliminar diferentes componentes' },
+            { label: 'Panel de gestión', routerLink: '/CrudDashboard', description: 'Se puede revisar, agregar y eliminar diferentes componentes' },
             { label: 'Reporte de ventas', icon: 'pi pi-table', routerLink: ['/reporte-ventas'], description: 'Consulta estadísticas diarias y mensuales' }, // Icono de candado
           );
         }

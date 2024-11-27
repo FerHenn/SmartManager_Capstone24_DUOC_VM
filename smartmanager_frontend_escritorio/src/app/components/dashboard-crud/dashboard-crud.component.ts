@@ -27,22 +27,22 @@ export class DashboardCrudComponent implements OnInit {
   cargarMenucrud(): void {
     this.menuItems = [
       {
-        label: 'Gestión de Proveedores',
+        label: 'Gestión de proveedores',
         routerLink: '/CrudProveedores',
         description: 'Administra proveedores',
       },
       {
-        label: 'Gestión de Categorías',
+        label: 'Gestión de categorías',
         routerLink: '/CrudCategorias',
         description: 'Administra categorías de productos',
       },
       {
-        label: 'Gestión de Productos',
+        label: 'Gestión de productos',
         routerLink: '/CrudProductos',
         description: 'Administra productos disponibles',
       },
       {
-        label: 'Gestión de Ingredientes',
+        label: 'Gestión de ingredientes',
         routerLink: '/CrudIngredientes',
         description: 'Administra ingredientes necesarios',
       },

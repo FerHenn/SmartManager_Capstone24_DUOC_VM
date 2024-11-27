@@ -1,6 +1,7 @@
 ::ng-deep .p-menubar {
   background-color: #FF9800 !important;
   height: 60px;
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 ::ng-deep .p-button {
@@ -22,25 +23,30 @@
 }
 
 ::ng-deep .p-panelMenu {
+  font-family: 'Quicksand', sans-serif !important;
   background-color: #FF9800 !important;
   border: none !important;
   color: white !important;
 }
 ::ng-deep .p-sidebar {
+  font-family: 'Quicksand', sans-serif !important;
   background-color: #FF9800 !important;
   border: none !important;
   color: white !important;
 }
 ::ng-deep .p-panelMenu {
+  font-family: 'Quicksand', sans-serif !important;
   background-color: #FF9800 !important;
   border: 2px solid red !important;  /* Añadir un borde para probar si se aplica */
 }
 
 ::ng-deep .p-panelMenu .p-menuitem-link {
+  
   color: white !important; /* Cambia el color del texto de los elementos del menú */
 }
 
 ::ng-deep .p-panelMenu .p-menuitem {
+  font-family: 'Quicksand', sans-serif !important;
   background-color: #FF9800 !important; /* Fondo del item */
 }
 
@@ -58,6 +64,7 @@
 }
 
 .role-text {
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 14px; /* Ajusta el tamaño de la fuente según tu diseño */
   color: #ffffff; /* Cambia al color que prefieras */
   margin-right: 4px; /* Espaciado adicional si es necesario */

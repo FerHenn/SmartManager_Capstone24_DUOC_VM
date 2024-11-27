@@ -19,6 +19,7 @@ html, body {
 
 /* Configurar el fondo de la página */
 body {
+    font-family: 'Quicksand', sans-serif !important;
     background-image: url('assets/images/login-fondo-web.png'); /* Ruta de la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-size: cover; /* Hace que la imagen cubra todo el área disponible */
@@ -29,6 +30,7 @@ body {
 
 /* Estilos para inputs, selects y textareas */
 input, textarea, select, mat-form-field input {
+    font-family: 'Quicksand', sans-serif !important;
     background-color: white !important; /* Fondo blanco */
     color: #FF9800 !important; /* Texto negro */
     border: 1px solid #ccc !important; /* Borde gris claro */
@@ -83,6 +85,7 @@ button {
     background-color: white;
     padding: 1rem 1.25rem;
     font-weight: bold;
+    font-family: 'Quicksand', sans-serif !important;
 }
 
 .mat-mdc-button {
@@ -103,4 +106,21 @@ button {
     margin-left: 15px; /* Mueve el campo de texto a la derecha */
 }
 
+.mat-h3, .mat-subtitle-1, .mat-typography .mat-h3, .mat-typography .mat-subtitle-1, .mat-typography h3 {
+    font-family: 'Quicksand', sans-serif !important;
+    letter-spacing: .009375em;
+    margin: 0 0 16px;
+}
+.mat-h2, .mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2 {
+    font-family: 'Quicksand', sans-serif !important;
+    letter-spacing: .0125em;
+    margin: 0 0 16px;
+}
 
+.mat-mdc-card-header {
+    display: flex;
+    padding: 16px 16px 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

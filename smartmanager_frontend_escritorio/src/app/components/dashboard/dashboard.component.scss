@@ -17,6 +17,7 @@
   border-radius: 8px;
   text-align: center;
   transition: transform 0.2s ease;
+  font-family: 'Quicksand', sans-serif !important;
 
   &:hover {
     transform: translateY(-5px);
@@ -28,6 +29,7 @@
   grid-column: span 4;
   background-color: #ffe5e2;
   color: #333;
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 /* Tarjetas de Ventas */
@@ -35,6 +37,7 @@
   grid-column: span 2;
   background-color: #e3f2fd;
   color: #0277bd;
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 /* Tarjetas de Gráficos */
@@ -60,17 +63,19 @@
     max-width: 100%;
     text-align: center;
     color: #333;
+    font-family: 'Quicksand', sans-serif !important;
   }
 }
 
 .chart-pie {
   position: relative;
-
+  font-family: 'Quicksand', sans-serif !important;
   ngx-charts-pie-chart {
     position: relative; // Asegura que el gráfico respete el contexto de posición del contenedor
   }
 
   .legend {
+    font-family: 'Quicksand', sans-serif !important;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -82,6 +87,7 @@
 }
 
 .chart-title {
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 1.5rem;
   margin-bottom: 10px;
   text-align: center;
@@ -92,6 +98,7 @@
 }
 
 .chart-bar {
+  font-family: 'Quicksand', sans-serif !important;
   grid-column: span 3;
   height: 350px; /* Fija la altura del gráfico */
 }
@@ -163,61 +170,6 @@ ngx-charts-legend-item {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 90%;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  button {
-    margin-top: 10px;
-    background-color: #0277bd;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #025a9b;
-    }
-  }
-}
-
-.btn-ver {
-  background-color: #0277bd;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-
-  &:hover {
-    background-color: #025a9b;
-  }
-}
 
 .modal {
   position: fixed;
@@ -240,12 +192,14 @@ ngx-charts-legend-item {
     max-width: 500px;
     width: 90%;
     color: #333; /* Asegura que el texto sea visible */
+    font-family: 'Quicksand', sans-serif !important;
   }
 
   ul {
     list-style: none;
     padding: 0;
     text-align: left;
+    font-family: 'Quicksand', sans-serif !important;
   }
 
   button {
@@ -256,6 +210,7 @@ ngx-charts-legend-item {
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Quicksand', sans-serif !important;
 
     &:hover {
       background-color: #025a9b;
@@ -263,3 +218,17 @@ ngx-charts-legend-item {
   }
 }
 
+.btn-ver {
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Quicksand', sans-serif !important;
+
+  &:hover {
+    background-color: #025a9b;
+  }
+}

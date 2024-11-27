@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
 
   abrirModalProductosAgotandose(): void {
     if (this.totalProductosAgotandose > 0) {
-      this.modalTitulo = 'Productos Agotándose';
+      this.modalTitulo = 'Productos agotándose';
       this.modalContenido = this.productosAgotandose.map(p => ({
         nombre: p.nombreProducto,
         cantidadActual: p.cantidadActual,
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
   
   abrirModalIngredientesAgotandose(): void {
     if (this.totalIngredientesAgotandose > 0) {
-      this.modalTitulo = 'Ingredientes Agotándose';
+      this.modalTitulo = 'Ingredientes agotándose';
       this.modalContenido = this.ingredientesAgotandose.map(i => ({
         nombre: i.nombreIngrediente,
         cantidadActual: i.cantidadActual,
