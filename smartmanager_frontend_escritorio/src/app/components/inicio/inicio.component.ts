@@ -15,15 +15,15 @@ import { MatCardModule } from '@angular/material/card';
 export class InicioComponent implements OnInit {
   menuItems: MenuItem[] = []; // Rutas dinámicas basadas en el rol del usuario
   isAuthenticated: boolean = false;
-
+  
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated(); // Verifica autenticación
+    this.isAuthenticated = this.authService.isAuthenticated(); 
     if (this.isAuthenticated) {
-      this.cargarRutas(); // Cargar rutas dinámicamente
+      this.cargarRutas(); 
     } else {
-      this.router.navigate(['/login']); // Redirige al login si no está autenticado
+      this.router.navigate(['/login'])
     }
   }
 
@@ -32,15 +32,12 @@ export class InicioComponent implements OnInit {
       next: (perfil) => {
         // Rutas comunes para todos los usuarios
         this.menuItems = [
-          //{ label: 'Gestión de productos', routerLink: '/productos', description: 'Control de productos' },
           { label: 'Carrito', routerLink: '/carrito', description: 'Realiza compras' },
         ];
 
         // Rutas adicionales para administradores
         if (perfil.role === 'Administrador') {
           this.menuItems.push(
-            //{ label: 'Gestión de usuarios', routerLink: '/usuario', description: 'Administra los usuarios registrados' },
-           // { label: 'Gestión de ventas', routerLink: '/ventas', description: 'Revisa y gestiona las ventas realizadas' },
             { label: 'Dashboard', routerLink: '/dashboard', description: 'Consulta estadísticas y métricas' },
             { label: 'Registro', routerLink: '/registro', description: 'Registra nuevos usuarios' },
             { label: 'Recuperar contraseña', routerLink: '/recuperar-contrasena', description: 'Recupera tu contraseña' },

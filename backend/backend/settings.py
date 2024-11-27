@@ -104,14 +104,14 @@ DATABASES = {
     }
 }
 
-# Configuración adicional de la base de datos para entorno de despliegue
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,  # Optimiza la reutilización de conexiones
-        ssl_require=True,
-    )
-}
+# # Configuración adicional de la base de datos para entorno de despliegue
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL'),
+#         conn_max_age=600,  # Optimiza la reutilización de conexiones
+#         ssl_require=True,
+#     )
+# }
 
 
 

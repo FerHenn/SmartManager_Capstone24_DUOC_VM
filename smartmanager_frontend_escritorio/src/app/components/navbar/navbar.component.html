@@ -7,7 +7,10 @@
   </ng-template>
 
   <ng-template *ngIf="isAuthenticated" pTemplate="end">
-    <p-button icon="pi pi-user" (click)="menu.toggle($event)"></p-button>
-    <p-menu #menu [popup]="true" [model]="profileItems"></p-menu>
+    <div class="navbar-profile">
+      <span class="role-text">{{ role }}</span>
+      <p-button icon="pi pi-user" (click)="menu.toggle($event)"></p-button>
+      <p-menu #menu [popup]="true" [model]="profileItems"></p-menu>
+    </div>
   </ng-template>
 </p-menubar>

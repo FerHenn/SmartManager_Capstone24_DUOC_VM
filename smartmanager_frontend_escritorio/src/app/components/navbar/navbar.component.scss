@@ -51,3 +51,14 @@
 ::ng-deep .p-panelMenu .p-menuitem .pi {
   color: white !important; /* Color de los iconos */
 }
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre el texto y el ícono */
+}
+
+.role-text {
+  font-size: 14px; /* Ajusta el tamaño de la fuente según tu diseño */
+  color: #ffffff; /* Cambia al color que prefieras */
+  margin-right: 4px; /* Espaciado adicional si es necesario */
+}

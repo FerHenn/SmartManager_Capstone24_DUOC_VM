@@ -33,12 +33,13 @@ export class NavbarComponent implements OnInit {
   isAuthenticated: boolean = false;
   menuItems: MenuItem[] = [];
   profileItems: MenuItem[] = [];
+  role: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     console.log('Inicializando NavbarComponent');
-
+    this.cargarRol(); 
     // Verificar si el usuario está autenticado
     this.isAuthenticated = this.authService.isAuthenticated();
     console.log('Estado de autenticación:', this.isAuthenticated);
@@ -70,7 +71,7 @@ export class NavbarComponent implements OnInit {
             //{ label: 'Ventas', icon: 'pi pi-chart-line', routerLink: ['/ventas'] },  // Icono de gráfico
             { label: 'Registro', icon: 'pi pi-user-plus', routerLink: ['/registro'] }, // Icono de añadir usuario
             { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] },  // Icono de tablero
-            { label: 'Crud completo', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla
+            { label: 'Panel de Gestión', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla
             { label: 'Reporte de ventas', icon: 'pi pi-table', routerLink: ['/reporte-ventas'] }, // Icono de candado
             { label: 'Recuperar contraseña', icon: 'pi pi-lock', routerLink: ['/recuperar-contrasena'] } // Icono de candado
           );
@@ -84,6 +85,17 @@ export class NavbarComponent implements OnInit {
       error: err => {
         console.error('Error al obtener el perfil del usuario:', err);
       }
+    });
+  }
+  cargarRol(): void {
+    this.authService.getPerfil().subscribe({
+      next: (perfil) => {
+        this.role = perfil.role; // Asigna el rol desde la respuesta
+      },
+      error: (err) => {
+        console.error('Error al cargar el perfil del usuario:', err);
+        this.role = 'Desconocido'; // Valor por defecto si ocurre un error
+      },
     });
   }
 
