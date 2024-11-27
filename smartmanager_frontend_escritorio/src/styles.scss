@@ -94,4 +94,13 @@ button {
     color: orange;   /* Cambia el color */
     margin-bottom: 10px;
 }
+/* Ajusta el label y el input del campo de usuario */
+.login-container .p-field label[for="nombreUsuario"] {
+    margin-left: 15px; /* Mueve el label a la derecha */
+}
+
+.login-container .p-field input#nombreUsuario {
+    margin-left: 15px; /* Mueve el campo de texto a la derecha */
+}
+
 
