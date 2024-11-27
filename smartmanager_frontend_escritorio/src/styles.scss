@@ -8,13 +8,7 @@ html, body {
     margin: 0; /* Elimina márgenes globales */
     font-family: 'Quicksand', sans-serif !important; 
 }
-.login-card i {
-    font-size: 2.5rem; /* Tamaño del ícono */
-    color: #FF9800; /* Color naranjo */
-    display: block;
-    margin: 10px auto; /* Centra el ícono */
-    font-family: 'Quicksand', sans-serif !important;
-}
+
 .p-card-body {
     background-color: #ffffff; /* Cambia a verde */
     color: #FF9800; /* Texto en blanco */
@@ -95,6 +89,9 @@ button {
     color:  white;
 }
 
-.password .p.icon{
-    color: #FF9800;
+.custom-icon {
+    font-size: 3em;  /* Cambia el tamaño */
+    color: orange;   /* Cambia el color */
+    margin-bottom: 10px;
 }
+

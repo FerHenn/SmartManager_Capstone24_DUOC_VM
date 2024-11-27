@@ -22,7 +22,7 @@ export class LoginComponent {
   nombreUsuario: string = '';
   password: string = '';
   errorMessage: string = '';
- 
+
   constructor(private authService: AuthService, private router: Router) {}
 
   // Método para manejar el envío del formulario de login
