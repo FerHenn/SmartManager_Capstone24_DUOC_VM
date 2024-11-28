@@ -147,3 +147,19 @@ button {
 .p-menu li:nth-child(1) .pi-cog {
     color: #FF9800 !important;
 }
+.dashboard-container {
+    position: relative; /* Necesario para que el botón se posicione relativo a este contenedor */
+    padding-top: 0;      /* Asegura que no haya un padding que empuje el contenido hacia abajo */
+}
+
+.back-button {
+    position: absolute;
+    top: 0;             /* Fija el botón en la parte superior */
+    left: 10px;         /* Ajusta la distancia desde el borde izquierdo */
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #ffffff;        /* Puedes cambiar el color si lo necesitas */
+    cursor: pointer;
+    z-index: 10;        /* Asegura que el botón quede encima de otros elementos */
+}
