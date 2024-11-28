@@ -2,18 +2,28 @@
     padding: 16px;
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
-
-h2 {
-    color: #000000; /* Cambia esto al color que desees para el título */
-    margin-bottom: 20px;
-    text-align: center; /* Centra el texto */
+.titulo{
+    text-align: center;
+    color: #FF9800;
+    font-weight: bold; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-    font-size: 28px; /* Ajusta el tamaño del título como desees */
 }
+.toolbar {
+    --background: #FF9800; /* Fondo de la barra de herramientas */
+    --color: #ffffff; /* Color del texto blanco */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+}
+
 
 .value {
     color: gray; /* Color gris para los datos personales */
     font-weight: bold; /* Hace que el dato sea más visible */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
     font-size: 18px; /* Ajusta el tamaño del texto del valor */
+}
+/* Cambiar color de los títulos de los ion-card */
+.custom-card-title {
+    color: #FF9800; /* Naranja */
+    font-weight: bold;
 }

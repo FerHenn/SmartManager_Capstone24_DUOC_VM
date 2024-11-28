@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
@@ -9,11 +9,10 @@
 
 <ion-content class="ion-padding">
   <div class="perfil-container">
-    <h2>Información Personal</h2>
-
+    <h2 class="titulo">Información personal</h2>
     <ion-card *ngIf="usuario.nombre">
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title class="custom-card-title">
           <ion-icon slot="start" name="person"></ion-icon>
           Nombre
         </ion-card-title>
@@ -22,22 +21,22 @@
         <span class="value">{{ usuario.nombre }}</span>
       </ion-card-content>
     </ion-card>
-
+    
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
-          <ion-icon slot="start" name="mail" ></ion-icon>
-          Correo Electrónico
+        <ion-card-title class="custom-card-title">
+          <ion-icon slot="start" name="mail"></ion-icon>
+          Correo electrónico
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <span class="value">{{ usuario.correo }}</span>
       </ion-card-content>
     </ion-card>
-
+    
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title class="custom-card-title">
           <ion-icon slot="start" name="call"></ion-icon>
           Teléfono
         </ion-card-title>
@@ -46,10 +45,10 @@
         <span class="value">{{ usuario.numero_telefonico }}</span>
       </ion-card-content>
     </ion-card>
-
+    
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title class="custom-card-title">
           <ion-icon slot="start" name="briefcase"></ion-icon>
           Rol
         </ion-card-title>
@@ -58,22 +57,22 @@
         <span class="value">{{ usuario.role }}</span>
       </ion-card-content>
     </ion-card>
-
+    
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title class="custom-card-title">
           <ion-icon slot="start" name="checkmark-circle"></ion-icon>
-          Estado Activo
+          Estado
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <span class="value">{{ usuario.estado_activo ? 'Activo' : 'Inactivo' }}</span>
       </ion-card-content>
     </ion-card>
-
+    
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title class="custom-card-title">
           <ion-icon slot="start" name="person-circle"></ion-icon>
           Administrador
         </ion-card-title>
@@ -82,5 +81,4 @@
         <span class="value">{{ usuario.usuario_administrador ? 'Sí' : 'No' }}</span>
       </ion-card-content>
     </ion-card>
-  </div>
-</ion-content>
+    
