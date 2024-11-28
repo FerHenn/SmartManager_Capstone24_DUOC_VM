@@ -71,14 +71,14 @@ export class NavbarComponent implements OnInit {
             //{ label: 'Ventas', icon: 'pi pi-chart-line', routerLink: ['/ventas'] },  // Icono de gráfico
             { label: 'Registro', icon: 'pi pi-user-plus', routerLink: ['/registro'] }, // Icono de añadir usuario
             { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] },  // Icono de tablero
-            { label: 'Panel de Gestión', icon: 'pi pi-table', routerLink: ['/CrudDashboard'] },  // Icono de tabla
-            { label: 'Reporte de ventas', icon: 'pi pi-table', routerLink: ['/reporte-ventas'] }, // Icono de candado
+            { label: 'Panel de gestión', icon: 'pi pi-fw pi-sliders-h', routerLink: ['/CrudDashboard'] },  // Icono de tabla
+            { label: 'Reporte de ventas', icon: 'pi pi-fw pi-file', routerLink: ['/reporte-ventas'] }, // Icono de candado
             { label: 'Recuperar contraseña', icon: 'pi pi-lock', routerLink: ['/recuperar-contrasena'] } // Icono de candado
           );
         }        
         // Definir los elementos del menú de perfil
         this.profileItems = [
-          { label: 'Ver perfil', icon: 'pi pi-fw pi-user', command: () => this.verPerfil() },
+          { label: 'Ver perfil', icon: 'pi pi-fw pi-cog', command: () => this.verPerfil() },
           { label: 'Cerrar sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
         ];
       },

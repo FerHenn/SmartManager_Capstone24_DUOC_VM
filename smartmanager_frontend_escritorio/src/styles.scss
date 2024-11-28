@@ -84,7 +84,7 @@ button {
     color: #FF9800 !important;
     background-color: white;
     padding: 1rem 1.25rem;
-    font-weight: bold;
+    
     font-family: 'Quicksand', sans-serif !important;
 }
 
@@ -123,4 +123,27 @@ button {
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+.p-menu.p-menu-overlay {
+    background: #ffffff;
+    border: 1px solid #000000;
+    font-family: 'Quicksand', sans-serif !important;
+    box-shadow: none;
+}
+/* Crear una línea negra en el medio del menú */
+.p-menu.p-menu-overlay li:nth-child(2) {
+    border-top: 1px solid #000000;
+}
+.p-menubar .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+    color: #FF9800 !important;
+}
+
+/* Cambiar color de los iconos en el menú de perfil */
+.pi-sign-out {
+    color: #FF9800 !important;
+}
+
+/* Cambiar el color solo para el ícono de 'Ver perfil' */
+.p-menu li:nth-child(1) .pi-cog {
+    color: #FF9800 !important;
 }
