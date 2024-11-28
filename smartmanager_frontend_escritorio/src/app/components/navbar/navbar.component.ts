@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
@@ -10,6 +10,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { AuthService } from '../../services/auth.service'; 
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -26,14 +27,15 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   visibleSidebar1: boolean = false;
   isAuthenticated: boolean = false;
   menuItems: MenuItem[] = [];
   profileItems: MenuItem[] = [];
   role: string = '';
+  private routerSubscription: Subscription | null = null;  // Inicialización explícita
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -48,6 +50,21 @@ export class NavbarComponent implements OnInit {
       // Cargar el perfil y las opciones de menú correspondientes
       this.router.navigate(['/inicio']);
       this.cargarPerfilYMenu();
+    }
+
+    // Escuchar cambios de navegación
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Cerrar el menú lateral al navegar a una nueva ruta
+        this.visibleSidebar1 = false;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Asegurarse de limpiar la suscripción cuando el componente se destruya
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
     }
   }
 
@@ -87,6 +104,7 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+
   cargarRol(): void {
     this.authService.getPerfil().subscribe({
       next: (perfil) => {
