@@ -19,7 +19,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatButtonModule,
     MatIconModule],
   templateUrl: './producto-carrito.component.html',
-  styleUrl: './producto-carrito.component.scss'
+  styleUrls: ['./producto-carrito.component.scss']
 })
 
 export class ProductoCarritoComponent implements OnInit {
@@ -40,7 +40,7 @@ export class ProductoCarritoComponent implements OnInit {
 
   cargarCategorias() {
     this.productosService.getCategorias().subscribe((data) => {
-      this.categorias = data.sort((a, b) => a.nombreCategoria.localeCompare(b.nombreCategoria));
+      this.categorias = data.sort((a: any, b: any) => a.nombreCategoria.localeCompare(b.nombreCategoria));
     });
   }
 
@@ -48,35 +48,39 @@ export class ProductoCarritoComponent implements OnInit {
     this.categoriaSeleccionada = categoria;
     this.productosService.getProductosByCategoria(categoria.id).subscribe(
       (data) => {
-        this.productos = data;  // Cargar los productos de la categoría
+        // Ordenar productos por stock y alfabéticamente
+        this.productos = data.sort((a: any, b: any) => {
+          if (b.cantidadActual !== a.cantidadActual) {
+            return b.cantidadActual - a.cantidadActual; // Ordenar por stock
+          }
+          return a.nombreProducto.localeCompare(b.nombreProducto); // Ordenar alfabéticamente
+        });
       },
       (error) => {
-        console.error('Error al cargar productos de la categoría', error);  // Registrar si hay errores
+        console.error('Error al cargar productos de la categoría', error);
       }
     );
   }
 
   agregarAlCarrito(producto: any) {
-    // Verifica si el producto ya está en el carrito
+    if (producto.cantidadActual === 0) {
+      console.warn('El producto no tiene stock disponible.');
+      return;
+    }
     if (this.carrito[producto.id]) {
-      // Solo agrega si no excede el stock disponible
       if (this.carrito[producto.id].cantidad < producto.cantidadActual) {
         this.carrito[producto.id].cantidad += 1;
       } else {
         console.warn('No puedes agregar más de la cantidad en stock');
       }
     } else {
-      // Si no está en el carrito, agrégalo con cantidad inicial de 1
       this.carrito[producto.id] = { cantidad: 1, producto };
     }
   }
 
   quitarDelCarrito(producto: any) {
     if (this.carrito[producto.id]) {
-      // Disminuye la cantidad del producto en el carrito
       this.carrito[producto.id].cantidad -= 1;
-      
-      // Si la cantidad es 0 o menor, elimina el producto del carrito
       if (this.carrito[producto.id].cantidad <= 0) {
         delete this.carrito[producto.id];
       }
@@ -93,7 +97,7 @@ export class ProductoCarritoComponent implements OnInit {
   }
 
   getCarritoItems() {
-    return Object.values(this.carrito); // Devuelve los elementos del carrito
+    return Object.values(this.carrito);
   }
 
   calcularTotal() {
@@ -122,16 +126,17 @@ export class ProductoCarritoComponent implements OnInit {
       alert('Seleccione un método de pago.');
       return;
     }
-
+  
     const productos = this.getCarritoItems().map((item) => ({
       producto_id: item.producto.id,
       cantidad: item.cantidad
     }));
-
+  
     this.productosService.crearOrden(productos, this.metodoPagoSeleccionado).subscribe(
       (response) => {
         alert('Orden creada con éxito.');
         this.vaciarCarrito();
+        this.actualizarVista(); // Llamada a la función para actualizar la vista
       },
       (error) => {
         console.error('Error al crear la orden:', error);
@@ -139,4 +144,29 @@ export class ProductoCarritoComponent implements OnInit {
       }
     );
   }
+  
+  // Método para recargar y actualizar el stock después de crear una orden
+actualizarVista() {
+  if (this.categoriaSeleccionada) {
+    // Si hay una categoría seleccionada, recarga los productos de esa categoría
+    this.productosService.getProductosByCategoria(this.categoriaSeleccionada.id).subscribe(
+      (data) => {
+        // Ordenar productos por stock y alfabéticamente
+        this.productos = data.sort((a: any, b: any) => {
+          if (b.cantidadActual !== a.cantidadActual) {
+            return b.cantidadActual - a.cantidadActual; // Ordenar por stock
+          }
+          return a.nombreProducto.localeCompare(b.nombreProducto); // Ordenar alfabéticamente
+        });
+      },
+      (error) => {
+        console.error('Error al recargar los productos:', error);
+      }
+    );
+  } else {
+    // Si no hay categoría seleccionada, recarga las categorías
+      this.cargarCategorias();
+    }
+  }
+
 }

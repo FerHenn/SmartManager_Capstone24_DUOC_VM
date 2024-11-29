@@ -25,16 +25,27 @@
       <!-- Vista de Productos (visible solo cuando una categoría está seleccionada) -->
       <div *ngIf="categoriaSeleccionada" class="contenido-centro">
         <div *ngFor="let producto of productos" class="producto-card">
-          <img [src]="producto.imagen" alt="{{ producto.nombre }}">
+          <img 
+            [src]="producto.imagen" 
+            [class.sin-stock]="producto.cantidadActual === 0" 
+            alt="{{ producto.nombre }}">
           <h3>{{ producto.nombreProducto }}</h3>
           <p>Precio: {{ producto.precio | currency }}</p>
           <p>Stock: {{ producto.cantidadActual }}</p>
           <div class="cantidad">
-            <button mat-mini-fab color="primary" (click)="quitarDelCarrito(producto)">
+            <button 
+              mat-mini-fab 
+              color="primary" 
+              (click)="quitarDelCarrito(producto)" 
+              [disabled]="producto.cantidadActual === 0">
               <mat-icon>remove</mat-icon>
             </button>
             <span>{{ carrito[producto.id]?.cantidad || 0 }}</span>
-            <button mat-mini-fab color="primary" (click)="agregarAlCarrito(producto)">
+            <button 
+              mat-mini-fab 
+              color="primary" 
+              (click)="agregarAlCarrito(producto)" 
+              [disabled]="producto.cantidadActual === 0">
               <mat-icon>add</mat-icon>
             </button>
           </div>

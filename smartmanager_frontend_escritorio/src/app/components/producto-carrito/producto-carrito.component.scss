@@ -227,3 +227,10 @@ button {
   font-weight: bold; /* Opcional: para mejor visibilidad */
   font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
 }
+
+/* Imagen en tonos grises si el stock es 0 */
+.producto-card img.sin-stock {
+  filter: grayscale(100%);
+  opacity: 0.6; /* Reduce opacidad */
+  cursor: not-allowed; /* Cambia el cursor */
+}
