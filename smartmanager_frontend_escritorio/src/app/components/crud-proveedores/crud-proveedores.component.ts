@@ -27,10 +27,10 @@ export class CrudProveedoresComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nombre_proveedor', 'numero_telefonico', 'estado_activo', 'acciones'];
 
   // Estado del formulario
-  showEditForm: boolean = false; // Controla la visibilidad del formulario
-  isCreating: boolean = false; // Controla la visibilidad del formulario de creación
-  selectedProveedor: Proveedor | null = null; // Proveedor seleccionado para editar
-  editForm!: FormGroup; // Formulario reactivo
+  showEditForm: boolean = false; 
+  isCreating: boolean = false; 
+  selectedProveedor: Proveedor | null = null; 
+  editForm!: FormGroup; 
 
   constructor(
     private proveedorService: ProveedorService,
