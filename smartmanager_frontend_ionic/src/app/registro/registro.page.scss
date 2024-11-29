@@ -1,48 +1,6 @@
-// Centra el formulario verticalmente y ajusta la padding general
-.registro-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding: 16px;
-}
-
-ion-item {
-    margin-bottom: 16px;
-}
-
-  // Estilos para el botón de registro
-ion-button {
-    margin-top: 20px;
-    --border-radius: 8px;  // Botón con esquinas redondeadas
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Sombra ligera
-}
-
-  // Estilos del pie de página
-.registro-footer {
-    text-align: center;
-    margin-top: 20px;
-}
-
-  // Enlace dentro del pie de página
-.registro-footer a {
-    color: var(--ion-color-primary);  // Usa el color primario de la app
-    text-decoration: none;
-    font-weight: bold;
-}
-
-  // Colores de los mensajes de error
-ion-note {
-    margin-top: -10px; // Ajusta el espacio entre el input y el mensaje
-    font-size: 12px;   // Tamaño de letra más pequeño para los mensajes de error
-}
-
-  // Estilos para dispositivos móviles pequeños
-@media (max-width: 576px) {
-.registro-container {
-    padding: 10px;
-    }
-ion-button {
-    font-size: 14px;
-    }
+.toolbar {
+  --background: #FF9800; /* Morado */
+  --color: #ffffff; /* Color del texto blanco */
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px; /* Ajusta el tamaño según lo necesites */
 }
