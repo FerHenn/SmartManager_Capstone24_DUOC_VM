@@ -1,0 +1,95 @@
+<div class="fondo-estatico"></div>
+
+<div class="contenido-scroll">
+  <h2 class="titulo">
+    Gestión de Usuarios
+    <button mat-button color="primary" class="crear-button" (click)="crearUsuario()">Crear Usuario</button>
+  </h2>
+
+  <!-- Tabla de usuarios -->
+  <div class="usuarios-container">
+    <table mat-table [dataSource]="usuarios" class="mat-elevation-z8">
+      <!-- Columnas -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreUsuario">
+        <th mat-header-cell *matHeaderCellDef>Nombre de Usuario</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.nombreUsuario }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef>Correo</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.correo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.nombre }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.apellido }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="numero_telefonico">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.numero_telefonico }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado_activo">
+        <th mat-header-cell *matHeaderCellDef>Estado Activo</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.estado_activo ? 'Activo' : 'Inactivo' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let usuario">
+          <button mat-button color="primary" (click)="editarUsuario(usuario)">Editar</button>
+          <button mat-button color="warn" (click)="eliminarUsuario(usuario.id, usuario.nombreUsuario)">
+  Eliminar
+</button>
+        </td>
+      </ng-container>
+
+      <!-- Renderización de encabezados y filas -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <!-- Formulario de creación/edición -->
+  <div *ngIf="isCreating || showEditForm" class="form-container">
+    <h3>{{ isCreating ? 'Crear Usuario' : 'Editar Usuario' }}</h3>
+    <form [formGroup]="editForm" (ngSubmit)="guardarUsuario()">
+      <label for="nombreUsuario">Nombre de Usuario:</label>
+      <input id="nombreUsuario" formControlName="nombreUsuario" />
+
+      <label for="correo">Correo:</label>
+      <input id="correo" type="email" formControlName="correo" />
+
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" formControlName="nombre" />
+
+      <label for="apellido">Apellido:</label>
+      <input id="apellido" formControlName="apellido" />
+
+      <label for="numero_telefonico">Teléfono:</label>
+      <input id="numero_telefonico" formControlName="numero_telefonico" />
+
+      <label for="estado_activo">Estado Activo:</label>
+      <select id="estado_activo" formControlName="estado_activo">
+        <option [value]="true">Activo</option>
+        <option [value]="false">Inactivo</option>
+      </select>
+
+      <div class="form-actions">
+        <button type="submit" mat-button color="primary">Guardar</button>
+        <button type="button" mat-button color="warn" (click)="cancelarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

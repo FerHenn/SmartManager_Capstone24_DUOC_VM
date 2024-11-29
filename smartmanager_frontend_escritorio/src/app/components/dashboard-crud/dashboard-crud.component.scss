@@ -4,7 +4,7 @@
   align-items: center;
   font-size: 2em;
   margin: 20px 0;
-  color: rgb(255, 255, 255); /* No cambiamos el color del título */
+  color: rgb(255, 255, 255); 
 }
 
 .dashboard-container {
@@ -26,8 +26,8 @@
 }
 
 mat-card {
-  background-color: #fff; /* Fondo blanco */
-  color: #000; /* Texto negro */
+  background-color: #fff;
+  color: #000;
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -45,20 +45,20 @@ mat-card {
     border-radius: 8px;
     text-align: center;
     transition: transform 0.2s ease;
-    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente a las tarjetas */
+    font-family: 'Quicksand', sans-serif !important; 
   }
 
   mat-card-title {
     font-weight: bold;
     font-size: 1.2em;
-    color: #000; /* Aseguramos que el título sea negro */
+    color: #000; 
   }
 
   .card-content {
     font-size: 1em;
     line-height: 1.5;
     text-align: center;
-    color: #000; /* Aseguramos que el contenido sea negro */
+    color: #000;
   }
 }
 

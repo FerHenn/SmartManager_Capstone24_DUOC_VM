@@ -1,0 +1,40 @@
+.fondo-estatico {
+    background-color: #ff9800;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  .contenido-scroll {
+    margin: 20px;
+    padding-top: 20px;
+  }
+  
+  .titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .crear-button {
+    background-color: #ff9800;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+  .usuarios-container {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

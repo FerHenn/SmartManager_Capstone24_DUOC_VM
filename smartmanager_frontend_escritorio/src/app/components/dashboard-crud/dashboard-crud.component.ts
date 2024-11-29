@@ -48,6 +48,11 @@ export class DashboardCrudComponent implements OnInit {
         routerLink: '/CrudIngredientes',
         description: 'Administra ingredientes necesarios',
       },
+      {
+        label: 'Gestión de usuarios',
+        routerLink: '/CrudUsuarios',
+        description: 'Administra a los usuarios',
+      },
     ];
   }
 
