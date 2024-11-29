@@ -32,6 +32,12 @@
           <th mat-header-cell *matHeaderCellDef>Cantidad Actual</th>
           <td mat-cell *matCellDef="let producto">{{ producto.cantidadActual }}</td>
         </ng-container>
+
+        <!-- Columna Cantidad minima -->
+        <ng-container matColumnDef="cantidadMinima">
+          <th mat-header-cell *matHeaderCellDef>Cantidad Mínima</th>
+          <td mat-cell *matCellDef="let producto">{{ producto.cantidadMinima }}</td>
+        </ng-container>
     
         <!-- Columna Proveedor -->
         <ng-container matColumnDef="proveedor">
@@ -45,9 +51,19 @@
         <ng-container matColumnDef="ingredientes">
           <th mat-header-cell *matHeaderCellDef>Ingredientes</th>
           <td mat-cell *matCellDef="let producto">
-            {{ getIngredientesNombres(producto.ingredientes) || 'Sin ingredientes' }}
+            <span *ngIf="producto.ingredientes?.length > 0">Sí</span>
+            <span *ngIf="!producto.ingredientes?.length">No</span>
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="producto.ingredientes?.length > 0"
+              (click)="verIngredientes(producto)">
+              Ver
+            </button>
           </td>
         </ng-container>
+
+
     
         <!-- Columna Acciones -->
         <ng-container matColumnDef="acciones">
@@ -180,6 +196,17 @@
           <button type="button" mat-raised-button color="warn" (click)="cancelarEdicion()">Cancelar</button>
         </div>
       </form>
+    </div>
+    <div class="modal" *ngIf="modalAbierto">
+      <div class="modal-content">
+        <h3>Ingredientes del Producto</h3>
+        <ul>
+          <li *ngFor="let ingrediente of modalIngredientes">
+            {{ ingrediente.nombreIngrediente }}
+          </li>
+        </ul>
+        <button mat-raised-button color="warn" (click)="cerrarModal()">Cerrar</button>
+      </div>
     </div>
 </div>
   

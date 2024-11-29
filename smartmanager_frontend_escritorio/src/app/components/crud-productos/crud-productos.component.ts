@@ -36,6 +36,9 @@ export class CrudProductosComponent implements OnInit {
   ingredientes: Ingrediente[] = [];
   selectedProducto: Producto | null = null;
 
+  modalAbierto: boolean = false; // Estado del modal
+  modalIngredientes: Ingrediente[] = []; // Ingredientes a mostrar
+
   editForm: FormGroup;
   showEditForm: boolean = false;
   isCreating: boolean = false;
@@ -44,6 +47,7 @@ export class CrudProductosComponent implements OnInit {
     'nombreProducto',
     'precio',
     'cantidadActual',
+    'cantidadMinima',
     'proveedor',
     'ingredientes',
     'acciones',
@@ -79,10 +83,16 @@ export class CrudProductosComponent implements OnInit {
 
   cargarProductos(): void {
     this.productoService.getProductos().subscribe({
-      next: (productos) => (this.productos = productos),
+      next: (productos) => {
+        this.productos = productos.map(producto => ({
+          ...producto,
+          ingredientes: producto.ingredientes || [], // Asegurarse de que siempre haya un arreglo
+        }));
+      },
       error: (err) => console.error('Error al cargar productos:', err),
     });
   }
+  
 
   cargarCategorias(): void {
     this.categoriaService.getCategorias().subscribe({
@@ -242,4 +252,19 @@ export class CrudProductosComponent implements OnInit {
       this.editForm.patchValue({ imagen: file });
     }
   }
+  verIngredientes(producto: Producto): void {
+    console.log('Producto seleccionado:', producto); // Para verificar el producto
+    if (producto.ingredientes && producto.ingredientes.length > 0) {
+      this.modalIngredientes = producto.ingredientes; // Asignar ingredientes al modal
+      this.modalAbierto = true; // Abrir el modal
+      console.log('Ingredientes cargados:', this.modalIngredientes); // Verificar los ingredientes
+    } else {
+      Swal.fire('Información', 'Este producto no tiene ingredientes.', 'info');
+    }
+  }
+
+  cerrarModal(): void {
+    this.modalAbierto = false; // Cerrar el modal
+    this.modalIngredientes = []; // Limpiar los datos
+  }  
 }
