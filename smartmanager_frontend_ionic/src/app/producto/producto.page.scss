@@ -27,21 +27,28 @@ h2 {
     font-weight: bold; /* Cambia el grosor de la letra */
     font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
 }
-/* Estilo para los items de productos con borde */
 ion-item {
-    border: 1px solid #000; /* Borde negro */
-    border-radius: 8px; /* Bordes redondeados */
-    margin-bottom: 12px; /* Espacio entre los items */
-    padding: 16px; /* Padding dentro del recuadro */
-    background-color: #fff; /* Fondo blanco */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border: 1px solid #000; /* Borde negro visible */
+    border-radius: 8px; /* Esquinas redondeadas */
+    margin-bottom: 12px; /* Espacio entre items */
+    padding: 16px; /* Espaciado dentro del item */
+    background-color: #ffffff; /* Fondo transparente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
 }
 
-/* Estilo para los textos dentro de los items */
-ion-item ion-label h2 {
-    margin: 0;
-    font-size: 18px; /* Tamaño del nombre del producto */
-    font-weight: bold;
+ion-item ion-label {
+    background-color: transparent; /* Asegurarse de que el label también no tenga fondo */
+}
+.list-md {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: transparent; /* Fondo de la lista transparente */
 }
 
 ion-item ion-label p {
