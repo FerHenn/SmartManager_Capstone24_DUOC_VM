@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Importar Router para redirección
 
 @Component({
   selector: 'app-crud-usuarios',
@@ -10,16 +9,15 @@ import { Router } from '@angular/router'; // Importar Router para redirección
   styleUrls: ['./crud-usuarios.page.scss'],
 })
 export class CrudUsuariosPage implements OnInit {
-  usuarios: any[] = []; 
-  editForm: FormGroup;
-  showEditForm = false;
-  selectedUsuario: any | null = null;
+  usuarios: any[] = []; // Lista de usuarios
+  editForm: FormGroup; // Formulario reactivo
+  showEditForm = false; // Indica si el formulario de edición está visible
+  selectedUsuario: any | null = null; // Usuario seleccionado para edición
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private alertController: AlertController,
-    private router: Router // Inyectar Router
+    private alertController: AlertController
   ) {
     this.editForm = this.fb.group({
       nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
@@ -43,38 +41,33 @@ export class CrudUsuariosPage implements OnInit {
     });
   }
 
-  // Redirigir al formulario de agregar usuario
-  crearUsuario() {
-    this.router.navigate(['/formulario-usuario']); // Cambiar la ruta según sea necesario
-  }
-
   editarUsuario(usuario: any) {
     this.selectedUsuario = usuario;
     this.showEditForm = true;
-    this.editForm.patchValue(usuario); // Rellenar el formulario con los datos del usuario
+    this.editForm.patchValue(usuario); // Cargar los datos del usuario en el formulario
   }
-  
+
   guardarCambios() {
     if (this.editForm.valid && this.selectedUsuario) {
       const usuarioActualizado = this.editForm.getRawValue();
-      usuarioActualizado.id = this.selectedUsuario.id; // Agregar ID para la actualización
-  
+      usuarioActualizado.id = this.selectedUsuario.id; // Incluir el ID para la actualización
+
       this.authService.actualizarUsuario(usuarioActualizado).subscribe({
         next: () => {
           this.showEditForm = false;
+          this.selectedUsuario = null;
           this.cargarUsuarios(); // Recargar la lista de usuarios
         },
         error: (err) => console.error('Error al actualizar usuario:', err),
       });
     }
   }
-  
+
   cancelarEdicion() {
     this.showEditForm = false;
     this.selectedUsuario = null;
     this.editForm.reset();
   }
-  
 
   eliminarUsuario(id: number) {
     this.alertController
