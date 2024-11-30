@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'registro', loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule) },
   { path: 'ventas', loadChildren: () => import('./ventas/ventas.module').then(m => m.VentasPageModule), canActivate: [AuthGuard]  },
   { path: 'recuperar', loadChildren: () => import('./recuperar/recuperar.module').then(m => m.RecuperarPageModule), canActivate: [AuthGuard]  },
-  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule), canActivate: [AuthGuard]  },
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard]  },
   { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule) , canActivate: [AuthGuard] },
   { path: 'producto',loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule), canActivate: [AuthGuard]  },
   { path: 'error', loadChildren: () => import('./error/error.module').then(m => m.ErrorPageModule) },
