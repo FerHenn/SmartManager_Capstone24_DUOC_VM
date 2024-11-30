@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '.././services/dashboard.service';
 import { Color , ScaleType } from '@swimlane/ngx-charts'; 
-
+import { PopoverController } from '@ionic/angular';
+import { MenuPopoverComponent } from '../menu-popover/menu-popover.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -30,8 +31,8 @@ export class DashboardPage implements OnInit {
   };
 
   maxYValue: number = 0;
-
-  constructor(private dashboardService: DashboardService) {}
+  
+  constructor(private dashboardService: DashboardService,private popoverController: PopoverController) {}
 
   ngOnInit() {
     this.cargarDatos();
@@ -93,5 +94,13 @@ export class DashboardPage implements OnInit {
 
   cerrarModal() {
     this.modalAbierto = false;
+  }
+  async openMenu() {
+    const popover = await this.popoverController.create({
+      component: MenuPopoverComponent,
+      event: event, // Asegúrate de pasar el evento si necesitas posición
+      translucent: true
+    });
+    await popover.present();
   }
 }

@@ -52,4 +52,12 @@
       padding: 8px;
     }
   }
+  /* Toolbar con fondo naranja y texto blanco */
+.toolbar {
+    --background: #FF9800; /* Fondo naranja */
+    --color: #ffffff; /* Texto blanco */
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+    font-weight: bold;
+  }
   
