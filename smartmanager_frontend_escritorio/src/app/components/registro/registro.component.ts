@@ -101,6 +101,6 @@ export class RegistroComponent {
   // Método para redirigir al usuario después del registro
   irAPaginaUsuarios() {
     this.displaySuccessDialog = false;  // Cerrar el diálogo
-    this.router.navigate(['/usuario']);  // Redirigir a la página de usuarios
+    this.router.navigate(['/CrudUsuarios']);  // Redirigir a la página de usuarios
   }
 }
