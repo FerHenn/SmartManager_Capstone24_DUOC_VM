@@ -30,6 +30,15 @@ export class ReporteVentasComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerFechasConVentas();
+    this.cargarListaDeProductos(); // Carga los productos disponibles
+  }
+
+  cargarListaDeProductos() {
+    this.dashboardService.getResumenInventario().subscribe((data: any) => {
+      // Si `data` incluye productos, ajusta la asignación
+      this.listaDeProductos = data.productos || [];
+      console.log('Productos cargados:', this.listaDeProductos); // Depuración
+    });
   }
 
   obtenerFechasConVentas() {
@@ -41,6 +50,7 @@ export class ReporteVentasComponent implements OnInit {
   confirmarFechaDiaria() {
     if (this.fechaSeleccionada) {
       this.dashboardService.getVentasDiarias(this.fechaSeleccionada).subscribe((data) => {
+        console.log('Ventas diarias:', data); // Depuración
         this.ventasDiarias = data.ventas;
       });
     }
@@ -55,19 +65,20 @@ export class ReporteVentasComponent implements OnInit {
   }
 
   abrirModalVenta(venta: any) {
-    // Procesa los datos para obtener el nombre y la cantidad
+    console.log('Venta seleccionada:', venta); // Depuración
     this.modalContenido = venta.productos_ordenados.map((productoOrdenado: any) => ({
-      producto: this.obtenerNombreProducto(productoOrdenado.producto), // Devuelve el nombre del producto
+      producto: productoOrdenado.nombre_producto || 'Producto desconocido', // Usa el nombre directamente
       cantidad: productoOrdenado.cantidad,
     }));
+    console.log('Contenido del modal:', this.modalContenido); // Depuración
     this.modalAbierto = true; // Abre el modal
-  }
+  }  
   
   obtenerNombreProducto(productoId: number): string {
     // Simula un método para obtener el nombre del producto basado en el ID
     // Si tienes un servicio o lista de productos, úsalo aquí
     const producto = this.listaDeProductos.find((p) => p.id === productoId);
-    return producto?.nombreProducto || 'Producto desconocido';
+    return producto ? producto.nombreProducto : 'Producto desconocido';
   }
   
 
