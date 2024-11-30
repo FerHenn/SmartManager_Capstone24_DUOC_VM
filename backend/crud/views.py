@@ -250,40 +250,53 @@ class ResumenInventarioDiario(APIView):
 class ReporteVentasDiario(APIView):
     def get(self, request):
         try:
-            # Obtén la fecha desde el parámetro de la URL o usa la fecha actual como predeterminada
+            # Obtener la fecha desde el parámetro de la URL o usar la fecha actual como predeterminada
             fecha_str = request.GET.get('fecha')
             if fecha_str:
                 fecha = parse_date(fecha_str)
                 if not fecha:
                     return Response({"error": "Formato de fecha no válido. Usa AAAA-MM-DD"}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                fecha = localtime(now()).date()  # Fecha actual si no se proporciona ninguna
+                fecha = timezone.now().date()
 
-            # Filtra las ventas por fecha
+            # Filtrar las ventas por fecha
             ventas = OrdenCompra.objects.filter(fechaOrden__date=fecha)
 
-            # Serializa las ventas
-            ventas_serializer = OrdenCompraSerializer(ventas, many=True)
-
-            # Si no hay ventas, retorna un mensaje
             if not ventas.exists():
                 return Response({
                     'fecha': fecha,
                     'mensaje': 'No hay ventas registradas para esta fecha.',
-                    'ventas': []
+                    'ventas': [],
+                    'total_ventas': 0
                 }, status=status.HTTP_200_OK)
 
-            # Calcula el monto total de ventas diarias
+            # Preparar datos extendidos para cada venta
+            ventas_data = []
+            for venta in ventas:
+                productos_ordenados = ProductoOrden.objects.filter(orden=venta).annotate(
+                    nombre_producto=F("producto__nombreProducto")
+                ).values("producto", "nombre_producto", "cantidad")
+
+                ventas_data.append({
+                    "id": venta.id,
+                    "fechaOrden": venta.fechaOrden,
+                    "montoTotal": venta.montoTotal,
+                    "metodoPago": venta.metodoPago.nombre_metodo_pago,
+                    "productos_ordenados": list(productos_ordenados),
+                })
+
+            # Calcular el monto total de ventas diarias
             total_ventas = ventas.aggregate(total=Sum('montoTotal'))['total'] or 0
 
             return Response({
                 'fecha': fecha,
-                'total_ventas': total_ventas,  # Incluye el monto total de las ventas
-                'ventas': ventas_serializer.data,
+                'total_ventas': total_ventas,
+                'ventas': ventas_data,
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 # Vista para generar un reporte de ventas mensual
 class ReporteVentasMensual(APIView):
