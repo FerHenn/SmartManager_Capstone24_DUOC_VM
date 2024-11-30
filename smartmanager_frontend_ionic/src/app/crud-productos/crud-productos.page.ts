@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductoService} from '../services/producto.service';
 import { AlertController } from '@ionic/angular';
@@ -46,6 +47,7 @@ export interface Ingrediente {
   styleUrls: ['./crud-productos.page.scss'],
 })
 export class CrudProductosPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
   productos: any[] = [];
   categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
@@ -107,10 +109,23 @@ export class CrudProductosPage implements OnInit {
   cargarIngredientes() {
     this.productoService.getIngredientes().subscribe((data) => (this.ingredientes = data));
   }
+  
+  scrollToBottom() {
+    setTimeout(() => {
+      this.content.scrollToBottom(300); // Desplazarse al final con animación
+    }, 100);
+  }
+
+  scrollToTop() {
+    setTimeout(() => {
+      this.content.scrollToTop(300); // Desplazarse al inicio con animación
+    }, 100);
+  }
 
   crearProducto() {
     this.isCreating = true;
     this.editForm.reset();
+    this.scrollToBottom(); // Desplázate al final
   }
 
   guardarNuevoProducto() {
@@ -119,6 +134,7 @@ export class CrudProductosPage implements OnInit {
       this.mostrarAlerta('Producto creado', 'El producto se creó correctamente.');
       this.isCreating = false;
       this.cargarProductos();
+      this.scrollToTop(); // Desplázate al inicio
     });
   }
 
@@ -126,6 +142,7 @@ export class CrudProductosPage implements OnInit {
     this.selectedProducto = producto;
     this.showEditForm = true;
     this.editForm.patchValue(producto);
+    this.scrollToBottom(); // Desplázate al final
   }
 
   guardarCambios() {
@@ -135,6 +152,7 @@ export class CrudProductosPage implements OnInit {
         this.mostrarAlerta('Producto actualizado', 'El producto se actualizó correctamente.');
         this.showEditForm = false;
         this.cargarProductos();
+        this.scrollToTop(); // Desplázate al inicio
       });
     }
   }
@@ -166,6 +184,7 @@ export class CrudProductosPage implements OnInit {
   cancelarCreacion() {
     this.isCreating = false;
     this.editForm.reset();
+    this.scrollToTop(); // Desplázate al inicio
   }
 
   buildFormData(data: any): FormData {
