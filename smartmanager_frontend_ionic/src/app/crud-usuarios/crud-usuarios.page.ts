@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router'; // Importa el servicio Router
 
 @Component({
   selector: 'app-crud-usuarios',
@@ -17,7 +18,8 @@ export class CrudUsuariosPage implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router 
   ) {
     this.editForm = this.fb.group({
       nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
@@ -154,6 +156,11 @@ export class CrudUsuariosPage implements OnInit {
       })
       .then((alert) => alert.present());
   }
+  crearUsuario() {
+    console.log('Redirigiendo a la página de registro...');
+    this.router.navigate(['/registro']); // Redirige a la página de registro
+  }
+
   
   // Método para mostrar mensaje de éxito
   async showSuccessMessage2(message: string) {
