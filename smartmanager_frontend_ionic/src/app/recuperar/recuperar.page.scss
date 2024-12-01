@@ -1,138 +1,43 @@
 .toolbar {
-    --background: #FF9800; /* Morado */
-    --color: #ffffff; /* Color del texto blanco */
+    --background: #FF9800;
+    --color: #ffffff; 
     font-family: 'Quicksand', sans-serif;
-    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+    font-size: 20px;
 }
-.ion-padding {
-    --background: url('/assets/images/fondo-recuperar.svg') no-repeat center center fixed;
-    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
-    padding: 20px;  /* Espaciado adicional si es necesario */
-}
-
-.login-container {
-    background-color: #ffffff; /* Gris oscuro */
-    color: #ffffff; /* Texto blanco para contraste */
-    padding: 30px; /* Aumentar el espaciado interno */
-    border-radius: 8px; /* Bordes redondeados (opcional) */
-    max-width: 400px; /* Aumentar el ancho máximo */
-    margin: auto; /* Centra el contenedor horizontalmente */
-    text-align: center; /* Centra el texto */
+.boton_recuperar {
+    width: 300px;
+    height: 50px;
+    border-radius: 25px;
+    --background: #d58102d7;
+    margin: 20px auto;
+    text-transform: none;
+    display: block;
+    text-align: center;
     font-family: 'Quicksand', sans-serif;
-    border: 1px solid #FF9800;
-}
-
-h2 {
-    margin-bottom: 24px;
-    color: #FF9800;
-    font-size: 35px; /* Ajusta el tamaño si lo deseas */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Agrega sombra para hacerlo más llamativo */
-    font-weight: 1000; /* Cambia el grosor de la letra */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-}
-
-ion-item {
-    --border-color: #fff; /* Cambia el color del borde a blanco */
-    margin-bottom: 16px; /* Espacio entre los items */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-}
-ion-item ion-label { 
-    font-family: 'Quicksand', sans-serif !important; /* Aplica la fuente Quicksand */
-    font-size: 16px; /* Ajusta el tamaño de la fuente si es necesario */
-    color: #000000; /* Asegúrate de que el color sea blanco o el que prefieras */
-    font-weight: bold;
-}
-a {
-    color: #FF9800;
-    text-decoration: none; /* Sin subrayado */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+    font-size: 16px;
 }
 
 ion-content {
-    background-color: #333; /* Gris oscuro para el fondo */
-    color: #fff; /* Texto blanco para contraste */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+    --background: url('/assets/images/fondo_usuario.svg') no-repeat center center fixed;
+    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    padding: 20px;  /* Espaciado adicional si es necesario */
 }
-
+ion-label {
+    font-family: 'Quicksand', sans-serif !important;
+    color:#000000 !important;
+}
 ion-input {
-    color: #fff; /* Texto de entrada en blanco */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
+    font-family: 'Quicksand', sans-serif !important;
+    color:#FF9800 !important;
 }
 
-ion-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder (opcional) */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-}
-
-.centered {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente el contenido */
-}
-
-.centered ion-label {
-    text-align: center; /* Alinea el texto al centro */
-    width: 100%; /* Asegura que el label ocupe todo el ancho */
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-}
-
-ion-button {
-    --background: #FF9800; /* Color de fondo */
-    --color: #ffffff; /* Color del texto */
-    border-radius: 50px; /* Borde redondeado más grande para un efecto ovalado */
-    height: 50px; /* Ajusta la altura del botón */
-    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+ion-item:focus-within {
+    font-weight: bold !important;
     font-family: 'Quicksand', sans-serif;
-    font-size: 16px; /* Tamaño de la fuente */
-    margin-top: 20px; /* Espacio superior */
-    padding-left: 20px; /* Relleno a la izquierda para un texto más centrado */
-    padding-right: 20px; /* Relleno a la derecha */
+    --border-color: #FF9800 !important; /* Cambia el color del borde cuando el item tiene el foco */
 }
-
-.icon-large {
-    font-size: 48px; /* Ajusta el tamaño del ícono */
-    color: #ffffff; /* Cambia el color según tu tema */
-    margin-bottom: 16px; /* Espaciado debajo del ícono */
-}
-
 .error-message {
-    color: rgb(255, 255, 255);
+    color: red;
     font-size: 12px;
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-}
-ion-toolbar ion-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 20px; /* Ajusta el tamaño según sea necesario */
-    font-weight: bold; /* O el peso que prefieras */
-    color: #ffffff; /* Si deseas cambiar el color del título */
-}
-.quicksand-label {
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-    color: #ffffff; /* Asegura que el texto sea legible */
-}
-
-.quicksand-input {
-    font-family: 'Quicksand', sans-serif; /* Cambia la fuente a Quicksand */
-    color: #ffffff; /* Color del texto en el input */
-}
-
-/* Opcional: Cambia el color del placeholder para que sea más legible */
-.quicksand-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Color del texto del placeholder */
-}
-
-.login-link ion-icon {
-    font-size: 50px; /* Ajusta el tamaño a tu preferencia */
-}
-.icon-large {
-    size: 50px;   /* Ajusta el tamaño del ícono */
-    color: #FF9800; /* Cambia el color según tu tema */
-    margin-bottom: 16px; /* Espaciado debajo del ícono */
-    font-family: 'Quicksand', sans-serif;
-}
-ion-input {
-    color: #FF9800; /* Texto de entrada en blanco */
-    font-family: 'Quicksand', sans-serif;
-}
-ion-item.item-email:focus-within {
-    --border-color: #FF9800; /* Cambia el color del borde cuando el item tiene el foco */
+    margin-top: 5px;
 }
