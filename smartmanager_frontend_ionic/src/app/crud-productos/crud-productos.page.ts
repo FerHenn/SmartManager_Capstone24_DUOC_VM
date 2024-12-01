@@ -141,9 +141,12 @@ export class CrudProductosPage implements OnInit {
   editarProducto(producto: any) {
     this.selectedProducto = producto;
     this.showEditForm = true;
-    this.editForm.patchValue(producto);
-    this.scrollToBottom(); // Desplázate al final
+    this.editForm.patchValue(producto); 
+    setTimeout(() => {
+      this.scrollToBottom(); 
+    }, 200); 
   }
+  
 
   guardarCambios() {
     if (this.selectedProducto) {
