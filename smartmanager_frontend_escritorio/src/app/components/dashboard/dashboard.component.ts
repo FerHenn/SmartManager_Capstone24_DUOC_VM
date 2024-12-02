@@ -3,11 +3,12 @@ import { DashboardService } from '../../services/dashboard.service';
 import { VentasDiarias, VentasMensuales, ResumenInventario } from '../../interfaces/dashboard.interface';
 import { NgxChartsModule, LegendPosition } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule para usar [(ngModel)]
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   ingredientesAgotandose: any[] = [];
   ventasMensualesData: Array<{ name: string; value: number }> = [];
   productosVendidosData: any[] = [];
+  mesSeleccionado: string = ''; // Almacena el mes seleccionado
 
   modalAbierto: boolean = false;
   modalTitulo: string = '';
@@ -37,6 +39,38 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.cargarDatos();
     this.cargarProductosVendidosPorDia();
+  }
+
+  cargarDatosIniciales() {
+    this.mesSeleccionado = new Date().toISOString().slice(0, 7); // Mes actual en formato YYYY-MM
+    this.actualizarVentasMensuales();
+  }
+
+  actualizarVentasMensuales() {
+    if (this.mesSeleccionado) {
+      const [anio, mes] = this.mesSeleccionado.split('-'); // Extraer año y mes del input tipo "month"
+      const mesAnio = `${mes}/${anio}`; // Formatear como MM/YYYY
+
+      this.dashboardService.getVentasMensuales(mesAnio).subscribe((data: any) => {
+        console.log('Datos de ventas mensuales:', data);
+        this.ventasMensuales = data.total_ventas;
+        this.totalTransacciones = data.total_transacciones;
+
+        this.ventasMensualesData = data.ventas.map((venta: { dia: string; total_vendido: number }) => ({
+          name: new Date(venta.dia).toLocaleDateString('es-CL', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+          }),
+          value: venta.total_vendido,
+        }));
+
+        this.maxYValue = this.ventasMensualesData.reduce(
+          (max, venta) => (venta.value > max ? venta.value : max),
+          0
+        );
+      });
+    }
   }
 
   cargarDatos() {

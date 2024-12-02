@@ -53,22 +53,25 @@
   </div>
 
   <!-- Gráfico de Ventas Mensuales -->
-  <div class="chart-card chart-bar">
-    <h3 class="chart-title">Ventas Mensuales</h3>
-    <ngx-charts-bar-vertical
-      [results]="ventasMensualesData"
-      [xAxis]="true"
-      [yAxis]="true"
-      [legend]="false"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [xAxisLabel]="'Fecha'"
-      [yAxisLabel]="'Ventas ($)'"
-      [scheme]="colorScheme"
-      [yScaleMax]="maxYValue">
-    </ngx-charts-bar-vertical>
+<div class="chart-card chart-bar">
+  <h3 class="chart-title">Ventas Mensuales</h3>
+  <div class="fecha-control">
+    <input type="month" [(ngModel)]="mesSeleccionado" (change)="actualizarVentasMensuales()" />
   </div>
+  <ngx-charts-bar-vertical
+    [results]="ventasMensualesData"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="'Fecha'"
+    [yAxisLabel]="'Ventas ($)'"
+    [scheme]="colorScheme"
+    [yScaleMax]="maxYValue">
+  </ngx-charts-bar-vertical>
 </div>
+
 
 <!-- Modal -->
 <div class="modal" *ngIf="modalAbierto">
