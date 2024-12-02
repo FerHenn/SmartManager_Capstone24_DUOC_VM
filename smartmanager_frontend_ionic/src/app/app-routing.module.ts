@@ -19,7 +19,6 @@ const routes: Routes = [
   { path: 'crud-productos', loadChildren: () => import('./crud-productos/crud-productos.module').then( m => m.CrudProductosPageModule), canActivate: [AuthGuard]  },
   { path: 'crud-ingredientes', loadChildren: () => import('./crud-ingredientes/crud-ingredientes.module').then( m => m.CrudIngredientesPageModule), canActivate: [AuthGuard]  },
   { path: 'dashboard-crud', loadChildren: () => import('./dashboard-crud/dashboard-crud.module').then( m => m.DashboardCrudPageModule), canActivate: [AuthGuard]  },
-  {path: 'carrito', loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule), canActivate: [AuthGuard]  },
   {path: 'crud-usuarios',loadChildren: () => import('./crud-usuarios/crud-usuarios.module').then( m => m.CrudUsuariosPageModule), canActivate: [AuthGuard]  },
 
 

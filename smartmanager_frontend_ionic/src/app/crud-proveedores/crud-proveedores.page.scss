@@ -183,3 +183,14 @@ ion-list {
 ion-item:last-child {
   margin-bottom: 16px; /* Asegura espacio adicional al final */
 }
+.icono-volver{
+  color: #ffffff;
+  font-size: 1.5rem;
+  background-color: #FF9800;
+  box-shadow: none;
+}
+.back[href="/dashboard-crud"] {
+  padding: 0;
+  --background: transparent; 
+  box-shadow: none;
+}

@@ -23,6 +23,10 @@
     transform: translateY(-5px);
   }
 }
+h3 {
+  font-family: 'Quicksand', sans-serif !important;
+}
+
 
 /* Tarjeta de Resumen */
 .resumen-card {
@@ -169,6 +173,7 @@ ngx-charts-legend-item {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 .modal {
@@ -191,7 +196,7 @@ ngx-charts-legend-item {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 90%;
-    color: #333; /* Asegura que el texto sea visible */
+    color: #333; 
     font-family: 'Quicksand', sans-serif !important;
   }
 
