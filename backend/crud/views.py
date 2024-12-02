@@ -159,8 +159,7 @@ class OrdenCompraViewSet(viewsets.ModelViewSet):
 class CrearOrdenCompra(APIView):
     
     permission_classes = [IsAuthenticated]  # Asegura que solo usuarios autenticados puedan acceder
-    productos_ordenados = ProductoOrdenSerializer(source='productoorden_set', many=True)
-    
+        
     def post(self, request):
         usuario = request.user  # Este será el usuario autenticado
         
@@ -190,7 +189,10 @@ class CrearOrdenCompra(APIView):
             for producto_data in productos_data:
                 producto_id = producto_data.get('producto_id')
                 cantidad = producto_data.get('cantidad', 1)  # Obtener la cantidad, por defecto 1
-                producto = Producto.objects.get(id=producto_id)
+                try:
+                    producto = Producto.objects.get(id=producto_id)
+                except Producto.DoesNotExist:
+                    return Response({'error': f'Producto con id {producto_id} no existe'}, status=status.HTTP_400_BAD_REQUEST)
 
                 # Descontar la cantidad del stock del producto
                 if producto.cantidadActual < cantidad:
@@ -198,6 +200,13 @@ class CrearOrdenCompra(APIView):
 
                 producto.cantidadActual = F('cantidadActual') - cantidad
                 producto.save()
+                
+                # Relacionar producto y orden
+                ProductoOrden.objects.create(
+                    producto=producto,
+                    orden=orden,
+                    cantidad=cantidad
+                )                
 
                 # Si el producto tiene ingredientes, descontarlos también
                 for ingrediente in producto.ingredientes.all():
@@ -210,27 +219,13 @@ class CrearOrdenCompra(APIView):
                 # Calcular el monto total de la orden usando Decimal
                 monto_total += producto.precio * Decimal(cantidad)
 
-                # Relacionar producto y orden
-                ProductoOrden.objects.create(
-                    producto=producto,
-                    orden=orden,
-                    cantidad=cantidad
-                )
-
             # Guardar el monto total en la orden
             orden.montoTotal = monto_total
             orden.save()
             
-            # Serializar los productos relacionados con la orden
-            productos_ordenados = ProductoOrden.objects.filter(orden=orden)
-            productos_serializer = ProductoOrdenSerializer(productos_ordenados, many=True)
-
             # Serializar la orden incluyendo los productos
-            orden_serializer = OrdenCompraSerializer(orden)
-            data = orden_serializer.data
-            data['productos_ordenados'] = productos_serializer.data
-
-        return Response(OrdenCompraSerializer(orden).data, status=status.HTTP_201_CREATED)
+        serializer = OrdenCompraSerializer(orden)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
      
 class ReporteViewSet(viewsets.ModelViewSet):
