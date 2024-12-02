@@ -10,8 +10,8 @@
 /* Fondo del contenido con imagen */
 ion-content {
   --background: url('/assets/images/fondo_home.svg') no-repeat center center fixed;
-  --background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-  padding: 20px; /* Espaciado adicional */
+  --background-size: cover; 
+  padding: 20px; 
 }
 
 /* Estilos para dashboard */

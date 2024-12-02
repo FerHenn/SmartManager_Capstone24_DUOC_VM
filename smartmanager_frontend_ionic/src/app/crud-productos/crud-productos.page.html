@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Mi Aplicación</ion-title>
+    <ion-title>Gestión de productos</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
@@ -14,7 +14,9 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>Gestión de Productos</ion-title>
+    <ion-button class="back" href="/dashboard-crud">
+      <ion-icon class="icono-volver"name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-buttons slot="end">
       <ion-button (click)="crearProducto()">
         <ion-icon slot="start" name="add-circle-outline"></ion-icon>
@@ -36,11 +38,11 @@
         <p>Ingredientes: {{ getIngredientesNombres(producto.ingredientes) || 'Sin ingredientes' }}</p>
       </ion-label>
       <ion-buttons slot="end" class="button-container">
-        <ion-button class="editar" (click)="editarProducto(producto)">
+        <ion-button shape="round" class="editar" (click)="editarProducto(producto)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarProducto(producto.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarProducto(producto.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

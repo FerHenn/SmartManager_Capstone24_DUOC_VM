@@ -6,11 +6,11 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url('/assets/images/login-fondo-web.png'); /* Ruta del fondo */
+  background-image: url('/assets/images/login-fondo-web.png'); 
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.8; /* Opcional: ajusta la opacidad */
+  opacity: 0.8;
 }
 
 /* Contenedor principal */
@@ -18,11 +18,11 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
-  overflow-y: auto; /* Permite scroll en el contenido principal */
+  overflow-y: auto; 
   padding: 20px;
   box-sizing: border-box;
   z-index: 1;
-  gap: 20px; /* Espaciado entre el carrito y el contenido principal */
+  gap: 20px; 
 }
 
 /* Contenedor principal de categorías/productos */
@@ -31,11 +31,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+  background-color: rgba(255, 255, 255, 0.9); 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Quicksand', sans-serif !important; /* Aplicar la fuente aquí */
+  font-family: 'Quicksand', sans-serif !important;
 }
 
 /* Título principal */
