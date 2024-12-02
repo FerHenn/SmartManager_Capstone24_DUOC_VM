@@ -27,12 +27,12 @@ export class DashboardService {
     return this.http.get(url);
   }
 
-  getVentasMensuales(mes?: string): Observable<any> {
-    const url = mes
-      ? `${this.apiBaseUrl}reporte-ventas-mensual/?mes=${mes}`
+  getVentasMensuales(mesAnio?: string): Observable<any> {
+    const url = mesAnio
+      ? `${this.apiBaseUrl}reporte-ventas-mensual/?mes=${mesAnio}`
       : `${this.apiBaseUrl}reporte-ventas-mensual/`;
     return this.http.get(url);
-  }
+  }  
 
   getFechasConVentas(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiBaseUrl}fechas-con-ventas/`);
