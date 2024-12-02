@@ -14,7 +14,7 @@ from django.utils.timezone import now, localtime
 from django.utils.dateparse import parse_date
 from django.db.models.functions import TruncDate
 from decimal import Decimal
-
+from rest_framework import serializers
 from .serializers import (
     UsuarioSerializer, UsuarioSerializer, ProveedorSerializer,
     CategoriaSerializer, ProductoSerializer, MetodoPagoSerializer,
@@ -153,11 +153,19 @@ class MetodoPagoViewSet(viewsets.ModelViewSet):
 class OrdenCompraViewSet(viewsets.ModelViewSet):
     queryset=OrdenCompra.objects.all()
     serializer_class=OrdenCompraSerializer
+    
+class ProductoOrdenSerializer(serializers.ModelSerializer):
+    producto_nombre = serializers.ReadOnlyField(source='producto.nombreProducto')  # Agrega el nombre del producto
+
+    class Meta:
+        model = ProductoOrden
+        fields = ['producto', 'producto_nombre', 'cantidad']
 
 # Vista personalizada para crear una orden de compra
 class CrearOrdenCompra(APIView):
     
     permission_classes = [IsAuthenticated]  # Asegura que solo usuarios autenticados puedan acceder
+    productos_ordenados = ProductoOrdenSerializer(source='productoorden_set', many=True)
     
     def post(self, request):
         usuario = request.user  # Este será el usuario autenticado
@@ -220,6 +228,10 @@ class CrearOrdenCompra(APIView):
             orden.save()
 
         return Response(OrdenCompraSerializer(orden).data, status=status.HTTP_201_CREATED)
+    
+    class Meta:
+        model = OrdenCompra
+        fields = ['id', 'usuario', 'montoTotal', 'metodoPago', 'productos_ordenados']
 
      
 class ReporteViewSet(viewsets.ModelViewSet):
