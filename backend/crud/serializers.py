@@ -172,12 +172,28 @@ class MetodoPagoSerializer(serializers.ModelSerializer):
         model=MetodoPago
         fields='__all__'
         
+# Serializador para productos en una orden
+class ProductoOrdenSerializer(serializers.ModelSerializer):
+    producto_nombre = serializers.ReadOnlyField(source='producto.nombreProducto')
+
+    class Meta:
+        model = ProductoOrden
+        fields = ['producto', 'producto_nombre', 'cantidad']
+
+# Serializador para orden de compra
+class OrdenCompraSerializer(serializers.ModelSerializer):
+    productos_ordenados = ProductoOrdenSerializer(source='productoorden_set', many=True, read_only=True)
+
+    class Meta:
+        model = OrdenCompra
+        fields = ['id', 'fechaOrden', 'montoTotal', 'usuario', 'metodoPago', 'productos_ordenados']
+        
 #class OrdenCompraSerializer(serializers.ModelSerializer):
 #    class Meta:
 #        model=OrdenCompra
 #        fields='__all__'
         
-class ProductoOrdenSerializer(serializers.ModelSerializer):
+"""class ProductoOrdenSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductoOrden
         fields = ['producto', 'cantidad']
@@ -187,7 +203,7 @@ class OrdenCompraSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrdenCompra
-        fields = ['id', 'fechaOrden', 'montoTotal', 'usuario', 'metodoPago', 'productos_ordenados']
+        fields = ['id', 'fechaOrden', 'montoTotal', 'usuario', 'metodoPago', 'productos_ordenados']"""
 
 class CrearOrdenSerializer(serializers.ModelSerializer):
     productos = serializers.ListField(
@@ -203,3 +219,4 @@ class ReporteSerializer(serializers.ModelSerializer):
     class Meta:
         model=Reporte
         fields='__all__'
+
