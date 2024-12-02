@@ -1,15 +1,22 @@
 .toolbar {
-    --background: #FF9800; /* Morado */
-    --color: #ffffff; /* Color del texto blanco */
+    --background: #FF9800;
+    --color: #ffffff;
     font-family: 'Quicksand', sans-serif;
-    font-size: 20px; /* Ajusta el tamaño según lo necesites */
+    font-size: 20px;
   
+  }
+  .arrow-icon {
+    color: #FF9800;
+    position: absolute; 
+    right: 0;
+    margin-left: 10px; 
   }
   
   ion-content {
     --background: url('/assets/images/fondo_home.svg') no-repeat center center fixed;
-    --background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
-    padding: 20px;  /* Espaciado adicional si es necesario */
+    --background-size: cover; 
+    padding: 20px; 
+    font-family: 'Quicksand', sans-serif !important;
   }
   .dashboard {
     text-align: center;
@@ -22,22 +29,22 @@
       font-family: 'Quicksand', sans-serif;
   }
   ion-card {
-    margin-bottom: 16px; /* Espaciado entre tarjetas */
-    background: 0000000; /* Cambia el fondo a color medio */
+    margin-bottom: 16px;
+    background: 0000000; 
     font-family: 'Quicksand', sans-serif;
-    border-radius: 15px; /* Bordes redondeados */
-    overflow: hidden; /* Asegura que el contenido no sobresalga del borde redondeado */
+    border-radius: 15px; 
+    overflow: hidden; 
   }
     
   ion-card-header {
-    --background: #ffffff; /* Cambia el fondo a color medio */
+    --background: #ffffff;
     font-family: 'Quicksand', sans-serif;
     }
   
   
   ion-card-title {
     font-weight: bold;
-    color: #000000; /* Color personalizado para el título del módulo */
+    color: #000000;
     font-size: 1.2rem;
     font-family: 'Quicksand', sans-serif;
     }
@@ -45,15 +52,15 @@
   ion-card-content {
     background-color: #ffffff;
     border-color: #000000;
-    color: #000000; /* Color personalizado para el contenido del módulo */
+    color: #000000;
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
   }
   ion-toolbar ion-title {
     font-family: 'Quicksand', sans-serif;
-    font-size: 20px; /* Ajusta el tamaño según sea necesario */
-    font-weight: bold; /* O el peso que prefieras */
-    color: #ffffff; /* Si deseas cambiar el color del título */
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #ffffff; 
   }
   /* Estilo para todo el menú */
   ion-menu {
@@ -65,15 +72,15 @@
   ion-menu ion-item.profile {
     font-family: 'Quicksand', sans-serif;
     color: #000000;
-    font-size: 16px; /* Ajusta el tamaño del texto */
-    padding: 10px; /* Ajusta el padding si es necesario */
+    font-size: 16px;
+    padding: 10px; 
   }
   
   /* Estilo para la opción de cerrar sesión */
   ion-menu ion-item.logout {
     font-family: 'Quicksand', sans-serif;
     color: #ffffff;
-    font-size: 16px; /* Ajusta el tamaño del texto */
+    font-size: 16px;
     padding: 10px; /* Ajusta el padding si es necesario */
   }
   .title-with-arrow {
@@ -93,4 +100,7 @@
     color: #ffffff;
     font-size: 1.5rem;
     --background: transparent;
+  }
+  ion-header{
+    background: #FF9800;
   }

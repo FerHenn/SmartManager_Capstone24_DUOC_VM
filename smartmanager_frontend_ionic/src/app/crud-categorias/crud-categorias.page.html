@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button>
+      </ion-menu-button>
     </ion-buttons>
+    <ion-title>Gestión de categorías</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
@@ -14,7 +16,9 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>Gestión de Categorías</ion-title>
+    <ion-button class="back" href="/dashboard-crud">
+      <ion-icon class="icono-volver"name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-buttons slot="end">
       <ion-button (click)="crearCategoria()">
         <ion-icon slot="start" name="add-circle-outline"></ion-icon>
@@ -37,11 +41,11 @@
         <p *ngIf="!categoria.imagen">Sin imagen</p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button class="editar" (click)="editarCategoria(categoria)">
+        <ion-button shape="round" class="editar" (click)="editarCategoria(categoria)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarCategoria(categoria.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarCategoria(categoria.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

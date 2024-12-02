@@ -7,7 +7,7 @@
 ### Backend
 - Python 3.x
 - PostgreSQL
-- Entorno virtual de Python (`venv`)
+- Entorno virtual de Python (`env`)
 
 ### Frontend
 - Node.js

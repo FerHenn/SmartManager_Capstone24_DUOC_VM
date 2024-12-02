@@ -15,13 +15,15 @@ ion-header {
 
 /* Asegúrate de que ion-content permita el desplazamiento completo */
 ion-content {
-  --padding-top: 0px; /* Quita el padding superior */
-  --padding-start: 16px; /* Espaciado lateral */
-  --padding-end: 16px; /* Espaciado lateral */
-  --padding-bottom: 16px; /* Agrega espacio inferior */
-  background-color: #f8f9fa; /* Fondo claro */
-  height: 100%; /* Asegura que ocupe toda la pantalla */
-  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  --background: url('/assets/images/fondo_home.svg') no-repeat center top fixed;
+  --background-size: 110% auto;
+  --padding-top: 0px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-bottom: 16px;
+  min-height: 100vh;
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* Título principal */
@@ -42,11 +44,8 @@ ion-content {
 }
 
 /* Estilo para cada proveedor */
-ion-list {
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  background-color: white; /* Fondo de la lista */
-  padding: 8px;
+ion-list { 
+  background: transparent;
 }
 
 /* Ajustes de los ítems */
@@ -84,23 +83,25 @@ ion-item ion-buttons {
   gap: 8px; /* Espaciado entre botones */
 }
 
-/* Botón de editar */
-.editar {
-  --background: #488af3; /* Azul para editar */
-  --color: white; /* Texto blanco */
-  border-radius: 30px; /* Bordes redondeados */
-  font-size: 14px; /* Tamaño de fuente */
-  font-weight: bold;
-}
-
-/* Botón de eliminar */
-.eliminar {
-  --background: #fc2828; /* Rojo para eliminar */
-  --color: white;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: bold;
-}
+  /* Botón de editar */
+  .editar {
+    --background: #488af3; /* Azul para editar */
+    --color: white; /* Texto blanco */
+    border-radius: 30px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente */
+    font-weight: bold;
+    width: 110px;
+  }
+  
+  /* Botón de eliminar */
+  .eliminar {
+    --background: #fc2828; /* Rojo para eliminar */
+    --color: white;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 110px;
+  }
 
 /* Formulario */
 .form-container {
@@ -177,9 +178,21 @@ ion-toolbar {
 }
 /* Asegúrate de que el último ítem no quede oculto */
 ion-list {
-  margin-bottom: 16px; /* Espaciado inferior entre la lista y el final de la página */
+  margin-bottom: 16px; 
+  background: transparent;
 }
 /* Último ítem bien visible */
 ion-item:last-child {
   margin-bottom: 16px; /* Asegura espacio adicional al final */
+}
+.icono-volver{
+  color: #ffffff;
+  font-size: 1.5rem;
+  background-color: #FF9800;
+  box-shadow: none;
+}
+.back[href="/dashboard-crud"] {
+  padding: 0;
+  --background: transparent; 
+  box-shadow: none;
 }
