@@ -129,3 +129,14 @@ ion-menu ion-item.logout {
   right: 0; /* Flecha al borde derecho */
   margin-left: 10px; /* Espaciado entre texto y flecha */
 }
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el rol y el icono */
+}
+
+.role-label {
+  font-size: 16px;
+  color: #ffffff; 
+}
+

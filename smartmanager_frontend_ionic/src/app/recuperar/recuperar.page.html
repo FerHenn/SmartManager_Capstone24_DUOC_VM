@@ -3,33 +3,83 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
-    <ion-title>Recuperar clave</ion-title>
+    <ion-title>Recuperar contraseña</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="login-container">
-    <h2>Recuperar contraseña</h2>
-    <ion-icon name="key" size="large" class="icon-large"></ion-icon>
-    <form (ngSubmit)="onSubmit()" #recoverForm="ngForm">
-      <ion-item class="item-email">
-        <ion-label position="floating" color="light">
-          <ion-icon slot="start" name="mail"></ion-icon>
-          Correo electrónico
-        </ion-label>
-        <ion-input type="email" name="email" required [(ngModel)]="email" #emailInput="ngModel"></ion-input>
-      </ion-item>
-      <div *ngIf="email && !validateEmail()" class="error-message">
-        El correo debe tener un formato válido.
-      </div>
-      <ion-button shape="round" type="submit" [disabled]="!recoverForm.form.valid">
-        Enviar Instrucciones
-      </ion-button>
-      <ion-item lines="none" class="ion-margin-top centered">
-        <ion-label>
-          <a href="/login">Volver a Iniciar Sesión <ion-icon name="home" slot="start"></ion-icon></a>
-        </ion-label>
-      </ion-item>
-    </form>
-  </div>
+  <form [formGroup]="recuperarForm" (ngSubmit)="onSubmit()">
+    <ion-card class="recover-card">
+      <ion-card-content>
+        <!-- Nombre de Usuario -->
+        <ion-item>
+          <ion-label position="floating">Nombre de usuario</ion-label>
+          <ion-input formControlName="nombreUsuario" type="text" required></ion-input>
+        </ion-item>
+
+        <!-- Nueva Contraseña -->
+        <ion-item>
+          <ion-label position="floating">Nueva contraseña</ion-label>
+          <ion-input formControlName="nuevaContrasena" type="password" required></ion-input>
+        </ion-item>
+
+        <!-- Confirmar Nueva Contraseña -->
+        <ion-item>
+          <ion-label position="floating">Confirmar nueva contraseña</ion-label>
+          <ion-input formControlName="confirmarContrasena" type="password" required></ion-input>
+        </ion-item>
+
+        <!-- Contraseña del Administrador -->
+        <ion-item>
+          <ion-label position="floating">Contraseña del administrador</ion-label>
+          <ion-input formControlName="contrasenaAdmin" type="password" required></ion-input>
+        </ion-item>
+
+        <!-- Botón de enviar -->
+        <ion-button class="boton_recuperar" shape="round" type="submit" [disabled]="!recuperarForm.valid">
+          Recuperar contraseña
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <!-- Diálogo de éxito -->
+  <ion-modal *ngIf="displaySuccessDialog" (didDismiss)="closeSuccessDialog()">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Recuperación exitosa</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeSuccessDialog()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-card>
+        <ion-card-content>
+          <p>La contraseña ha sido actualizada correctamente.</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+  </ion-modal>
+
+  <!-- Diálogo de error -->
+  <ion-modal *ngIf="displayErrorDialog" (didDismiss)="closeErrorDialog()">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Error</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeErrorDialog()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-card>
+        <ion-card-content>
+          <p>Por favor, asegúrate de que todos los campos sean correctos.</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>
+  </ion-modal>
+
 </ion-content>
+

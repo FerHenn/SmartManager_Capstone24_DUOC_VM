@@ -3,67 +3,50 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-title>Mi Aplicación</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>      
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestión de Productos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="crearProducto()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Crear Producto
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Gestión de Productos</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="crearProducto()">
-          <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-          Crear Producto
+  <!-- Lista de productos -->
+  <ion-list>
+    <ion-item *ngFor="let producto of productos" class="producto-item">
+      <ion-label>
+        <h2>{{ producto.nombreProducto }}</h2>
+        <p>Precio: {{ producto.precio | currency }}</p>
+        <p>Cantidad: {{ producto.cantidadActual }}</p>
+        <p>Proveedor: {{ producto.proveedor?.nombre_proveedor || 'Sin proveedor' }}</p>
+        <p>Ingredientes: {{ getIngredientesNombres(producto.ingredientes) || 'Sin ingredientes' }}</p>
+      </ion-label>
+      <ion-buttons slot="end" class="button-container">
+        <ion-button class="editar" (click)="editarProducto(producto)">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Editar
+        </ion-button>
+        <ion-button class="eliminar" (click)="eliminarProducto(producto.id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
         </ion-button>
       </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-
-
-  <!-- Verifica si hay productos -->
-  <ng-container *ngIf="productos && productos.length > 0; else noProductos">
-    <!-- Lista de productos -->
-    <ion-list>
-      <ion-item *ngFor="let producto of productos" class="producto-item">
-        <div class="content-container">
-          <!-- Contenedor del contenido del producto -->
-          <div class="producto-contenido">
-            <h2>{{ producto.nombreProducto }}</h2>
-            <p>Precio: {{ producto.precio | currency }}</p>
-            <p>Cantidad: {{ producto.cantidadActual }}</p>
-            <p>Proveedor: {{ producto.proveedor?.nombre_proveedor || 'Sin proveedor' }}</p>
-            <p>Ingredientes: {{ getIngredientesNombres(producto.ingredientes) || 'Sin ingredientes' }}</p>
-          </div>
-  
-          <!-- Contenedor de botones -->
-          <div class="button-container">
-            <ion-button class="editar" (click)="editarProducto(producto)">
-              <ion-icon slot="start" name="create-outline"></ion-icon>
-              Editar
-            </ion-button>
-            <ion-button class="eliminar" (click)="eliminarProducto(producto.id)">
-              <ion-icon slot="start" name="trash-outline"></ion-icon>
-              Eliminar
-            </ion-button>
-          </div>
-        </div>
-      </ion-item>
-    </ion-list>
-  </ng-container>
-  
-
-  <!-- Mensaje cuando no hay productos -->
-  <ng-template #noProductos>
-    <ion-card>
-      <ion-card-content>
-        <p>No hay productos disponibles. Agrega un nuevo producto.</p>
-      </ion-card-content>
-    </ion-card>
-  </ng-template>
+    </ion-item>
+  </ion-list>  
 
   <!-- Formulario de creación o edición -->
   <ion-card *ngIf="isCreating || showEditForm" class="form-container">
@@ -76,22 +59,18 @@
           <ion-label position="floating">Nombre</ion-label>
           <ion-input formControlName="nombreProducto"></ion-input>
         </ion-item>
-
         <ion-item>
           <ion-label position="floating">Descripción</ion-label>
           <ion-textarea formControlName="descripcion"></ion-textarea>
         </ion-item>
-
         <ion-item>
           <ion-label position="floating">Precio</ion-label>
           <ion-input type="number" formControlName="precio"></ion-input>
         </ion-item>
-
         <ion-item>
           <ion-label position="floating">Cantidad Actual</ion-label>
           <ion-input type="number" formControlName="cantidadActual"></ion-input>
         </ion-item>
-
         <ion-item>
           <ion-label>Categoría</ion-label>
           <ion-select formControlName="categoria" placeholder="Selecciona una categoría">
@@ -101,7 +80,6 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-
         <ion-item>
           <ion-label>Proveedor</ion-label>
           <ion-select formControlName="proveedor" placeholder="Selecciona un proveedor">
@@ -111,7 +89,6 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-
         <ion-item>
           <ion-label>Ingredientes</ion-label>
           <ion-select multiple="true" formControlName="ingredientes" placeholder="Selecciona ingredientes">
@@ -120,12 +97,10 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-
         <ion-item>
           <ion-label>Imagen</ion-label>
           <input type="file" (change)="onFileSelected($event)" />
         </ion-item>
-
         <div class="form-actions">
           <ion-button expand="block" type="submit" color="primary">
             {{ isCreating ? 'Guardar' : 'Actualizar' }}

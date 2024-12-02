@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router'; // Importa el servicio Router
-
+import { AlertController, IonContent } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-crud-usuarios',
   templateUrl: './crud-usuarios.page.html',
   styleUrls: ['./crud-usuarios.page.scss'],
 })
 export class CrudUsuariosPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
   usuarios: any[] = []; // Lista de usuarios
   editForm: FormGroup; // Formulario reactivo
   showEditForm = false; // Indica si el formulario de edición está visible
@@ -19,7 +20,8 @@ export class CrudUsuariosPage implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private alertController: AlertController,
-    private router: Router 
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.editForm = this.fb.group({
       nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
@@ -53,47 +55,51 @@ export class CrudUsuariosPage implements OnInit {
     this.selectedUsuario = usuario;
     this.showEditForm = true;
   
-    // Mapear el campo "role" al formulario
+
     this.editForm.patchValue({
       nombreUsuario: usuario.nombreUsuario || '',
       correo: usuario.correo || '',
       nombre: usuario.nombre || '',
       apellido: usuario.apellido || '',
       numero_telefonico: usuario.numero_telefonico || '',
-      rol: usuario.role || '', // Mapear el valor exacto de "role"
+      rol: usuario.role || '',
       estado_activo: usuario.estado_activo || false,
     });
   
-    console.log('Formulario cargado con los datos del usuario:', this.editForm.value);
+    // Forzar detección de cambios y luego desplazar hacia abajo
+    this.cdr.detectChanges(); // Asegura que el formulario esté renderizado
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 100);
   }
-  
+
 
   guardarCambios() {
     if (!this.selectedUsuario) {
       console.error('No se ha seleccionado un usuario para editar.');
       return;
     }
-  
+
     if (!this.editForm.valid) {
       console.error('Formulario inválido. Revisar los campos obligatorios.');
       console.log('Estado de los controles:', this.editForm.controls);
       console.log('Valores actuales del formulario:', this.editForm.value);
       return;
     }
-  
+
     console.log('Intentando actualizar usuario...');
     const usuarioActualizado = { ...this.editForm.getRawValue() };
     usuarioActualizado.id = this.selectedUsuario.id; // Incluir el ID para la actualización
-  
+
     // Reutilizar la contraseña actual del usuario
     usuarioActualizado.password = this.selectedUsuario.password;
-  
+
     // Transformar "rol" del formulario a "role" para el backend
     usuarioActualizado.role = usuarioActualizado.rol; // Mapeo explícito
     delete usuarioActualizado.rol; // Eliminar el campo "rol" después del mapeo
-  
+
     console.log('Datos a enviar para la actualización:', usuarioActualizado);
-  
+
     this.authService.actualizarUsuario(usuarioActualizado).subscribe({
       next: () => {
         console.log('Usuario actualizado exitosamente:', usuarioActualizado);
@@ -107,8 +113,8 @@ export class CrudUsuariosPage implements OnInit {
       },
     });
   }
-  
-  
+
+
   // Método para mostrar mensaje de éxito
   async showSuccessMessage(message: string) {
     const alert = await this.alertController.create({
@@ -161,7 +167,6 @@ export class CrudUsuariosPage implements OnInit {
     this.router.navigate(['/registro']); // Redirige a la página de registro
   }
 
-  
   // Método para mostrar mensaje de éxito
   async showSuccessMessage2(message: string) {
     const alert = await this.alertController.create({
@@ -169,12 +174,17 @@ export class CrudUsuariosPage implements OnInit {
       message: message,
       buttons: ['OK'],
     });
-  
+
     await alert.present();
   }
-  
 
   openMenu() {
     console.log('Abrir menú');
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.content.scrollToBottom(500); // Aumenta el tiempo a 500ms para un desplazamiento más lento
+    }, 100);
   }
 }
