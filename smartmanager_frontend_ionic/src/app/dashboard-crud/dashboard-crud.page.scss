@@ -88,10 +88,9 @@
     text-align: center;                /* Centra el texto dentro de su espacio */
   }
   
-  .arrow-icon {
-    color:#FF9800;
-    position: absolute;                /* Posiciona la flecha de forma absoluta */
-    right: 0;                           /* Coloca la flecha al borde derecho */
-    margin-left: 10px;                  /* Espacio entre el texto y la flecha */
-  }
   
+  .icono-volver{
+    color: #ffffff;
+    font-size: 1.5rem;
+    --background: transparent;
+  }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service'; // Asegúrate de tener el servicio de autenticación
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-recuperar',
@@ -11,81 +11,79 @@ import { AuthService } from '../services/auth.service'; // Asegúrate de tener e
 export class RecuperarPage {
   recuperarForm: FormGroup;
 
-  // Definir las propiedades para mostrar u ocultar los modales
+  // Estado para diálogos y errores
   displaySuccessDialog: boolean = false;
   displayErrorDialog: boolean = false;
-  errorMessage: string = '';  // Mensaje de error detallado
+  errorMessage: string = '';
 
-  contrasenaAdminValida = 'admin123'; // Contraseña del administrador
+  // Contraseña de administrador simulada (idealmente se valida en el backend)
+  contrasenaAdminValida = '123';
 
   constructor(
-    private fb: FormBuilder, 
-    private authService: AuthService, 
+    private fb: FormBuilder,
+    private authService: AuthService,
     private alertController: AlertController
   ) {
-    // Definimos el formulario con los campos necesarios y validaciones
-    this.recuperarForm = this.fb.group({
-      nombreUsuario: ['', [Validators.required]],
-      nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarContrasena: ['', [Validators.required, Validators.minLength(6)]],
-      contrasenaAdmin: ['', Validators.required]
-    }, { validator: this.confirmarContrasenaIguales });
+    // Configuración inicial del formulario con validaciones
+    this.recuperarForm = this.fb.group(
+      {
+        nombreUsuario: ['', [Validators.required]],
+        nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
+        confirmarContrasena: ['', [Validators.required, Validators.minLength(6)]],
+        contrasenaAdmin: ['', Validators.required],
+      },
+      { validator: this.confirmarContrasenaIguales }
+    );
   }
 
-  // Función para comprobar que las contraseñas coinciden
+  // Validación personalizada: las contraseñas deben coincidir
   confirmarContrasenaIguales(group: FormGroup) {
     const nuevaContrasena = group.get('nuevaContrasena')?.value;
     const confirmarContrasena = group.get('confirmarContrasena')?.value;
     return nuevaContrasena === confirmarContrasena ? null : { contrasenaNoCoincide: true };
   }
 
-  // Función que se ejecuta al enviar el formulario
+  // Acción al enviar el formulario
   async onSubmit() {
     if (this.recuperarForm.valid) {
-      console.log('Formulario válido');
       const formValues = this.recuperarForm.value;
 
-      // Verificar si la contraseña del administrador es correcta
+      // Validación de contraseña de administrador
       if (formValues.contrasenaAdmin !== this.contrasenaAdminValida) {
-        this.mostrarError('Contraseña de administrador inválida');
+        await this.mostrarMensaje('Error', 'Contraseña de administrador inválida.');
         return;
       }
 
-      // Llamamos al servicio para recuperar la contraseña
+      // Llamada al servicio de recuperación
       this.authService.recuperarContrasena(formValues).subscribe(
         async (response) => {
-          console.log('Respuesta recibida:', response); // Verifica la respuesta del servicio
-          this.displaySuccessDialog = true; // Mostrar modal de éxito
+          console.log('Respuesta recibida:', response);
+          this.displaySuccessDialog = true; // Mostrar mensaje de éxito
+          this.recuperarForm.reset(); // Limpiar formulario
         },
         async (error) => {
           console.error('Error al recuperar la contraseña:', error);
-          this.displayErrorDialog = true; // Mostrar modal de error
-          this.errorMessage = 'Ha ocurrido un error al intentar recuperar la contraseña. Intenta nuevamente.';
+          this.displayErrorDialog = true; // Mostrar mensaje de error
+          this.errorMessage = 'Hubo un error al recuperar la contraseña. Por favor, inténtalo nuevamente.';
         }
       );
     } else {
-      console.log('Formulario no válido');
-      // Si el formulario no es válido, mostramos un mensaje de error
-      const alert = await this.alertController.create({
-        header: 'Formulario Incompleto',
-        message: 'Por favor, asegúrate de que todos los campos estén completos correctamente.',
-        buttons: ['OK'],
-      });
-      await alert.present();
+      // Validar formulario incompleto
+      await this.mostrarMensaje('Formulario Incompleto', 'Por favor, completa todos los campos correctamente.');
     }
   }
 
-  // Función para mostrar mensaje de error
-  async mostrarError(message: string) {
+  // Función para mostrar mensajes genéricos (éxito o error)
+  async mostrarMensaje(titulo: string, mensaje: string) {
     const alert = await this.alertController.create({
-      header: 'Error',
-      message: message,
+      header: titulo,
+      message: mensaje,
       buttons: ['OK'],
     });
     await alert.present();
   }
 
-  // Funciones para cerrar los modales
+  // Cerrar diálogos
   closeSuccessDialog() {
     this.displaySuccessDialog = false;
   }
