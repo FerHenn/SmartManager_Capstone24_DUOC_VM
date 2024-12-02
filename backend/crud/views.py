@@ -302,24 +302,36 @@ class ReporteVentasDiario(APIView):
 class ReporteVentasMensual(APIView):
     def get(self, request):
         try:
-            mes_actual = timezone.now().month  # Obtiene el mes actual
-            anio_actual = timezone.now().year  # Obtiene el año actual
+            mes_anio_str = request.GET.get('mes')
+            if mes_anio_str:
+                try:
+                    mes, anio = map(int, mes_anio_str.split('/'))
+                except ValueError:
+                    return Response({"error": "Formato de mes no válido. Usa MM/YYYY"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                # Usa el mes y año actuales si no se proporcionan
+                fecha_actual = timezone.now()
+                mes = fecha_actual.month
+                anio = fecha_actual.year
+
+            # Filtrar las ventas por el mes y año proporcionados
             ventas = (
-                OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual)
-                .annotate(dia=TruncDate("fechaOrden"))  # Agrupa por día
+                OrdenCompra.objects.filter(fechaOrden__month=mes, fechaOrden__year=anio)
+                .annotate(dia=TruncDate("fechaOrden"))  # Agrupar por día
                 .values("dia")
-                .annotate(total_vendido=Sum("montoTotal"))  # Suma el monto total por día
+                .annotate(total_vendido=Sum("montoTotal"))  # Sumar el monto total por día
                 .order_by("dia")
             )
 
-            total_ventas = sum(item["total_vendido"] for item in ventas)  # Calcula el total de ventas del mes
-            total_transacciones = OrdenCompra.objects.filter(fechaOrden__month=mes_actual, fechaOrden__year=anio_actual).count()
+            # Calcular el total de ventas y transacciones
+            total_ventas = sum(item["total_vendido"] for item in ventas)  # Total ventas del mes
+            total_transacciones = OrdenCompra.objects.filter(fechaOrden__month=mes, fechaOrden__year=anio).count()
 
             return Response({
-                'mes': mes_actual,
+                'mes': f"{mes:02}/{anio}",  # Devolver mes/año en el formato solicitado
                 'total_ventas': total_ventas,
                 'total_transacciones': total_transacciones,
-                'ventas': ventas,  # Devuelve las ventas agrupadas por día
+                'ventas': ventas,  # Ventas agrupadas por día
             }, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -58,11 +58,14 @@ export class ReporteVentasComponent implements OnInit {
 
   confirmarMesMensual() {
     if (this.mesSeleccionado) {
-      this.dashboardService.getVentasMensuales(this.mesSeleccionado).subscribe((data) => {
+      const [anio, mes] = this.mesSeleccionado.split('-'); // Extraer año y mes del input tipo "month"
+      const mesAnio = `${mes}/${anio}`; // Formatear como MM/YYYY
+      this.dashboardService.getVentasMensuales(mesAnio).subscribe((data) => {
+        console.log('Ventas mensuales:', data); // Depuración
         this.ventasMensuales = data.ventas;
       });
     }
-  }
+  }  
 
   abrirModalVenta(venta: any) {
     console.log('Venta seleccionada:', venta); // Depuración
