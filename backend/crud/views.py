@@ -19,7 +19,8 @@ from .serializers import (
     UsuarioSerializer, UsuarioSerializer, ProveedorSerializer,
     CategoriaSerializer, ProductoSerializer, MetodoPagoSerializer,
     OrdenCompraSerializer, ReporteSerializer, IngredienteSerializer,
-    CrearOrdenSerializer, OrdenCompraSerializer )
+    CrearOrdenSerializer, OrdenCompraSerializer, OrdenCompraSerializer,
+    ProductoOrdenSerializer )
 
 from .models import (Usuario, Usuario, Proveedor,
                      Categoria, Producto, MetodoPago,
@@ -154,13 +155,6 @@ class OrdenCompraViewSet(viewsets.ModelViewSet):
     queryset=OrdenCompra.objects.all()
     serializer_class=OrdenCompraSerializer
     
-class ProductoOrdenSerializer(serializers.ModelSerializer):
-    producto_nombre = serializers.ReadOnlyField(source='producto.nombreProducto')  # Agrega el nombre del producto
-
-    class Meta:
-        model = ProductoOrden
-        fields = ['producto', 'producto_nombre', 'cantidad']
-
 # Vista personalizada para crear una orden de compra
 class CrearOrdenCompra(APIView):
     
@@ -226,12 +220,17 @@ class CrearOrdenCompra(APIView):
             # Guardar el monto total en la orden
             orden.montoTotal = monto_total
             orden.save()
+            
+            # Serializar los productos relacionados con la orden
+            productos_ordenados = ProductoOrden.objects.filter(orden=orden)
+            productos_serializer = ProductoOrdenSerializer(productos_ordenados, many=True)
+
+            # Serializar la orden incluyendo los productos
+            orden_serializer = OrdenCompraSerializer(orden)
+            data = orden_serializer.data
+            data['productos_ordenados'] = productos_serializer.data
 
         return Response(OrdenCompraSerializer(orden).data, status=status.HTTP_201_CREATED)
-    
-    class Meta:
-        model = OrdenCompra
-        fields = ['id', 'usuario', 'montoTotal', 'metodoPago', 'productos_ordenados']
 
      
 class ReporteViewSet(viewsets.ModelViewSet):
