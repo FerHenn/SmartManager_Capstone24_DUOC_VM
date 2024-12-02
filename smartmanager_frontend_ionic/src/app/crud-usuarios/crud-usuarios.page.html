@@ -41,11 +41,11 @@
         <p>Estado: {{ usuario.estado_activo ? 'Activo' : 'Inactivo' }}</p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button class="editar" (click)="editarUsuario(usuario)">
+        <ion-button shape="round" class="editar" (click)="editarUsuario(usuario)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarUsuario(usuario.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarUsuario(usuario.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

@@ -18,19 +18,20 @@ ion-toolbar {
 }
 
 ion-content {
-  --padding-top: 0;
+  --background: url('/assets/images/fondo_home.svg') no-repeat center top fixed;
+  --background-size: 110% auto;
+  --padding-top: 0px;
   --padding-start: 16px;
   --padding-end: 16px;
   --padding-bottom: 16px;
-  background-color: #f8f9fa;
+  min-height: 100vh;
+  height: 100%;
   overflow-y: auto;
 }
 
 ion-list {
   margin-top: 16px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: transparent;
 }
 
 .producto-item {
@@ -67,21 +68,25 @@ ion-item ion-label p {
   margin: 4px 0;
 }
 
-ion-button.editar {
-  --background: #488af3;
-  --color: white;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 6px;
-}
-
-ion-button.eliminar {
-  --background: #fc2828;
-  --color: white;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 6px;
-}
+  /* Botón de editar */
+  .editar {
+    --background: #488af3; /* Azul para editar */
+    --color: white; /* Texto blanco */
+    border-radius: 30px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente */
+    font-weight: bold;
+    width: 110px;
+  }
+  
+  /* Botón de eliminar */
+  .eliminar {
+    --background: #fc2828; /* Rojo para eliminar */
+    --color: white;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 110px;
+  }
 
 .form-container {
   margin-top: 16px;

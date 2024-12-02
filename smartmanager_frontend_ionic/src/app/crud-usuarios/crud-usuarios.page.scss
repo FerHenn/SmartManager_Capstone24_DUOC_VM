@@ -15,14 +15,18 @@
   
   /* Asegúrate de que ion-content permita el desplazamiento completo */
   ion-content {
-    --padding-top: 0px; /* Quita el padding superior */
-    --padding-start: 16px; /* Espaciado lateral */
-    --padding-end: 16px; /* Espaciado lateral */
-    --padding-bottom: 16px; /* Agrega espacio inferior */
-    background-color: #f8f9fa; /* Fondo claro */
-    height: 100%; /* Asegura que ocupe toda la pantalla */
-    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    --background: url('/assets/images/fondo_home.svg') no-repeat center top fixed;
+    --background-size: 110% auto;
+    --padding-top: 0px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-bottom: 16px;
+    min-height: 100vh;
+    height: 100%;
+    overflow-y: auto;
   }
+  
+  
   
   /* Título principal */
   .titulo {
@@ -91,6 +95,7 @@
     border-radius: 30px; /* Bordes redondeados */
     font-size: 14px; /* Tamaño de fuente */
     font-weight: bold;
+    width: 110px;
   }
   
   /* Botón de eliminar */
@@ -100,6 +105,7 @@
     border-radius: 30px;
     font-size: 14px;
     font-weight: bold;
+    width: 110px;
   }
   
   /* Formulario */
@@ -132,6 +138,7 @@
     font-size: 16px; /* Tamaño de fuente */
     font-weight: bold;
     margin-top: 8px;
+  
   }
   
   /* Botón de Cancelar */
@@ -178,6 +185,7 @@
   /* Asegúrate de que el último ítem no quede oculto */
   ion-list {
     margin-bottom: 16px; /* Espaciado inferior entre la lista y el final de la página */
+    background: transparent;
   }
   /* Último ítem bien visible */
   ion-item:last-child {

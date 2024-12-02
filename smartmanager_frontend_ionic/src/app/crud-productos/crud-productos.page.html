@@ -38,11 +38,11 @@
         <p>Ingredientes: {{ getIngredientesNombres(producto.ingredientes) || 'Sin ingredientes' }}</p>
       </ion-label>
       <ion-buttons slot="end" class="button-container">
-        <ion-button class="editar" (click)="editarProducto(producto)">
+        <ion-button shape="round" class="editar" (click)="editarProducto(producto)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarProducto(producto.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarProducto(producto.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

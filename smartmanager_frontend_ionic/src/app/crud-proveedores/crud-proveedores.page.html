@@ -39,11 +39,11 @@
         <p>Estado: {{ proveedor.estado_activo ? 'Activo' : 'Inactivo' }}</p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button class="editar" (click)="editarProveedor(proveedor)">
+        <ion-button shape="round" class="editar" (click)="editarProveedor(proveedor)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarProveedor(proveedor.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarProveedor(proveedor.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

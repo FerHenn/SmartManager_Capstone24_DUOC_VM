@@ -38,11 +38,11 @@
         <p>Proveedor: {{ getNombreProveedor(ingrediente.proveedor) }}</p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button class="editar" (click)="editarIngrediente(ingrediente)">
+        <ion-button shape="round" class="editar" (click)="editarIngrediente(ingrediente)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" *ngIf="ingrediente.id" (click)="eliminarIngrediente(ingrediente.id)">
+        <ion-button shape="round" class="eliminar" *ngIf="ingrediente.id" (click)="eliminarIngrediente(ingrediente.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>

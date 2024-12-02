@@ -41,11 +41,11 @@
         <p *ngIf="!categoria.imagen">Sin imagen</p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button class="editar" (click)="editarCategoria(categoria)">
+        <ion-button shape="round" class="editar" (click)="editarCategoria(categoria)">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button class="eliminar" (click)="eliminarCategoria(categoria.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarCategoria(categoria.id)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
         </ion-button>
