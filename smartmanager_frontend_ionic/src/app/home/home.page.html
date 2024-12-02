@@ -4,16 +4,20 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="openMenu()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>      
+      <div class="profile-container">
+        <span class="role-label">{{ role }}</span>
+        <ion-button (click)="openMenu($event)">
+          <ion-icon slot="icon-only" name="person"></ion-icon>
+        </ion-button>
+      </div>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
   <div class="dashboard">
-    <h2>Bienvenido, Administrador</h2>
+    <h2>Bienvenido al panel</h2>
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -47,21 +51,6 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-card routerLink="/dashboard-crud">
-            <ion-card-header>
-              <ion-card-title class="title-with-arrow">
-                <span class="card-title">Panel de gestión</span>
-                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Gestión de productos,proveedores,categorias y ingredientes.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
           <ion-card routerLink="/ventas">
             <ion-card-header>
               <ion-card-title class="title-with-arrow">
@@ -71,6 +60,21 @@
             </ion-card-header>
             <ion-card-content>
               Consulta de ventas diarias y mensuales.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card routerLink="/dashboard-crud">
+            <ion-card-header>
+              <ion-card-title class="title-with-arrow">
+                <span class="card-title">Panel de gestión</span>
+                <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              Gestión de productos,proveedores,categorias y ingredientes.
             </ion-card-content>
           </ion-card>
         </ion-col>

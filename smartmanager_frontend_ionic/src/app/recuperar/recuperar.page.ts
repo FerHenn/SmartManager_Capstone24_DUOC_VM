@@ -16,8 +16,6 @@ export class RecuperarPage {
   displayErrorDialog: boolean = false;
   errorMessage: string = '';  // Mensaje de error detallado
 
-  // Simulación de usuarios registrados y contraseña de admin
-  usuariosValidos = ['usuario1', 'usuario2', 'usuario3']; // Lista de usuarios válidos
   contrasenaAdminValida = 'admin123'; // Contraseña del administrador
 
   constructor(
@@ -27,7 +25,7 @@ export class RecuperarPage {
   ) {
     // Definimos el formulario con los campos necesarios y validaciones
     this.recuperarForm = this.fb.group({
-      nombreUsuario: ['', [Validators.required, this.usuarioValido.bind(this)]],
+      nombreUsuario: ['', [Validators.required]],
       nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContrasena: ['', [Validators.required, Validators.minLength(6)]],
       contrasenaAdmin: ['', Validators.required]
@@ -39,14 +37,6 @@ export class RecuperarPage {
     const nuevaContrasena = group.get('nuevaContrasena')?.value;
     const confirmarContrasena = group.get('confirmarContrasena')?.value;
     return nuevaContrasena === confirmarContrasena ? null : { contrasenaNoCoincide: true };
-  }
-
-  // Función de validación personalizada para verificar que el usuario es válido
-  usuarioValido(control: any) {
-    if (control.value && !this.usuariosValidos.includes(control.value)) {
-      return { usuarioNoValido: true };
-    }
-    return null;
   }
 
   // Función que se ejecuta al enviar el formulario
@@ -104,3 +94,4 @@ export class RecuperarPage {
     this.displayErrorDialog = false;
   }
 }
+
