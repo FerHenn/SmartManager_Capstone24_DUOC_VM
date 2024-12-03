@@ -9,8 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private apiUrl = environment.apiUrl; 
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private navCtrl: NavController) {}
 
@@ -23,12 +22,12 @@ export class AuthService {
     const loginUrl = `${this.apiUrl}login/`;
     const body = { nombreUsuario, password };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
     return this.http.post<any>(loginUrl, body, { headers }).pipe(
       tap(response => {
         if (response && response.token) {
           console.log('Token recibido:', response.token);
-          localStorage.setItem('authToken', response.token); // Guardar el token en localStorage
+          localStorage.setItem('authToken', response.token);
           console.log('Token guardado en localStorage');
         } else {
           console.error('No se recibió un token en la respuesta.');
@@ -36,7 +35,6 @@ export class AuthService {
       })
     );
   }
-  
 
   // Método para hacer registro
   register(data: any): Observable<any> {
@@ -46,6 +44,22 @@ export class AuthService {
     return this.http.post<any>(registerUrl, data, { headers }).pipe(
       map(response => {
         console.log('Usuario registrado exitosamente:', response);
+        return response;
+      })
+    );
+  }
+
+  // Método para crear un nuevo usuario (administrador)
+  crearUsuario(usuario: any): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post(`${this.apiUrl}usuarios/`, usuario, { headers }).pipe(
+      map(response => {
+        console.log('Usuario creado exitosamente:', response);
         return response;
       })
     );

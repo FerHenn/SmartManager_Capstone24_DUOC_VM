@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { AlertController, IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-crud-usuarios',
   templateUrl: './crud-usuarios.page.html',
@@ -11,10 +12,13 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class CrudUsuariosPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content!: IonContent;
-  usuarios: any[] = []; // Lista de usuarios
-  editForm: FormGroup; // Formulario reactivo
-  showEditForm = false; // Indica si el formulario de edición está visible
-  selectedUsuario: any | null = null; // Usuario seleccionado para edición
+
+  usuarios: any[] = [];
+  editForm: FormGroup;
+  createForm: FormGroup;
+  showEditForm = false;
+  showCreateForm = false;
+  selectedUsuario: any | null = null;
 
   constructor(
     private authService: AuthService,
@@ -29,8 +33,19 @@ export class CrudUsuariosPage implements OnInit {
       nombre: ['', [Validators.required, Validators.maxLength(100)]],
       apellido: ['', [Validators.required, Validators.maxLength(100)]],
       numero_telefonico: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      rol: ['', [Validators.required]], // Campo actualizado para reflejar "role"
+      rol: ['', [Validators.required]],
       estado_activo: [false],
+    });
+
+    this.createForm = this.fb.group({
+      nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
+      correo: ['', [Validators.required, Validators.email]],
+      nombre: ['', [Validators.required, Validators.maxLength(100)]],
+      apellido: ['', [Validators.required, Validators.maxLength(100)]],
+      numero_telefonico: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      rol: ['', [Validators.required]],
+      estado_activo: [false],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -38,23 +53,56 @@ export class CrudUsuariosPage implements OnInit {
     this.cargarUsuarios();
   }
 
+  openMenu() {
+    console.log('Menú abierto.');
+  }
+
   cargarUsuarios() {
-    console.log('Cargando usuarios...');
     this.authService.getUsuarios().subscribe({
       next: (data: any) => {
         this.usuarios = data;
-        console.log('Usuarios cargados:', this.usuarios);
       },
       error: (err) => console.error('Error al cargar usuarios:', err),
     });
   }
 
+  mostrarFormularioCreacion() {
+    this.showEditForm = false; // Ocultar formulario de edición
+    this.showCreateForm = true; // Mostrar formulario de creación
+    this.createForm.reset(); // Limpiar el formulario
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 100);
+  }
+
+  guardarNuevoUsuario() {
+    if (!this.createForm.valid) {
+      console.error('Formulario de creación inválido.');
+      return;
+    }
+
+    const nuevoUsuario = { ...this.createForm.getRawValue() };
+
+    this.authService.crearUsuario(nuevoUsuario).subscribe({
+      next: () => {
+        this.showSuccessMessage('Usuario creado correctamente.');
+        this.showCreateForm = false;
+        this.createForm.reset();
+        this.cargarUsuarios();
+      },
+      error: (err) => {
+        console.error('Error al crear usuario:', err);
+        if (err.error?.password) {
+          this.showErrorMessage('La contraseña es obligatoria y debe tener al menos 6 caracteres.');
+        }
+      },
+    });
+  }
+
   editarUsuario(usuario: any) {
-    console.log('Editar usuario seleccionado:', usuario);
-  
     this.selectedUsuario = usuario;
-    this.showEditForm = true;
-  
+    this.showCreateForm = false; // Ocultar formulario de creación
+    this.showEditForm = true; // Mostrar formulario de edición
 
     this.editForm.patchValue({
       nombreUsuario: usuario.nombreUsuario || '',
@@ -65,14 +113,12 @@ export class CrudUsuariosPage implements OnInit {
       rol: usuario.role || '',
       estado_activo: usuario.estado_activo || false,
     });
-  
-    // Forzar detección de cambios y luego desplazar hacia abajo
-    this.cdr.detectChanges(); // Asegura que el formulario esté renderizado
+
+    this.cdr.detectChanges();
     setTimeout(() => {
       this.scrollToBottom();
     }, 100);
   }
-
 
   guardarCambios() {
     if (!this.selectedUsuario) {
@@ -80,62 +126,30 @@ export class CrudUsuariosPage implements OnInit {
       return;
     }
 
-    if (!this.editForm.valid) {
-      console.error('Formulario inválido. Revisar los campos obligatorios.');
-      console.log('Estado de los controles:', this.editForm.controls);
-      console.log('Valores actuales del formulario:', this.editForm.value);
-      return;
-    }
-
-    console.log('Intentando actualizar usuario...');
     const usuarioActualizado = { ...this.editForm.getRawValue() };
-    usuarioActualizado.id = this.selectedUsuario.id; // Incluir el ID para la actualización
+    usuarioActualizado.id = this.selectedUsuario.id;
 
-    // Reutilizar la contraseña actual del usuario
+    // Mantener la contraseña actual
     usuarioActualizado.password = this.selectedUsuario.password;
-
-    // Transformar "rol" del formulario a "role" para el backend
-    usuarioActualizado.role = usuarioActualizado.rol; // Mapeo explícito
-    delete usuarioActualizado.rol; // Eliminar el campo "rol" después del mapeo
-
-    console.log('Datos a enviar para la actualización:', usuarioActualizado);
 
     this.authService.actualizarUsuario(usuarioActualizado).subscribe({
       next: () => {
-        console.log('Usuario actualizado exitosamente:', usuarioActualizado);
         this.showSuccessMessage('Usuario actualizado correctamente.');
         this.showEditForm = false;
         this.selectedUsuario = null;
-        this.cargarUsuarios(); // Recargar la lista de usuarios
+        this.cargarUsuarios();
       },
-      error: (err) => {
-        console.error('Error al actualizar usuario:', err);
-      },
+      error: (err) => console.error('Error al actualizar usuario:', err),
     });
-  }
-
-
-  // Método para mostrar mensaje de éxito
-  async showSuccessMessage(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Éxito',
-      message: message,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
   }
 
   cancelarEdicion() {
-    console.log('Cancelando edición de usuario...');
     this.showEditForm = false;
     this.selectedUsuario = null;
     this.editForm.reset();
-    console.log('Formulario reseteado y ocultado.');
   }
 
   eliminarUsuario(id: number) {
-    console.log('Intentando eliminar usuario con ID:', id);
     this.alertController
       .create({
         header: 'Confirmar',
@@ -150,9 +164,8 @@ export class CrudUsuariosPage implements OnInit {
             handler: () => {
               this.authService.eliminarUsuario(id).subscribe({
                 next: () => {
-                  console.log('Usuario eliminado exitosamente:', id);
-                  this.showSuccessMessage2('Usuario eliminado correctamente.');
-                  this.cargarUsuarios(); // Recargar la lista de usuarios
+                  this.showSuccessMessage('Usuario eliminado correctamente.');
+                  this.cargarUsuarios();
                 },
                 error: (err) => console.error('Error al eliminar usuario:', err),
               });
@@ -162,29 +175,33 @@ export class CrudUsuariosPage implements OnInit {
       })
       .then((alert) => alert.present());
   }
-  crearUsuario() {
-    console.log('Redirigiendo a la página de registro...');
-    this.router.navigate(['/registro']); // Redirige a la página de registro
+
+  cancelarCreacion() {
+    this.showCreateForm = false;
+    this.createForm.reset();
   }
 
-  // Método para mostrar mensaje de éxito
-  async showSuccessMessage2(message: string) {
+  async showSuccessMessage(message: string) {
     const alert = await this.alertController.create({
       header: 'Éxito',
       message: message,
       buttons: ['OK'],
     });
-
     await alert.present();
   }
 
-  openMenu() {
-    console.log('Abrir menú');
+  async showErrorMessage(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   scrollToBottom() {
     setTimeout(() => {
-      this.content.scrollToBottom(500); // Aumenta el tiempo a 500ms para un desplazamiento más lento
+      this.content.scrollToBottom(500);
     }, 100);
   }
 }
