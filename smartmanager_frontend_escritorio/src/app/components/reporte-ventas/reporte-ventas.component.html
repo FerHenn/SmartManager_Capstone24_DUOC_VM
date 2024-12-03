@@ -43,12 +43,15 @@
   </div>
   
   <!-- Modal -->
-  <div class="modal" *ngIf="modalAbierto">
-    <div class="modal-content">
-      <h2>{{ modalTitulo }}</h2>
-      <p>Monto Total Vendido: {{ resumenMensual.montoTotal | currency }}</p>
-      <p>Total Ventas Realizadas: {{ resumenMensual.totalVentas }}</p>
-      <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
-    </div>
+<div class="modal" *ngIf="modalAbierto">
+  <div class="modal-content">
+    <h2>Detalle de la Venta</h2>
+    <ul>
+      <li *ngFor="let item of modalContenido">
+        <p>- Producto: {{ item.producto }}</p>
+        <p>- Cantidad: {{ item.cantidad }}</p>
+      </li>
+    </ul>
+    <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
   </div>
 </div>
