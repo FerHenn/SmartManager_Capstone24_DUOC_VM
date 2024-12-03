@@ -182,7 +182,7 @@ ngx-charts-legend-item {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,34 +191,62 @@ ngx-charts-legend-item {
   .modal-content {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
+    max-width: 400px;
     width: 90%;
-    color: #333; 
-    font-family: 'Quicksand', sans-serif !important;
-  }
+    max-height: 80vh;
+    overflow-y: auto; /* Scroll si el contenido excede la altura */
+    font-family: 'Quicksand', sans-serif;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-    font-family: 'Quicksand', sans-serif !important;
-  }
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #333;
+    }
 
-  button {
-    margin-top: 10px;
-    background-color: #0277bd;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Quicksand', sans-serif !important;
+    .modal-body {
+      margin-bottom: 20px;
 
-    &:hover {
-      background-color: #025a9b;
+      ion-list {
+        ion-item {
+          --background: transparent;
+          border-bottom: 1px solid #ddd;
+
+          h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin: 0;
+          }
+
+          p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 4px 0 0 0;
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      margin-top: 10px;
+
+      .btn-cerrar {
+        background-color: #0277bd;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-family: 'Quicksand', sans-serif;
+        width: 100%;
+
+        &:hover {
+          background-color: #025a9b;
+        }
+      }
     }
   }
 }

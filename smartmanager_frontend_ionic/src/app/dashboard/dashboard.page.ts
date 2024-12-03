@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '.././services/dashboard.service';
-import { Color , ScaleType } from '@swimlane/ngx-charts'; 
+import { Component, OnInit, HostListener } from '@angular/core';
+import { DashboardService } from '../services/dashboard.service';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { PopoverController } from '@ionic/angular';
 import { MenuPopoverComponent } from '../menu-popover/menu-popover.component';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  screenWidth: number = window.innerWidth;
   ventasDiarias: number = 0;
   ventasMensuales: number = 0;
   totalTransacciones: number = 0;
@@ -21,18 +23,25 @@ export class DashboardPage implements OnInit {
   modalAbierto: boolean = false;
   modalTitulo: string = '';
   modalContenido: Array<{ nombre: string; cantidadActual: number }> = [];
-  
-  // ColorScheme compatible con ngx-charts
+
   colorScheme: Color = {
     domain: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
     name: 'custom',
     selectable: true,
-    group: ScaleType.Ordinal, // Usa ScaleType.Ordinal
+    group: ScaleType.Ordinal,
   };
 
   maxYValue: number = 0;
-  
-  constructor(private dashboardService: DashboardService,private popoverController: PopoverController) {}
+
+  constructor(
+    private dashboardService: DashboardService,
+    private popoverController: PopoverController
+  ) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
+  }
 
   ngOnInit() {
     this.cargarDatos();
@@ -74,32 +83,39 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  abrirModalProductosAgotandose() {
-    this.modalTitulo = 'Productos agotándose';
-    this.modalContenido = this.productosAgotandose.map((p) => ({
-      nombre: p.nombreProducto,
-      cantidadActual: p.cantidadActual,
-    }));
-    this.modalAbierto = true;
+  abrirModalProductosAgotandose(): void {
+    if (this.totalProductosAgotandose > 0) {
+      this.modalTitulo = 'Productos agotándose';
+      this.modalContenido = this.productosAgotandose.map(p => ({
+        nombre: p.nombreProducto,
+        cantidadActual: p.cantidadActual,
+      }));
+      this.modalAbierto = true;
+    }
   }
-
-  abrirModalIngredientesAgotandose() {
-    this.modalTitulo = 'Ingredientes agotándose';
-    this.modalContenido = this.ingredientesAgotandose.map((i) => ({
-      nombre: i.nombreIngrediente,
-      cantidadActual: i.cantidadActual,
-    }));
-    this.modalAbierto = true;
+  
+  abrirModalIngredientesAgotandose(): void {
+    if (this.totalIngredientesAgotandose > 0) {
+      this.modalTitulo = 'Ingredientes agotándose';
+      this.modalContenido = this.ingredientesAgotandose.map(i => ({
+        nombre: i.nombreIngrediente,
+        cantidadActual: i.cantidadActual,
+      }));
+      this.modalAbierto = true;
+    }
   }
-
-  cerrarModal() {
+  
+  cerrarModal(): void {
     this.modalAbierto = false;
+    this.modalTitulo = '';
+    this.modalContenido = [];
   }
+
   async openMenu() {
     const popover = await this.popoverController.create({
       component: MenuPopoverComponent,
-      event: event, // Asegúrate de pasar el evento si necesitas posición
-      translucent: true
+      event: event,
+      translucent: true,
     });
     await popover.present();
   }

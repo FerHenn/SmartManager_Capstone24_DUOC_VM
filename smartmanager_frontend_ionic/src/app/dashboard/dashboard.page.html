@@ -59,7 +59,7 @@
       <ngx-charts-pie-chart
         [legend]="true"
         [results]="productosVendidosData"
-        [view]="[300, 300]"
+        [view]="[screenWidth - 32, 300]"
         [labels]="true"
         [doughnut]="true"
         [explodeSlices]="false"
@@ -76,6 +76,7 @@
     <ion-card-content>
       <ngx-charts-bar-vertical
         [results]="ventasMensualesData"
+        [view]="[screenWidth - 32, 400]"
         [xAxis]="true"
         [yAxis]="true"
         [legend]="false"
@@ -91,22 +92,28 @@
 
   <!-- Modal -->
   <ion-modal [isOpen]="modalAbierto" (ionModalDidDismiss)="cerrarModal()">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>{{ modalTitulo }}</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="cerrarModal()">Cerrar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item *ngFor="let item of modalContenido">
-          <ion-label>
-            {{ item.nombre }} - Quedan: {{ item.cantidadActual }}
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
+    <div class="modal">
+      <div class="modal-content">
+        <h2 class="modal-title">{{ modalTitulo }}</h2>
+        <div class="modal-body">
+          <ion-card *ngIf="modalContenido.length > 0">
+            <ion-card-content>
+              <ion-list>
+                <ion-item *ngFor="let item of modalContenido">
+                  <ion-label>
+                    <h3>{{ item.nombre }}</h3>
+                    <p>Quedan: <strong>{{ item.cantidadActual }}</strong></p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            <div class="modal-footer">
+              <ion-button expand="block" class="btn-cerrar" (click)="cerrarModal()">Cerrar</ion-button>
+            </div>
+          </ion-card>
+          <p *ngIf="modalContenido.length === 0" class="empty-message">No hay datos disponibles.</p>
+        </div>
+      </div>
+    </div>
   </ion-modal>
 </ion-content>
