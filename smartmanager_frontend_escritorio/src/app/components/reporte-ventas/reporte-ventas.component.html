@@ -2,14 +2,10 @@
   <div class="reporte-diario">
     <h3>Resumen Ventas Diarias</h3>
     <div class="fecha-control">
-      <input
-        type="date"
-        [(ngModel)]="fechaSeleccionada"
-        [ngClass]="{
-          'ventas-disponibles': fechasConVentas.includes(fechaSeleccionada),
-          'sin-ventas': !fechasConVentas.includes(fechaSeleccionada)
-        }"
-      />
+      <input type="date" [(ngModel)]="fechaSeleccionada" [ngClass]="{
+            'ventas-disponibles': fechasConVentas.includes(fechaSeleccionada),
+            'sin-ventas': !fechasConVentas.includes(fechaSeleccionada)
+          }" />
       <button (click)="confirmarFechaDiaria()">Cambiar Fecha</button>
     </div>
     <ul>
@@ -22,35 +18,37 @@
       </li>
     </ul>
   </div>
-
-    <div class="reporte-mensual">
-      <h3>Resumen Ventas Mensuales</h3>
-      <label for="mesMensual">Seleccionar Mes:</label>
-      <div class="fecha-control">
-        <input type="month" id="mesMensual" [(ngModel)]="mesSeleccionado" />
-        <button (click)="confirmarMesMensual()">Cambiar Mes</button>
-      </div>
-    
-      <ul>
-        <li *ngFor="let dia of ventasMensuales">
-          <p>Fecha: {{ dia.dia | date: 'shortDate' }}</p>
-          <p>Total Ventas: {{ dia.total_vendido | currency }}</p>
-          <p>Total Órdenes: {{ dia.total_ordenes }}</p>
-          <button (click)="verOrdenesPorDia(dia.dia)">Ver Detalle</button>
-        </li>
-      </ul>
+  
+  <div class="reporte-mensual">
+    <h3>Resumen Ventas Mensuales</h3>
+    <label for="mesMensual">Seleccionar Mes:</label>
+    <div class="fecha-control">
+      <input type="month" id="mesMensual" [(ngModel)]="mesSeleccionado" />
+      <button (click)="confirmarMesMensual()">Cambiar Mes</button>
     </div>
-
-<!-- Modal -->
-<div class="modal" *ngIf="modalAbierto">
-  <div class="modal-content">
-    <h2>Detalle de la Venta</h2>
+  
+    <div class="resumen-mensual">
+      <p>Monto Total: {{ resumenMensual.montoTotal | currency }}</p>
+      <p>Total Ventas: {{ resumenMensual.totalVentas }}</p>
+    </div>
+  
     <ul>
-      <li *ngFor="let item of modalContenido">
-        <p>- Producto: {{ item.producto }}</p>
-        <p>- Cantidad: {{ item.cantidad }}</p>
+      <li *ngFor="let dia of ventasMensuales">
+        <p>Fecha: {{ dia.dia | date: 'shortDate' }}</p>
+        <p>Total Ventas: {{ dia.total_vendido | currency }}</p>
+        <p>Total Órdenes: {{ dia.total_transacciones }}</p>
+        <button (click)="verOrdenesPorDia(dia.dia)">Ver Detalle</button>
       </li>
     </ul>
-    <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal" *ngIf="modalAbierto">
+    <div class="modal-content">
+      <h2>{{ modalTitulo }}</h2>
+      <p>Monto Total Vendido: {{ resumenMensual.montoTotal | currency }}</p>
+      <p>Total Ventas Realizadas: {{ resumenMensual.totalVentas }}</p>
+      <button class="btn-cerrar" (click)="cerrarModal()">Cerrar</button>
+    </div>
   </div>
 </div>

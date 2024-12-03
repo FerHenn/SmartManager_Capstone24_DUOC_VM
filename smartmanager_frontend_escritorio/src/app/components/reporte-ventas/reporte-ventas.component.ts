@@ -16,11 +16,13 @@ export class ReporteVentasComponent implements OnInit {
   ventasMensuales: any[] = [];
   modalContenido: any[] = [];
   modalAbierto = false;
+  modalTitulo: string = '';
   listaDeProductos: { id: number; nombreProducto: string }[] = []; // Define the listaDeProductos property
 
   fechaSeleccionada: string = '';
   mesSeleccionado: string = '';
   fechasConVentas: string[] = []; // Fechas en las que hubo ventas.
+  resumenMensual = { montoTotal: 0, totalVentas: 0 };
 
   constructor(
     private dashboardService: DashboardService,
@@ -56,17 +58,6 @@ export class ReporteVentasComponent implements OnInit {
     }
   }
 
-  confirmarMesMensual() {
-    if (this.mesSeleccionado) {
-      const [anio, mes] = this.mesSeleccionado.split('-'); // Extraer año y mes del input tipo "month"
-      const mesAnio = `${mes}/${anio}`; // Formatear como MM/YYYY
-      this.dashboardService.getVentasMensuales(mesAnio).subscribe((data) => {
-        console.log('Ventas mensuales:', data); // Depuración
-        this.ventasMensuales = data.ventas;
-      });
-    }
-  }  
-
   abrirModalVenta(venta: any) {
     console.log('Venta seleccionada:', venta); // Depuración
     this.modalContenido = venta.productos_ordenados.map((productoOrdenado: any) => ({
@@ -94,5 +85,27 @@ export class ReporteVentasComponent implements OnInit {
     this.dashboardService.getVentasDiarias(fecha).subscribe((data) => {
       this.ventasDiarias = data.ventas;
     });
+  }
+  confirmarMesMensual() {
+    if (this.mesSeleccionado) {
+      const [anio, mes] = this.mesSeleccionado.split('-');
+      const mesAnio = `${mes}/${anio}`;
+      this.dashboardService.getVentasMensuales(mesAnio).subscribe((data) => {
+        console.log('Ventas mensuales:', data);
+  
+        // Calcular resumen mensual
+        this.resumenMensual.montoTotal = data.total_ventas;
+        this.resumenMensual.totalVentas = data.total_transacciones;
+  
+        this.ventasMensuales = data.ventas; // Actualizar la lista diaria
+      });
+    }
+  }
+  
+  abrirModalResumenMensual() {
+    if (this.resumenMensual.montoTotal > 0 || this.resumenMensual.totalVentas > 0) {
+      this.modalTitulo = 'Resumen del Mes';
+      this.modalAbierto = true;
+    }
   }
 }
