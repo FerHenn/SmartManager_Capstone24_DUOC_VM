@@ -40,4 +40,7 @@ body {
     color-scheme: light; /* Fuerza el esquema de colores al modo claro */
     background-color: var(--ion-background-color); /* Fondo claro */
     color: var(--ion-text-color); /* Texto oscuro */
-  }
+}
+:root {
+  --ion-color-scheme: light; /* Fuerza el modo claro */
+}
