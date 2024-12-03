@@ -15,10 +15,6 @@ export class DashboardService {
   getResumenInventario(): Observable<ResumenInventario> {
     return this.http.get<ResumenInventario>(`${this.apiBaseUrl}resumen-inventario-diario/`);
   }
-  
-  getProductosVendidosPorDia(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiBaseUrl}productos-vendidos-dia/`);
-  }
 
   getVentasDiarias(fecha?: string): Observable<any> {
     const url = fecha
@@ -32,6 +28,10 @@ export class DashboardService {
       ? `${this.apiBaseUrl}reporte-ventas-mensual/?mes=${mes}`
       : `${this.apiBaseUrl}reporte-ventas-mensual/`;
     return this.http.get(url);
+  }
+
+  getProductosVendidosPorDia(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiBaseUrl}productos-vendidos-dia/`);
   }
 
   getFechasConVentas(): Observable<string[]> {
