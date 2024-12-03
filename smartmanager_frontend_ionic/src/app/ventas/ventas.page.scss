@@ -126,4 +126,80 @@ ion-button {
       text-align: left;
     }
   }
+  .resumen-mensual {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e3f2fd;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #0277bd;
+    text-align: center;
   
+    p {
+      margin: 5px 0;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  
+    .btn-ver {
+      margin-top: 10px;
+      background-color: #0277bd;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #025a9b;
+      }
+    }
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  
+    .modal-content {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+  
+      p {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        color: #444;
+      }
+  
+      .btn-cerrar {
+        margin-top: 20px;
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #b71c1c;
+        }
+      }
+    }
+  }

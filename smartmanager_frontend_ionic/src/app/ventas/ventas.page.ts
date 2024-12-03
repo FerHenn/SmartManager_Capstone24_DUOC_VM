@@ -12,11 +12,12 @@ export class VentasPage implements OnInit {
   vistaSeleccionada: 'diaria' | 'mensual' | null = null; // Indica si se muestra el resumen diario o mensual
   fechaSeleccionada: string = ''; // Fecha seleccionada para el reporte diario
   mesSeleccionado: string = ''; // Mes seleccionado para el reporte mensual
-
+  resumenMensual = { montoTotal: 0, totalVentas: 0 };
   ventasDiarias: any[] = [];
   ventasMensuales: any[] = [];
   modalContenido: any[] = [];
   modalAbierto = false;
+  modalTitulo: string = '';
 
   constructor(
     private reporteVentasService: DashboardService
@@ -59,10 +60,6 @@ export class VentasPage implements OnInit {
     this.cargarVentasDiarias();
   }
 
-  confirmarMesMensual() {
-    this.cargarVentasMensuales();
-  }
-
   abrirModalVenta(venta: any) {
     this.modalContenido = venta.productos_ordenados.map((productoOrdenado: any) => ({
       producto: productoOrdenado.nombre_producto || 'Producto desconocido',
@@ -80,5 +77,28 @@ export class VentasPage implements OnInit {
     this.vistaSeleccionada = 'diaria';
     this.fechaSeleccionada = fecha;
     this.cargarVentasDiarias();
+  }
+  confirmarMesMensual() {
+    this.cargarVentasMensuales();
+    if (this.mesSeleccionado) {
+      const [anio, mes] = this.mesSeleccionado.split('-');
+      const mesAnio = `${mes}/${anio}`;
+      this.reporteVentasService.getVentasMensuales(mesAnio).subscribe((data) => {
+        console.log('Ventas mensuales:', data);
+  
+        // Calcular resumen mensual
+        this.resumenMensual.montoTotal = data.total_ventas;
+        this.resumenMensual.totalVentas = data.total_transacciones;
+  
+        this.ventasMensuales = data.ventas; // Actualizar la lista diaria
+      });
+    }
+  }
+  
+  abrirModalResumenMensual() {
+    if (this.resumenMensual.montoTotal > 0 || this.resumenMensual.totalVentas > 0) {
+      this.modalTitulo = 'Resumen del Mes';
+      this.modalAbierto = true;
+    }
   }
 }

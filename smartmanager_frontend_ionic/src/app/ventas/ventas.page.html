@@ -47,6 +47,10 @@
         ></ion-datetime>
       </ion-item>
       <ion-button (click)="confirmarMesMensual()">Confirmar Mes</ion-button>
+      <div class="resumen-mensual">
+        <p>Monto Total: {{ resumenMensual.montoTotal | currency }}</p>
+        <p>Total Ventas: {{ resumenMensual.totalVentas }}</p>
+      </div>
       <ul>
         <li *ngFor="let dia of ventasMensuales">
           <p>Fecha: {{ dia.dia | date: 'shortDate' }}</p>
