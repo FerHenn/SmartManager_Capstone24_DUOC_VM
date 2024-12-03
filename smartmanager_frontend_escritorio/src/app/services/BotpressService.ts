@@ -16,7 +16,7 @@ export class BotpressService {
   
       if (!document.getElementById('botpress-widget')) {
         const botpressScript2 = document.createElement('script');
-        botpressScript2.src = 'https://files.bpcontent.cloud/2024/11/18/01/20241118013836-6PA2W5YQ.js';
+        botpressScript2.src = 'https://files.bpcontent.cloud/2024/12/03/03/20241203030706-BYPK4JJC.js';
         botpressScript2.async = true;
         botpressScript2.id = 'botpress-widget'; // Agrega un ID único
         document.body.appendChild(botpressScript2);

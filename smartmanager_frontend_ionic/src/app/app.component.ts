@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 
       // Crea el script dinámicamente si no existe
       const botScript = document.createElement('script');
-      botScript.src = 'https://files.bpcontent.cloud/2024/11/18/01/20241118013836-6PA2W5YQ.js';
+      botScript.src = 'https://files.bpcontent.cloud/2024/12/03/03/20241203030706-BYPK4JJC.js';
       botScript.async = true;
       botScript.defer = true;
 
