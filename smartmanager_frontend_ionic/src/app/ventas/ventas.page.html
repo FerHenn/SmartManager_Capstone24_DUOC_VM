@@ -29,6 +29,7 @@
       <ul>
         <li *ngFor="let venta of ventasDiarias">
           <p>Hora: {{ venta.fechaOrden | date: 'shortTime' }}</p>
+          <p>Orden de Compra: #{{ venta.id }}</p>
           <p>Total: {{ venta.montoTotal | currency }}</p>
           <p>Método de Pago: {{ venta.metodoPago }}</p>
           <ion-button (click)="abrirModalVenta(venta)">Ver Detalles</ion-button>
