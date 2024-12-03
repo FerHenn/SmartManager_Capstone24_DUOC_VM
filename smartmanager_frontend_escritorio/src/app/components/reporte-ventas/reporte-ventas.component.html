@@ -36,7 +36,6 @@
       <li *ngFor="let dia of ventasMensuales">
         <p>Fecha: {{ dia.dia | date: 'shortDate' }}</p>
         <p>Total Ventas: {{ dia.total_vendido | currency }}</p>
-        <p>Total Órdenes: {{ dia.total_transacciones }}</p>
         <button (click)="verOrdenesPorDia(dia.dia)">Ver Detalle</button>
       </li>
     </ul>
