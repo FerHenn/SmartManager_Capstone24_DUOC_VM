@@ -189,7 +189,8 @@ ngx-charts-legend-item {
   z-index: 1000;
 
   .modal-content {
-    background-color: #fff;
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Color del texto oscuro para contraste */
     padding: 20px;
     border-radius: 12px;
     text-align: center;
@@ -204,28 +205,21 @@ ngx-charts-legend-item {
       font-size: 1.5rem;
       font-weight: bold;
       margin-bottom: 16px;
-      color: #333;
+      color: #333; /* Texto del título oscuro */
     }
 
     .modal-body {
       margin-bottom: 20px;
 
-      ion-list {
-        ion-item {
-          --background: transparent;
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          font-size: 1rem;
+          color: #333; /* Texto de los elementos oscuro */
           border-bottom: 1px solid #ddd;
-
-          h3 {
-            font-size: 1.1rem;
-            color: #333;
-            margin: 0;
-          }
-
-          p {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 4px 0 0 0;
-          }
+          padding: 10px 0;
         }
       }
     }
@@ -234,8 +228,8 @@ ngx-charts-legend-item {
       margin-top: 10px;
 
       .btn-cerrar {
-        background-color: #0277bd;
-        color: #fff;
+        background-color: #0277bd; /* Botón azul */
+        color: #fff; /* Texto blanco */
         padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
@@ -265,3 +259,4 @@ ngx-charts-legend-item {
     background-color: #025a9b;
   }
 }
+
