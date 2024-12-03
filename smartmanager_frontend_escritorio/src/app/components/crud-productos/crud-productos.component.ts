@@ -142,7 +142,9 @@ export class CrudProductosComponent implements OnInit {
     this.selectedProducto = producto;
     this.showEditForm = true;
     this.isCreating = false;
-
+  
+    const ingredientesIds = producto.ingredientes.map((ing: Ingrediente) => ing.id);
+  
     this.editForm.patchValue({
       id: producto.id,
       nombreProducto: producto.nombreProducto,
@@ -152,9 +154,9 @@ export class CrudProductosComponent implements OnInit {
       cantidadActual: producto.cantidadActual,
       categoria: this.categorias.find((c) => c.id === producto.categoria?.id) || null,
       proveedor: this.proveedores.find((p) => p.id === producto.proveedor?.id) || null,
-      ingredientes: producto.ingredientes || [], // Asegurar arreglo
+      ingredientes: ingredientesIds, // Establecer IDs de ingredientes seleccionados
     });
-  }
+  }  
 
   guardarCambios(): void {
     if (this.editForm.valid && this.selectedProducto) {
@@ -217,15 +219,17 @@ export class CrudProductosComponent implements OnInit {
     formData.append('cantidadActual', data.cantidadActual.toString());
     formData.append('categoria_id', data.categoria?.id || '');
     formData.append('proveedor_id', data.proveedor?.id || '');
-    const ingredientesIds = data.ingredientes ? data.ingredientes.map((ing: Ingrediente) => ing.id) : [];
+  
+    // Enviar solo los IDs de los ingredientes
+    const ingredientesIds = data.ingredientes || [];
     formData.append('ingredientes', JSON.stringify(ingredientesIds));
-
+  
     if (data.imagen) {
       formData.append('imagen', data.imagen);
     }
-
+  
     return formData;
-  }
+  }  
 
   getIngredientesNombres(ingredientes: Ingrediente[]): string {
     return ingredientes.map((ing) => ing.nombreIngrediente).join(', ');
@@ -239,12 +243,12 @@ export class CrudProductosComponent implements OnInit {
   onCheckboxChange(event: any, ingrediente: Ingrediente): void {
     let ingredientes = this.editForm.value.ingredientes || [];
     if (event.target.checked) {
-      ingredientes.push(ingrediente);
+      ingredientes.push(ingrediente.id); // Guarda solo el ID del ingrediente
     } else {
-      ingredientes = ingredientes.filter((ing: Ingrediente) => ing.id !== ingrediente.id);
+      ingredientes = ingredientes.filter((id: number) => id !== ingrediente.id);
     }
     this.editForm.patchValue({ ingredientes });
-  }
+  }  
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
