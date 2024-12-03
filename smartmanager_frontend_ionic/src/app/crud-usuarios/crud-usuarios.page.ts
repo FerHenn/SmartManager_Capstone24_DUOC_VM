@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AlertController, IonContent } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-crud-usuarios',
@@ -14,146 +12,134 @@ export class CrudUsuariosPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   usuarios: any[] = [];
-  editForm: FormGroup;
   createForm: FormGroup;
-  showEditForm = false;
+  editForm: FormGroup;
   showCreateForm = false;
+  showEditForm = false;
   selectedUsuario: any | null = null;
 
   constructor(
-    private authService: AuthService,
     private fb: FormBuilder,
-    private alertController: AlertController,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private authService: AuthService,
+    private alertController: AlertController
   ) {
-    this.editForm = this.fb.group({
-      nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
-      correo: ['', [Validators.required, Validators.email]],
-      nombre: ['', [Validators.required, Validators.maxLength(100)]],
-      apellido: ['', [Validators.required, Validators.maxLength(100)]],
-      numero_telefonico: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      rol: ['', [Validators.required]],
-      estado_activo: [false],
-    });
-
+    // Formulario de creación
     this.createForm = this.fb.group({
       nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
       correo: ['', [Validators.required, Validators.email]],
       nombre: ['', [Validators.required, Validators.maxLength(100)]],
       apellido: ['', [Validators.required, Validators.maxLength(100)]],
       numero_telefonico: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      rol: ['', [Validators.required]],
-      estado_activo: [false],
+      estado_activo: [true],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      rol: ['', Validators.required],
+    });
+
+    // Formulario de edición (sin campo de contraseña)
+    this.editForm = this.fb.group({
+      id: [null],
+      nombreUsuario: ['', [Validators.required, Validators.maxLength(50)]],
+      correo: ['', [Validators.required, Validators.email]],
+      nombre: ['', [Validators.required, Validators.maxLength(100)]],
+      apellido: ['', [Validators.required, Validators.maxLength(100)]],
+      numero_telefonico: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      estado_activo: [true],
+      rol: ['', Validators.required],
     });
   }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    this.obtenerUsuarios();
   }
 
-  openMenu() {
-    console.log('Menú abierto.');
-  }
-
-  cargarUsuarios() {
+  obtenerUsuarios() {
     this.authService.getUsuarios().subscribe({
-      next: (data: any) => {
-        this.usuarios = data;
+      next: (usuarios) => {
+        this.usuarios = usuarios;
       },
-      error: (err) => console.error('Error al cargar usuarios:', err),
+      error: (err) => {
+        console.error('Error al cargar usuarios:', err);
+      },
     });
   }
 
   mostrarFormularioCreacion() {
-    this.showEditForm = false; // Ocultar formulario de edición
-    this.showCreateForm = true; // Mostrar formulario de creación
-    this.createForm.reset(); // Limpiar el formulario
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 100);
+    this.showCreateForm = true;
+    this.showEditForm = false;
+    this.createForm.reset({ estado_activo: true });
+    this.scrollToBottom();
   }
 
   guardarNuevoUsuario() {
     if (!this.createForm.valid) {
-      console.error('Formulario de creación inválido.');
+      console.error('Formulario inválido para crear usuario.');
       return;
     }
 
-    const nuevoUsuario = { ...this.createForm.getRawValue() };
+    const nuevoUsuario = { ...this.createForm.value };
+    // Asignar explícitamente el campo usuario_administrador en base al rol
+    nuevoUsuario.usuario_administrador = nuevoUsuario.rol === 'Administrador';
 
-    this.authService.crearUsuario(nuevoUsuario).subscribe({
+    this.authService.register(nuevoUsuario).subscribe({
       next: () => {
-        this.showSuccessMessage('Usuario creado correctamente.');
         this.showCreateForm = false;
-        this.createForm.reset();
-        this.cargarUsuarios();
+        this.obtenerUsuarios();
+        this.showSuccessMessage('Usuario creado correctamente.');
       },
       error: (err) => {
         console.error('Error al crear usuario:', err);
-        if (err.error?.password) {
-          this.showErrorMessage('La contraseña es obligatoria y debe tener al menos 6 caracteres.');
-        }
+        this.showErrorMessage('Error al crear usuario. Verifica los datos.');
       },
     });
   }
 
   editarUsuario(usuario: any) {
     this.selectedUsuario = usuario;
-    this.showCreateForm = false; // Ocultar formulario de creación
-    this.showEditForm = true; // Mostrar formulario de edición
+    this.showCreateForm = false;
+    this.showEditForm = true;
 
     this.editForm.patchValue({
-      nombreUsuario: usuario.nombreUsuario || '',
-      correo: usuario.correo || '',
-      nombre: usuario.nombre || '',
-      apellido: usuario.apellido || '',
-      numero_telefonico: usuario.numero_telefonico || '',
-      rol: usuario.role || '',
-      estado_activo: usuario.estado_activo || false,
+      id: usuario.id,
+      nombreUsuario: usuario.nombreUsuario,
+      correo: usuario.correo,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      numero_telefonico: usuario.numero_telefonico,
+      estado_activo: usuario.estado_activo,
+      rol: usuario.role,
     });
-
-    this.cdr.detectChanges();
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 100);
+    this.scrollToBottom();
   }
 
   guardarCambios() {
     if (!this.selectedUsuario) {
-      console.error('No se ha seleccionado un usuario para editar.');
+      console.error('No hay un usuario seleccionado para editar.');
       return;
     }
 
-    const usuarioActualizado = { ...this.editForm.getRawValue() };
-    usuarioActualizado.id = this.selectedUsuario.id;
-
-    // Mantener la contraseña actual
-    usuarioActualizado.password = this.selectedUsuario.password;
+    const usuarioActualizado = { ...this.editForm.value };
+    // Configurar automáticamente el campo usuario_administrador
+    usuarioActualizado.usuario_administrador = usuarioActualizado.rol === 'Administrador';
 
     this.authService.actualizarUsuario(usuarioActualizado).subscribe({
       next: () => {
-        this.showSuccessMessage('Usuario actualizado correctamente.');
         this.showEditForm = false;
         this.selectedUsuario = null;
-        this.cargarUsuarios();
+        this.obtenerUsuarios();
+        this.showSuccessMessage('Usuario actualizado correctamente.');
       },
-      error: (err) => console.error('Error al actualizar usuario:', err),
+      error: (err) => {
+        console.error('Error al actualizar usuario:', err);
+        this.showErrorMessage('Error al actualizar usuario. Verifica los datos.');
+      },
     });
   }
 
-  cancelarEdicion() {
-    this.showEditForm = false;
-    this.selectedUsuario = null;
-    this.editForm.reset();
-  }
-
-  eliminarUsuario(id: number) {
+  eliminarUsuario(id: number, nombreUsuario: string) {
     this.alertController
       .create({
         header: 'Confirmar',
-        message: '¿Estás seguro de eliminar este usuario?',
+        message: `¿Deseas eliminar al usuario "${nombreUsuario}"?`,
         buttons: [
           {
             text: 'Cancelar',
@@ -164,10 +150,13 @@ export class CrudUsuariosPage implements OnInit {
             handler: () => {
               this.authService.eliminarUsuario(id).subscribe({
                 next: () => {
-                  this.showSuccessMessage('Usuario eliminado correctamente.');
-                  this.cargarUsuarios();
+                  this.obtenerUsuarios();
+                  this.showSuccessMessage(`Usuario "${nombreUsuario}" eliminado correctamente.`);
                 },
-                error: (err) => console.error('Error al eliminar usuario:', err),
+                error: (err) => {
+                  console.error('Error al eliminar usuario:', err);
+                  this.showErrorMessage('Error al eliminar usuario.');
+                },
               });
             },
           },
@@ -179,6 +168,12 @@ export class CrudUsuariosPage implements OnInit {
   cancelarCreacion() {
     this.showCreateForm = false;
     this.createForm.reset();
+  }
+
+  cancelarEdicion() {
+    this.showEditForm = false;
+    this.editForm.reset();
+    this.selectedUsuario = null;
   }
 
   async showSuccessMessage(message: string) {

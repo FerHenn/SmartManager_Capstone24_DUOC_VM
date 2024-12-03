@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>Gestión de usuarios</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openMenu()">
+      <ion-button >
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -43,10 +43,10 @@
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Editar
         </ion-button>
-        <ion-button shape="round" class="eliminar" (click)="eliminarUsuario(usuario.id)">
+        <ion-button shape="round" class="eliminar" (click)="eliminarUsuario(usuario.id, usuario.nombreUsuario)">
           <ion-icon slot="start" name="trash-outline"></ion-icon>
           Eliminar
-        </ion-button>
+        </ion-button>        
       </ion-buttons>
     </ion-item>
   </ion-list>
@@ -84,7 +84,7 @@
             <ion-select-option value="Cajero">Cajero</ion-select-option>
             <ion-select-option value="Administrador">Administrador</ion-select-option>
           </ion-select>
-        </ion-item>
+        </ion-item>        
         <ion-item>
           <ion-label>Estado Activo</ion-label>
           <ion-toggle formControlName="estado_activo"></ion-toggle>
