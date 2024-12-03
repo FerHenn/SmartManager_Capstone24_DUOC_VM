@@ -1,3 +1,4 @@
+import json
 from rest_framework import status, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -145,6 +146,29 @@ class ProductoViewSet(viewsets.ModelViewSet):
     search_fields = ['nombre', 'descripcion'] # Campos por los que se puede buscar
     ordering_fields = ['precio', 'nombre'] # Campos permitidos para ordenar los resultados
 
+    def create(self, request, *args, **kwargs):
+        ingredientes_ids = request.data.get('ingredientes', [])
+        if ingredientes_ids:
+            ingredientes_ids = json.loads(ingredientes_ids)  # Convertir JSON a lista
+
+        producto = Producto.objects.create(
+            nombreProducto=request.data['nombreProducto'],
+            descripcion=request.data['descripcion'],
+            precio=request.data['precio'],
+            cantidadMinima=request.data['cantidadMinima'],
+            cantidadActual=request.data['cantidadActual'],
+            categoria_id=request.data['categoria_id'],
+            proveedor_id=request.data['proveedor_id'],
+        )
+
+        # Relacionar ingredientes con el producto
+        if ingredientes_ids:
+            producto.ingredientes.set(ingredientes_ids)
+
+        producto.save()
+        serializer = ProductoSerializer(producto)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
 # Vista para manejar operaciones CRUD con el modelo MetodoPago
 class MetodoPagoViewSet(viewsets.ModelViewSet):
     queryset=MetodoPago.objects.all()
